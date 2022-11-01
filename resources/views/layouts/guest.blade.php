@@ -8,14 +8,20 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <!--STYLES-->
+        <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/all.min.css")}}>
+        <link rel="stylesheet" href={{asset("adminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}>
+        <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.min.css?v=3.2.0")}}>
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
     </body>
+
+    <script src={{asset("adminLTE/plugins/jquery/jquery.min.js")}}></script>
+    <script src={{asset("adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js")}}></script>
+    <script src={{asset("adminLTE/dist/js/adminlte.min.js?v=3.2.0")}}></script>
 </html>
