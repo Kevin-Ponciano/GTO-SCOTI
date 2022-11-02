@@ -24,16 +24,16 @@
     <link rel="stylesheet" href={{asset("adminLTE/plugins/summernote/summernote-bs4.min.css")}}>
 
 
-    {{--@livewireStyles--}}
+    @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 @stack('modals')
 
 <div class="wrapper">
 
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{{asset('adminLTE/dist/img/logo.png')}}" alt="logo" height="60" width="60">
-    </div>
+{{--    <<div class="preloader flex-column justify-content-center align-items-center">--}}
+{{--        <img class="animation__shake" src="{{asset('adminLTE/dist/img/logo.png')}}" alt="logo" height="60" width="60">--}}
+{{--    </div>--}}
 
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
 
@@ -42,36 +42,11 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
+                <a href="{{route('dashboard')}}" class="nav-link">Dashboard</a>
             </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">
-
-            <li class="nav-item">
-                <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                    <i class="fas fa-search"></i>
-                </a>
-                <div class="navbar-search-block">
-                    <form class="form-inline">
-                        <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                   aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-navbar" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </li>
 
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
@@ -83,7 +58,7 @@
 
                         <div class="media">
                             <img src="{{asset("adminLTE/dist/img/user1-128x128.jpg")}}" alt="User Avatar"
-                            class="img-size-50 mr-3 img-circle">
+                                 class="img-size-50 mr-3 img-circle">
                             <div class="media-body">
                                 <h3 class="dropdown-item-title">
                                     Brad Diesel
@@ -99,7 +74,8 @@
                     <a href="#" class="dropdown-item">
 
                         <div class="media">
-                            <img src="{{asset('adminLTE/dist/img/user8-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                            <img src="{{asset('adminLTE/dist/img/user8-128x128.jpg')}}" alt="User Avatar"
+                                 class="img-size-50 img-circle mr-3">
                             <div class="media-body">
                                 <h3 class="dropdown-item-title">
                                     John Pierce
@@ -115,7 +91,8 @@
                     <a href="#" class="dropdown-item">
 
                         <div class="media">
-                            <img src="{{asset('dist/img/user3-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                            <img src="{{asset('adminLTE/dist/img/user3-128x128.jpg')}}" alt="User Avatar"
+                                 class="img-size-50 img-circle mr-3">
                             <div class="media-body">
                                 <h3 class="dropdown-item-title">
                                     Nora Silvester
@@ -198,95 +175,67 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('tasks')}}" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
-                            <p>
-                                Minhas Tarefas
-                                <!-- <span class="badge badge-info right">2</span> -->
-                            </p>
+                            <p>Minhas Tarefas</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-book"></i>
-                            <p>
-                                Tutorial
-                            </p>
+                            <p>Tutorial</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
-                            <p>
-                                Cadastro
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
+                            <p>Cadastro<i class="fas fa-angle-left right"></i></p>
                         </a>
                         <ul class="nav nav-treeview">
-
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tarefas Recorrentes</p>
                                 </a>
                             </li>
-
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Usuário</p>
                                 </a>
                             </li>
-
                         </ul>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-chart-pie"></i>
-                            <p>
-                                Gestor
-                                <!-- <i class="right fas fa-angle-left"></i> -->
-                            </p>
+                            <p>Gestor</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-door-open"></i>
-                            <p>
-                                Sair
-                                <!-- <i class="right fas fa-angle-left"></i> -->
-                            </p>
-                        </a>
-                        <form method="POST" action="{{ route('logout') }}" x-data>
+                        <form method="POST" action="{{ route('logout') }}" id="logout">
                             @csrf
-
-                            <x-jet-dropdown-link href="{{ route('logout') }}"
-                                                 @click.prevent="$root.submit();">
-                                {{ __('Log Out') }}
-                            </x-jet-dropdown-link>
                         </form>
+                        <a href="#" class="nav-link" onclick="$('#logout').submit()">
+                            <i class="nav-icon fas fa-sign-out-alt"></i>
+                            <p>Sair</p>
+                        </a>
                     </li>
-
                 </ul>
             </nav>
-
         </div>
-
     </aside>
 
     <div class="content-wrapper">
-
         <div class="content-header">
         </div>
-
         <main class="content">
             {{ $slot }}
             <br>
         </main>
-
     </div>
 
     <footer class="main-footer">
@@ -296,13 +245,9 @@
             <b>Versão</b> 2.0
         </div>
     </footer>
-
-    <aside class="control-sidebar control-sidebar-dark">
-
-    </aside>
-
 </div>
 
+@stack('modals')
 @livewireScripts
 <!--SCRIPTS-->
 <script src={{asset("adminLTE/plugins/jquery/jquery.min.js")}}></script>
