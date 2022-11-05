@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TasksController;
+use App\Http\Livewire\Tasks;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,11 +20,22 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(callback: function () {
-    Route::get('/', function () {return view('components.dashboard');})->name('dashboard');
-    Route::get('/dashboard', function () {return view('components.dashboard');})->name('dashboard');
+    Route::get('/', function () {
+        return view('components.dashboard');
+    })->name('dashboard');
+    Route::get('/dashboard', function () {
+        return view('components.dashboard');
+    })->name('dashboard');
 
-    Route::get('/tarefas',[TasksController::class, 'show_user_tasks'])->name('tasks');
+    Route::controller(TasksController::class)->group(function () {
+        Route::get('/tarefas', 'show_user_tasks')->name('tasks');
+        Route::post('/tarefas/store', 'store')->name('storeTask');
+    });
+    Route::get('/teste', Tasks::class);
 
-    Route::get('/navi', function () {return view('navigation-menu');});
+
+    Route::get('/navi', function () {
+        return view('navigation-menu');
+    });
 
 });

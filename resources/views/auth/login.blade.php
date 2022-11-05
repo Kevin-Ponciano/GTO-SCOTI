@@ -20,7 +20,7 @@
 
                     <div class="input-group mb-3">
                         <input id="email" type="email" class="form-control" placeholder="Email" name="email"
-                               :value="old('email')" required autofocus>
+                               value="{{old('email')}}" required autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -40,8 +40,8 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="remember" name="remember">
-                                <label for="remember">
+                                <input type="checkbox" id="remember_me" name="remember">
+                                <label for="remember_me">
                                     Lembrar Senha
                                 </label>
                             </div>
@@ -55,7 +55,8 @@
                 </form>
 
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900"
+                       href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
@@ -65,7 +66,6 @@
             </div>
 
         </div>
-
     </div>
     </body>
 

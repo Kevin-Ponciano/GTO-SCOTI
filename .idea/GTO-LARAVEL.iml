@@ -139,5 +139,6 @@
     <orderEntry type="library" name="admin-lte" level="application" />
     <orderEntry type="library" name="jquery-3.6.1.slim" level="application" />
     <orderEntry type="library" name="ionicons" level="application" />
+    <orderEntry type="library" name="ionicons" level="application" />
   </component>
 </module>

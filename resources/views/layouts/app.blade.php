@@ -22,32 +22,33 @@
     <link rel="stylesheet" href={{asset("adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/daterangepicker/daterangepicker.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/summernote/summernote-bs4.min.css")}}>
+    <link rel="stylesheet" href="{{asset("adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css")}}">
+
+    <script src={{asset("https://code.jquery.com/jquery-3.6.1.js")}}></script>
 
 
     @livewireStyles
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 @stack('modals')
 
 <div class="wrapper">
 
-{{--    <<div class="preloader flex-column justify-content-center align-items-center">--}}
-{{--        <img class="animation__shake" src="{{asset('adminLTE/dist/img/logo.png')}}" alt="logo" height="60" width="60">--}}
-{{--    </div>--}}
+    {{--    <<div class="preloader flex-column justify-content-center align-items-center">--}}
+    {{--        <img class="animation__shake" src="{{asset('adminLTE/dist/img/logo.png')}}" alt="logo" height="60" width="60">--}}
+    {{--    </div>--}}
 
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-
+    <nav class="main-header navbar navbar-expand navbar-light">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{route('dashboard')}}" class="nav-link">Dashboard</a>
+                <a href="/" class="nav-link">Dashboard</a>
             </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">
-
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-comments"></i>
@@ -68,11 +69,10 @@
                                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
                             </div>
                         </div>
-
                     </a>
+
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item">
-
                         <div class="media">
                             <img src="{{asset('adminLTE/dist/img/user8-128x128.jpg')}}" alt="User Avatar"
                                  class="img-size-50 img-circle mr-3">
@@ -85,11 +85,10 @@
                                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
                             </div>
                         </div>
-
                     </a>
+
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item">
-
                         <div class="media">
                             <img src="{{asset('adminLTE/dist/img/user3-128x128.jpg')}}" alt="User Avatar"
                                  class="img-size-50 img-circle mr-3">
@@ -102,7 +101,6 @@
                                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
                             </div>
                         </div>
-
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
@@ -134,6 +132,16 @@
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
+            </li>
+            <li>
+                <button type="button" class="btn bg-gradient-danger" data-toggle="modal" data-target="#newTask">
+                    Novo
+                </button>
+            </li>
+            <li>
+                <button type="button" class="btn bg-gradient-danger" id="noti">
+                    NOti
+                </button>
             </li>
         </ul>
     </nav>
@@ -232,11 +240,13 @@
     <div class="content-wrapper">
         <div class="content-header">
         </div>
-        <main class="content">
+        <main class="content" id="main">
             {{ $slot }}
             <br>
         </main>
     </div>
+
+    <x-new-task-form/>
 
     <footer class="main-footer">
         <strong>Copyright &copy; 2022 <a href="#">GTO - Gestão de Tarefas Online</a> - </strong>
@@ -250,7 +260,6 @@
 @stack('modals')
 @livewireScripts
 <!--SCRIPTS-->
-<script src={{asset("adminLTE/plugins/jquery/jquery.min.js")}}></script>
 <script src={{asset("adminLTE/plugins/jquery-ui/jquery-ui.min.js")}}></script>
 <script>
     $.widget.bridge('uibutton', $.ui.button)
@@ -268,5 +277,8 @@
 <script src={{asset("adminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
 <script src={{asset("adminLTE/dist/js/adminlte.js?v=3.2.0")}}></script>
 <script src={{asset("adminLTE/dist/js/pages/dashboard.js")}}></script>
+<script src={{asset("adminLTE/plugins/sweetalert2/sweetalert2.min.js")}}></script>
+<script src={{asset('assets/js/ajaxPage.js')}}></script>
+<script src={{asset('assets/js/sweetalert2.js')}}></script>
 </body>
 </html>
