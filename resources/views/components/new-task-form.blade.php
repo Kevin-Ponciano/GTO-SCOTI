@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
 
-                <form id="form-calendar" action="{{route('storeTask')}}" method="post">
+                <form id="form-calendar" action="/teste" method="post">
                     {!! csrf_field() !!}
 
                     <div class="form-floating px-2">

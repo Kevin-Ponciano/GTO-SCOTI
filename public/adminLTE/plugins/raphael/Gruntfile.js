@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         // Metadata.
         pkg: pkg,
         banner: grunt.file.read("dev/copy.js").replace(/@VERSION/, pkg.version),
-        // Task configuration.
+        // Tasks configuration.
         uglify: {
             options: {
                 banner: "<%= banner %>"

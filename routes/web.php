@@ -31,7 +31,9 @@ Route::middleware([
         Route::get('/tarefas', 'show_user_tasks')->name('tasks');
         Route::post('/tarefas/store', 'store')->name('storeTask');
     });
-    Route::get('/teste', Tasks::class);
+
+    Route::get('teste', Tasks::class);
+    Route::post('teste', Tasks::class);
 
 
     Route::get('/navi', function () {

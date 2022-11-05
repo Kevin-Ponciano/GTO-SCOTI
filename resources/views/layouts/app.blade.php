@@ -26,10 +26,13 @@
 
     <script src={{asset("https://code.jquery.com/jquery-3.6.1.js")}}></script>
 
+    <!-- Tallwind css -->
+    <script src="{{ asset('assets/js/app.js') }}" defer></script>
+    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 
     @livewireStyles
 </head>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed">
 @stack('modals')
 
 <div class="wrapper">
@@ -139,8 +142,8 @@
                 </button>
             </li>
             <li>
-                <button type="button" class="btn bg-gradient-danger" id="noti">
-                    NOti
+                <button type="button" class="btn bg-gradient-danger" id="notificacion" onclick="notificacion('\ntestando\n\n')">
+                    notificacion
                 </button>
             </li>
         </ul>
@@ -246,7 +249,7 @@
         </main>
     </div>
 
-    <x-new-task-form/>
+
 
     <footer class="main-footer">
         <strong>Copyright &copy; 2022 <a href="#">GTO - Gestão de Tarefas Online</a> - </strong>
