@@ -23,17 +23,9 @@ Route::middleware([
     Route::get('/', function () {
         return view('components.dashboard');
     })->name('dashboard');
-    Route::get('/dashboard', function () {
-        return view('components.dashboard');
-    })->name('dashboard');
 
-    Route::controller(TasksController::class)->group(function () {
-        Route::get('/tarefas', 'show_user_tasks')->name('tasks');
-        Route::post('/tarefas/store', 'store')->name('storeTask');
-    });
-
-    Route::get('teste', Tasks::class);
-    Route::post('teste', Tasks::class);
+    Route::get('tarefas', Tasks::class)->name('tasks');
+    Route::post('tarefas', Tasks::class);
 
 
     Route::get('/navi', function () {

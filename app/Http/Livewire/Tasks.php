@@ -53,6 +53,5 @@ class Tasks extends Component
         session()->flash('task-create', '\nTarefa Criada com Sucesso\n\n');
 
         $this->closeModal();
-        debug('Guardado');
     }
 }
