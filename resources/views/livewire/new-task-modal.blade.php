@@ -9,9 +9,9 @@
 
         <div
             class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-            role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+            role="dialog" aria-modal="true" aria-labelledby="modal-headline" style="padding-bottom: 8px">
 
-                <div class="modal-header">
+                <div class="modal-header py-2">
                     <h5 class="modal-title"><b>Nova Tarefa</b></h5>
                 </div>
                 <form>

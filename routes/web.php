@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TasksController;
+use App\Http\Livewire\TaskDetail;
 use App\Http\Livewire\Tasks;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +25,9 @@ Route::middleware([
         return view('components.dashboard');
     })->name('dashboard');
 
-    Route::get('tarefas', Tasks::class)->name('tasks');
-    Route::post('tarefas', Tasks::class);
+    Route::get('tarefas/', Tasks::class)->name('tasks');
+    // Route::post('tarefas', Tasks::class);
+    Route::get('tarefas/{task_id}', TaskDetail::class)->name('task_detail');
 
 
     Route::get('/navi', function () {

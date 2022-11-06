@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
 
             $table->string('title');
-            $table->string('description',255);
+            $table->longText('description');
             $table->string('priority');
             $table->date('date_create');
             $table->date('deadline');
@@ -21,8 +21,8 @@ return new class extends Migration {
 //            $table->integer('company_id');
 //            $table->foreign('company_id')->references('id')->on('companies');
 
-            $table->foreignId('user_id')->index();
-            $table->foreignId('team_id')->index();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('team_id')->constrained();
             $table->timestamps();
         });
     }

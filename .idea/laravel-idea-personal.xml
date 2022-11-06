@@ -3,7 +3,6 @@
   <component name="LaravelIdeaPersonalSettings">
     <option name="generationStringOptionValues">
       <map>
-        <entry key="createModel.createController" value="1" />
         <entry key="createModel.createMigration" value="1" />
       </map>
     </option>
