@@ -8,18 +8,16 @@
 
         <div
             class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-            role="dialog" aria-modal="true" aria-labelledby="modal-headline" style="margin-bottom: 260px">
+            role="dialog" aria-modal="true" aria-labelledby="modal-headline" style="margin-bottom: 240px">
 
-            <div class="modal-header">
+            <div class="modal-header py-2">
                 <h5 class="modal-title"><b>Adicionar Comentário</b></h5>
             </div>
             <form>
-                <div class="form-floating px-2">
-                    <label for="title">Comentário</label>
-                    <input
-                        class="form-control shadow" wire:model="comment">
+                <div class="form-floating p-2">
+                    <textarea class="form-control shadow" wire:model="comment" rows="5"></textarea>
                 </div>
-                <div class="text-end py-2" style="padding-left: 400px;">
+                <div class="text-end py-0" style="padding-left: 400px;">
                     <div class="custom-switch custom-switch-off-success custom-switch-on-danger">
                         <input type="checkbox" wire:model="private" wire:click="label_private()"
                                class="custom-control-input" id="customSwitch3">

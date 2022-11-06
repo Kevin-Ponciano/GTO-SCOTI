@@ -27,17 +27,6 @@ class TaskDetail extends Component
         $this->task = Task::find($this->task_id);
         $this->users = User::all();
 
-        $private_comments = collect();
-        $public_comments = collect();
-
-        foreach ($this->comments as $comment) {
-            if ($comment->private == 1 && $comment->user_id == Auth::user()->id)
-                $this->private_comments = $private_comments->push($comment);
-
-            if ($comment->private == 0)
-                $this->public_comments = $public_comments->push($comment);
-        }
-
         foreach ($this->users as $user) {
             if ($user->id == $this->task->user_id)
                 $this->user_name = $user->name;
@@ -48,9 +37,6 @@ class TaskDetail extends Component
 
         $this->task['deadline'] = Carbon::createFromFormat("Y-m-d", $this->task['deadline'])->format("d/m/y");
         $this->task['date_create'] = Carbon::createFromFormat("Y-m-d", $this->task['date_create'])->format("d/m/y");
-//            foreach ($this->comments as $comment){
-//                $comment['date_time_create'] = Carbon::createFromFormat("Y-m-d H:i:s", $comment['date_time_create'])->format("h:i A - d M. Y");
-//            }
 
         return view('livewire.task-detail');
 

@@ -1,7 +1,4 @@
-@php use Carbon\Carbon;
-    //debug($private_comments);
-    //debug($public_comments);
-@endphp
+@php use Carbon\Carbon@endphp
 {{--<section class="content-header">--}}
 {{--    <div class="container-fluid">--}}
 {{--        <div class="row mb-2">--}}
@@ -25,10 +22,7 @@
                 <h3 class="card-title">#{{$task->id}} - {{$task->title}}</h3>
 
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Finalizar">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -123,11 +117,12 @@
                             <div class="col-12">
                                 <h3 class="text-muted py-1"><b>Comentários</b></h3>
                                 <div class="timeline">
-                                    @if(isset($private_comments))
-                                        @foreach($private_comments as $private_comment)
+
+                                    @foreach ($comments as $comment)
+                                        @if ($comment->private == 1 && $comment->user_id == Auth::user()->id)
                                             @php
-                                                $comment_time = Carbon::createFromFormat("Y-m-d H:i:s", $private_comment->date_time_create)->format("h:i A");
-                                                $comment_date = Carbon::createFromFormat("Y-m-d H:i:s", $private_comment->date_time_create)->format("d M. Y");
+                                                $comment_time = Carbon::createFromFormat("Y-m-d H:i:s", $comment->date_time_create)->format("h:i A");
+                                                $comment_date = Carbon::createFromFormat("Y-m-d H:i:s", $comment->date_time_create)->format("d M. Y");
                                             @endphp
                                             <div>
                                                 <i class="fas fa-circle bg-red"></i>
@@ -139,24 +134,22 @@
                                                             <img class="img-circle img-bordered-sm"
                                                                  src={{asset('adminLTE/dist/img/user1-128x128.jpg')}}>
                                                             <span class="username">
-                                                        <a href="#">{{$private_comment->user_name}}</a>
+                                                        <a href="#">{{$comment->user_name}}</a>
                                                     </span>
                                                             <span class="description">Privado</span>
                                                         </div>
                                                     </div>
                                                     <div class="post clearfix py-1  m-1"></div>
                                                     <div class="timeline-footer py-1">
-                                                        {{$private_comment->comment}}
+                                                        {{$comment->comment}}
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    @endif
-                                    @if(isset($public_comments))
-                                        @foreach($public_comments as $public_comment)
+                                        @endif
+                                        @if ($comment->private == 0)
                                             @php
-                                                $comment_time = Carbon::createFromFormat("Y-m-d H:i:s", $public_comment->date_time_create)->format("h:i A");
-                                                $comment_date = Carbon::createFromFormat("Y-m-d H:i:s", $public_comment->date_time_create)->format("d M. Y");
+                                                $comment_time = Carbon::createFromFormat("Y-m-d H:i:s", $comment->date_time_create)->format("h:i A");
+                                                $comment_date = Carbon::createFromFormat("Y-m-d H:i:s", $comment->date_time_create)->format("d M. Y");
                                             @endphp
                                             <div>
                                                 <i class="fas fa-circle bg-dark"></i>
@@ -168,19 +161,19 @@
                                                             <img class="img-circle img-bordered-sm"
                                                                  src={{asset('adminLTE/dist/img/user1-128x128.jpg')}}>
                                                             <span class="username">
-                                                        <a href="#">{{$public_comment->user_name}}</a>
+                                                        <a href="#">{{$comment->user_name}}</a>
                                                     </span>
                                                             <span class="description">comentou</span>
                                                         </div>
                                                     </div>
                                                     <div class="post clearfix py-1  m-1"></div>
                                                     <div class="timeline-footer py-1">
-                                                        {{$public_comment->comment}}
+                                                        {{$comment->comment}}
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    @endif
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
