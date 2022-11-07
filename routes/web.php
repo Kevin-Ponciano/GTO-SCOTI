@@ -30,8 +30,12 @@ Route::middleware([
     Route::get('tarefas/{task_id}', TaskDetail::class)->name('task_detail');
 
 
-    Route::get('/navi', function () {
-        return view('navigation-menu');
-    });
+    Route::get('/perfil', function () {
+        return view('profile.show');
+    })->name('profile');
 
+
+});
+Route::get('/reg', function () {
+    return view('auth.register');
 });

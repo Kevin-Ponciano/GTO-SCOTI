@@ -1,4 +1,7 @@
-@php use Carbon\Carbon@endphp
+@php
+    use Carbon\Carbon;
+    use App\Models\User;
+@endphp
 {{--<section class="content-header">--}}
 {{--    <div class="container-fluid">--}}
 {{--        <div class="row mb-2">--}}
@@ -131,11 +134,14 @@
                                                     {{--Ir para o perfil da pessora--}}
                                                     <div class="timeline-body">
                                                         <div class="user-block">
-                                                            <img class="img-circle img-bordered-sm"
-                                                                 src={{asset('adminLTE/dist/img/user1-128x128.jpg')}}>
+                                                            @php
+                                                                $user = User::find($comment->user_id);
+                                                            @endphp
+                                                            <img class="h-10 w-10 rounded-full object-cover"
+                                                                 src="{{'/storage/'.$user->profile_photo_path}}"/>
                                                             <span class="username">
-                                                        <a href="#">{{$comment->user_name}}</a>
-                                                    </span>
+                                                                <a href="#">{{$comment->user_name}}</a>
+                                                            </span>
                                                             <span class="description">Privado</span>
                                                         </div>
                                                     </div>
@@ -152,14 +158,18 @@
                                                 $comment_date = Carbon::createFromFormat("Y-m-d H:i:s", $comment->date_time_create)->format("d M. Y");
                                             @endphp
                                             <div>
+
                                                 <i class="fas fa-circle bg-dark"></i>
                                                 <div class="timeline-item">
                                                     <span class="time">{{$comment_time.' '}}<i class="fas fa-clock"></i><br>{{$comment_date}}</span>
                                                     {{--Ir para o perfil da pessora--}}
                                                     <div class="timeline-body">
                                                         <div class="user-block">
-                                                            <img class="img-circle img-bordered-sm"
-                                                                 src={{asset('adminLTE/dist/img/user1-128x128.jpg')}}>
+                                                            @php
+                                                                $user = User::find($comment->user_id);
+                                                            @endphp
+                                                            <img class="h-10 w-10 rounded-full object-cover"
+                                                                 src="{{'/storage/'.$user->profile_photo_path}}"/>
                                                             <span class="username">
                                                         <a href="#">{{$comment->user_name}}</a>
                                                     </span>

@@ -17,6 +17,8 @@
     <link rel="stylesheet" href={{asset("adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/summernote/summernote-bs4.min.css")}}>
     <link rel="stylesheet" href="{{asset("adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css")}}">
+    <link rel="stylesheet" href="{{asset("//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css")}}">
+
 
     <script src={{asset("https://code.jquery.com/jquery-3.6.1.js")}}></script>
 
@@ -56,14 +58,18 @@
         </a>
 
         <div class="sidebar">
+            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                <div
+                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition"
+                    style="padding-left: 10px">
+                    <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
+                         alt="{{ Auth::user()->name }}"/>
 
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="{{asset('adminLTE/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User
-                    Image">
                 </div>
-                <div class="info">
-                    <a href="#" class="d-block">{{Auth::user()->name}}</a>
+            @endif
+            <div class="user-panel pb-1 mb-3 d-flex">
+                <div class="info px-3">
+                    <a href="{{route('profile.show')}}" class="d-block">{{Auth::user()->name}}</a>
                 </div>
             </div>
 
@@ -167,5 +173,21 @@
 <script src={{asset("adminLTE/dist/js/adminlte.js")}}></script>
 <script src={{asset("adminLTE/plugins/sweetalert2/sweetalert2.min.js")}}></script>
 <script src={{asset('assets/js/ajaxPage.js')}}></script>
+<script src={{asset('//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js')}}></script>
+
+<script>
+    $(document).ready(function () {
+        let dataTable = $('#table').DataTable({
+            stateSave: true,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json'
+            },
+            info: false,
+            retrieve: true,
+        })
+    })
+
+</script>
+
 </body>
 </html>

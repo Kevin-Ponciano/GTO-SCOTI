@@ -46,8 +46,8 @@
         @endforeach
         </tbody>
     </table>
-        @if($isOpen)
-            @include('livewire.new-task-modal')
-        @endif
+    @if($isOpen)
+        @include('livewire.new-task-modal')
+    @endif
 </div>
 

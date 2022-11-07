@@ -70,10 +70,9 @@
                         <button wire:click="store()" type="button" class="btn btn-primary">
                             Criar
                         </button>
-                        <button type="button" class="btn btn-secondary" wire:click="closeModal()">Cancelar</button>
+                        <button type="button" class="btn btn-secondary" wire:click="closeModal()" onclick="">Cancelar</button>
                     </div>
                 </form>
-
         </div>
     </div>
 </div>
