@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="192.241.128.191" id="ace67416-9371-4c1d-acf4-d9d6d89d4070" port="22" customName="GTO - DO" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
+        <option name="customName" value="GTO - DO" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>
