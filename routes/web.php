@@ -21,12 +21,8 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(callback: function () {
-    Route::get('/', function () {
-        return view('components.dashboard');
-    })->name('dashboard');
-
     Route::get('tarefas/', Tasks::class)->name('tasks');
-    // Route::post('tarefas', Tasks::class);
+    Route::get('/', [Tasks::class, 'dashboard']);
     Route::get('tarefas/{task_id}', TaskDetail::class)->name('task_detail');
 
 
