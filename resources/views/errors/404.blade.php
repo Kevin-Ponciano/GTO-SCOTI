@@ -5,7 +5,7 @@
         <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Tarefa não encontrada.</h3>
         <p>
             Não foi possível encontrar a tarefa <b>{{$task_id}}</b>.
-            Enquanto isso, você pode voltar para as <a href="{{route('tasks')}}"> <b>Suas Tarefas</b></a>
+            Enquanto isso, você pode voltar para as <a href="{{route('user-tasks')}}"> <b>Suas Tarefas</b></a>
         </p>
     </div>
 </div>

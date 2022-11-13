@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\TasksController;
+use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\TaskDetail;
 use App\Http\Livewire\Tasks;
+use App\Http\Livewire\UserTask;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +22,11 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(callback: function () {
+    Route::get('dashboard/', Dashboard::class)->name('dashboard');
+    Route::redirect('/', 'dashboard/');
+
+    Route::get('minhas-tarefas/', UserTask::class)->name('user-tasks');
     Route::get('tarefas/', Tasks::class)->name('tasks');
-    Route::get('/', [Tasks::class, 'dashboard']);
     Route::get('tarefas/{task_id}', TaskDetail::class)->name('task_detail');
 
 

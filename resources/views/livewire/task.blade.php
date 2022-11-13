@@ -1,53 +1,52 @@
-<div class="col-12">
-    <style>
-        td,th{
-            text-align: center;
-        }
-    </style>
-    @if (session()->has('task-create'))
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 4000,
-            })
-
-            let notificacion = (info) => {
-                Toast.fire({
-                    icon: 'success',
-                    title: info,
-                    html: "<a href='{{route('task_detail', $task_id)}}'> Visualizar Tafera</a>"
-                })
+@php use App\Models\User; @endphp
+<div>
+    <div class="col-12">
+        <style>
+            td, th {
+                text-align: center;
             }
-            notificacion('{{session('task-create')}}');
-        </script>
-    @endif
-    <button wire:click="create()" class="btn btn-dark font-bold py-z2 px-4 rounded my-3">
-        Nova Tarefa
-    </button>
-    <table id="table" class="table table-sm table-bordered table-secondary table-striped table-hover">
-        <thead class="bg-dark rounded items-center">
-        <tr>
-            <th>Título</th>
-            <th>Prioridade</th>
-            <th>Prazo</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($tasks as $task)
+        </style>
+
+        <button class="btn btn-dark font-bold px-4 rounded my-3" onclick="$('#modal').modal('show')">Nova Tarefa
+        </button>
+
+        <table id="table" class="table table-sm table-bordered table-secondary table-striped table-hover">
+            <thead class="bg-dark rounded items-center">
             <tr>
-                <td><a href="{{route('task_detail',$task->id)}}">{{$task->title}}</a></td>
-                <td>{{$task->priority}}</td>
-                <td>{{$task->deadline}}</td>
-                <td>{{$task->status}}</td>
+                <th>Título</th>
+                <th>Prioridade</th>
+                <th>Prazo</th>
+                <th>Status</th>
+                @if(Route::current()->uri == 'tarefas')
+                    <th class="col-sm-1">Responsável</th>
+                @endif
+                <th class="col-sm-1"></th>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
-    @if($isOpen)
-        @include('livewire.new-task-modal')
-    @endif
+            </thead>
+            <tbody>
+            @foreach($tasks as $task)
+                <tr>
+                    <td>{{$task->title}}</td>
+                    <td>{{$task->priority}}</td>
+                    <td>{{$task->deadline}}</td>
+                    <td>{{$task->status}}</td>
+                    @if(Route::current()->uri == 'tarefas')
+                        @php
+                            $user_name =  User::find($task->user_id);
+                            $user_name = $user_name->name;
+                        @endphp
+                        <td>{{$user_name}}</td>
+                    @endif
+                    <td><a href="{{route('task_detail',$task->id)}}">
+                            <button class="btn btn-dark p-1" style="font-size: 12px">DETALHES</button>
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
+
+
 

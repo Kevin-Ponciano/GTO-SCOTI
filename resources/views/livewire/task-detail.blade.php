@@ -23,12 +23,6 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">#{{$task->id}} - {{$task->title}}</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Finalizar">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -81,7 +75,9 @@
                         {{--                        </li>--}}
                         {{--                    </ul>--}}
                         <div class="text-start mt-5 mb-3">
-                            <button wire:click="create()" class="btn btn-sm btn-primary">Comentar</button>
+                            <button type="button" class="btn btn-sm btn-primary"
+                                    onclick="$('#modal_comment').modal('show')">Comentar
+                            </button>
                             <a href="#" class="btn btn-sm btn-danger">Finalizar</a>
                         </div>
                     </div>
@@ -189,11 +185,21 @@
                         </div>
                     </div>
                 </div>
-                @if($isOpen)
-                    @include('livewire.new-comment-modal')
-                @endif
             </div>
         </div>
     </section>
+    <div class="modal fade" id="modal_comment" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title"><b>Adicionar Comentário</b></h6>
+                </div>
+                <div class="modal-body">
+                    <livewire:new-comment/>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 

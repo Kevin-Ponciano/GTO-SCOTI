@@ -2,14 +2,17 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Task;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class Tasks extends Component
+class UserTask extends Component
 {
+    public $tasks;
+
     public function render()
     {
-        $this->tasks = Task::all();
+        $this->tasks = User::find(Auth::user()->id)->tasks;
 
         return view('livewire.task');
     }
@@ -17,5 +20,4 @@ class Tasks extends Component
     protected  $listeners = [
         'refreshParent' => '$refresh'
     ];
-
 }

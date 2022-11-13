@@ -12,17 +12,21 @@ use Livewire\Component;
 
 class TaskDetail extends Component
 {
-    public $comment, $date_time_create, $private = false, $user_id, $task_id, $isPrivate = 'Publico';
-    public $isOpen = false;
+    public  $task_id;
 
     public function mount()
     {
         $this->task_id = request()->task_id;
     }
 
+
+
+    protected  $listeners = [
+        'refreshParent' => '$refresh'
+    ];
+
     public function render()
     {
-        $this->isPrivate;
         $this->comments = Task::find($this->task_id)->comments->sortByDesc('date_time_create');
         $this->task = Task::find($this->task_id);
         $this->users = User::all();
@@ -52,53 +56,11 @@ class TaskDetail extends Component
 
 
     }
-
-
-    public function create()
-    {
-        debug('criando...');
-        // Selected field Responsável
-        $this->user_id = Auth::user()->id;
-        $this->openModal();
-
-    }
-
-    public function openModal()
-    {
-        $this->isOpen = true;
-    }
-
-    public function closeModal()
-    {
-        $this->isOpen = false;
-    }
-
-    private function resetInputFields()
-    {
-        $this->comment = '';
-    }
-
-    public function store()
-    {
-        Comment::create([
-            'comment' => $this->comment,
-            'date_time_create' => date('Y-m-d H:i:s'),
-            'private' => $this->private,
-            'user_id' => $this->user_id,
-            'task_id' => $this->task_id,
-        ]);
-
-        //session()->flash('task-create', '\nTarefa Criada com Sucesso\n');
-        $this->closeModal();
-        $this->resetInputFields();
-    }
-
     public function label_private()
     {
         if($this->private)
-        $this->isPrivate = 'Privado';
+            $this->isPrivate = 'Privado';
         else
-        $this->isPrivate = 'Publico';
+            $this->isPrivate = 'Publico';
     }
-
 }

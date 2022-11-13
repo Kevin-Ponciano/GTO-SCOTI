@@ -13,11 +13,13 @@
 
     <!-- STYLES -->
     <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/all.min.css")}}>
+    <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/v4-shims.min.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.min.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/summernote/summernote-bs4.min.css")}}>
     <link rel="stylesheet" href="{{asset("adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css")}}">
     <link rel="stylesheet" href="{{asset("//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css")}}">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
 
     <script src={{asset("https://code.jquery.com/jquery-3.6.1.js")}}></script>
@@ -26,9 +28,20 @@
     <script src="{{ asset('assets/js/app.js') }}" defer></script>
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 
+    <style>
+        .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active:hover {
+            background-color: rgba(108, 117, 125, 0.5);
+        }
+    </style>
+
     @livewireStyles
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini sidebar-collapse layout-fixed">
 @stack('modals')
 
 <div class="wrapper">
@@ -43,7 +56,14 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="/" class="nav-link">Dashboard</a>
+                <a href="{{route('dashboard')}}" class="nav-link">Dashboard</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <button class="btn btn-outline-dark font-bold px-4 rounded btn-xs"
+                        onclick="$('#modal').modal('show')">Nova Tarefa
+                </button>
             </li>
         </ul>
     </nav>
@@ -89,46 +109,61 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     <li class="nav-item">
-                        <a href="{{route('tasks')}}" class="nav-link">
-                            <i class="nav-icon far fa-calendar-alt"></i>
+                        <a href="{{route('dashboard')}}" class="nav-link">
+                            <i class="nav-icon fas fa-home"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('user-tasks')}}" class="nav-link">
+                            <i class="nav-icon far fa-user"></i>
                             <p>Minhas Tarefas</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{route('tasks')}}" class="nav-link">
+                            <i class="nav-icon far fa-list-alt"></i>
+                            <p>Tarefas</p>
+                        </a>
+                    </li>
 
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="#" class="nav-link">--}}
-{{--                            <i class="nav-icon fas fa-book"></i>--}}
-{{--                            <p>Tutorial</p>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    {{--                    <li class="nav-item">--}}
+                    {{--                        <a href="#" class="nav-link">--}}
+                    {{--                            <i class="nav-icon fas fa-book"></i>--}}
+                    {{--                            <p>Tutorial</p>--}}
+                    {{--                        </a>--}}
+                    {{--                    </li>--}}
 
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="#" class="nav-link">--}}
-{{--                            <i class="nav-icon fas fa-edit"></i>--}}
-{{--                            <p>Cadastro<i class="fas fa-angle-left right"></i></p>--}}
-{{--                        </a>--}}
-{{--                        <ul class="nav nav-treeview">--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="#" class="nav-link">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>Tarefas Recorrentes</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="#" class="nav-link">--}}
-{{--                                    <i class="far fa-circle nav-icon"></i>--}}
-{{--                                    <p>Usuário</p>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
+                    {{--                    <li class="nav-item">--}}
+                    {{--                        <a href="#" class="nav-link">--}}
+                    {{--                            <i class="nav-icon fas fa-edit"></i>--}}
+                    {{--                            <p>Cadastro<i class="fas fa-angle-left right"></i></p>--}}
+                    {{--                        </a>--}}
+                    {{--                        <ul class="nav nav-treeview">--}}
+                    {{--                            <li class="nav-item">--}}
+                    {{--                                <a href="#" class="nav-link">--}}
+                    {{--                                    <i class="far fa-circle nav-icon"></i>--}}
+                    {{--                                    <p>Tarefas Recorrentes</p>--}}
+                    {{--                                </a>--}}
+                    {{--                            </li>--}}
+                    {{--                            <li class="nav-item">--}}
+                    {{--                                <a href="#" class="nav-link">--}}
+                    {{--                                    <i class="far fa-circle nav-icon"></i>--}}
+                    {{--                                    <p>Usuário</p>--}}
+                    {{--                                </a>--}}
+                    {{--                            </li>--}}
+                    {{--                        </ul>--}}
 
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="#" class="nav-link" onclick="">--}}
-{{--                            <i class="nav-icon fas fa-chart-pie"></i>--}}
-{{--                            <p>Gestor</p>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-
+                    {{--                    <li class="nav-item">--}}
+                    {{--                        <a href="#" class="nav-link" onclick="">--}}
+                    {{--                            <i class="nav-icon fas fa-chart-pie"></i>--}}
+                    {{--                            <p>Gestor</p>--}}
+                    {{--                        </a>--}}
+                    {{--                    </li>--}}
+                    <script>
+                        let url = window.location;
+                        let nav = $('ul.nav a[href="' + url + '"]').addClass('active')
+                    </script>
                     <li class="nav-item">
                         <form method="POST" action="{{ route('logout') }}" id="logout">
                             @csrf
@@ -149,13 +184,22 @@
         </main>
     </div>
 
-
-
-    <footer class="main-footer">
+    <x-modal>
+        @section('id')
+            'modal'
+        @endsection
+        @section('header-name')
+            Nova Tarefa
+        @endsection
+        @section('body')
+            <livewire:new-task/>
+        @endsection
+    </x-modal>
+    <footer class="main-footer" style="font-size: 12px">
         <strong>Copyright &copy; 2022 <a href="#">GTO - Gestão de Tarefas Online</a> - </strong>
         Todos os direitos reservados.
         <div class="float-right d-none d-sm-inline-block">
-            <b>Versão</b> 2.0
+            <b>Versão</b> 0.2
         </div>
     </footer>
 </div>
@@ -175,17 +219,34 @@
 <script src={{asset('assets/js/ajaxPage.js')}}></script>
 <script src={{asset('//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js')}}></script>
 
+
 <script>
-    $(document).ready(function () {
-        let dataTable = $('#table').DataTable({
-            stateSave: true,
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/pt-BR.json'
-            },
-            info: false,
-            retrieve: true,
-        })
+    window.addEventListener('closeModal', event => {
+        $('#modal').modal('hide')
+        $('#modal_comment').modal('hide')
     })
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        showCloseButton: true,
+        timer: 5000,
+
+    })
+
+    let success_task_info = (info, task_id) => {
+        Toast.fire({
+            icon: 'success',
+            title: info,
+            html: "<a href=/tarefas/" + task_id + "> Visualizar Tafera</a>"
+        })
+    }
+    let success_comment_info = (info) => {
+        Toast.fire({
+            icon: 'success',
+            title: info,
+        })
+    }
 
 </script>
 
