@@ -2,6 +2,7 @@
 
 namespace App\Actions\Jetstream;
 
+use Closure;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Jetstream\Contracts\AddsTeamMembers;
@@ -78,7 +79,7 @@ class AddTeamMember implements AddsTeamMembers
      *
      * @param  mixed  $team
      * @param  string  $email
-     * @return \Closure
+     * @return Closure
      */
     protected function ensureUserIsNotAlreadyOnTeam($team, string $email)
     {

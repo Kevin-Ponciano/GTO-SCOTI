@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="57617ca2-7583-43f2-8542-47ea459a4cf1" name="GTO - DO">
-        <fileTransfer rootFolder="/var/www" accessType="SFTP" host="192.241.128.191" port="22" sshConfigId="ace67416-9371-4c1d-acf4-d9d6d89d4070" sshConfig="GTO - DO">
+        <fileTransfer rootFolder="/var/www/laravel" accessType="SFTP" host="192.241.128.191" port="22" sshConfigId="ace67416-9371-4c1d-acf4-d9d6d89d4070" sshConfig="GTO - DO">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

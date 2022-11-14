@@ -513,7 +513,7 @@ can set the default in the options.
                 var offsetBelow = $.plot.saturated.saturate(navigationOffset.below - (axis.min - min));
                 var offsetAbove = $.plot.saturated.saturate(navigationOffset.above - (axis.max - max));
                 opts.offset = { below: offsetBelow, above: offsetAbove };
-            };
+            }
 
             plot.setupGrid(true);
             plot.draw();

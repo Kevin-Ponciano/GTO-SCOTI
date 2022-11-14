@@ -120,7 +120,7 @@ CodeMirror.defineMode('mllike', function(_config, parserConfig) {
       state.tokenize = tokenBase;
     }
     return 'string';
-  };
+  }
 
   function tokenComment(stream, state) {
     var prev, next;

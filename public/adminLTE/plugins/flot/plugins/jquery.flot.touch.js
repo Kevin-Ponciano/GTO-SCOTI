@@ -220,14 +220,14 @@
         if (options.pan.enableTouch === true || options.zoom.enableTouch) {
             plot.hooks.bindEvents.push(bindEvents);
             plot.hooks.shutdown.push(shutdown);
-        };
+        }
 
         function updatePrevForDoubleTap() {
             gestureState.prevTap = {
                 x: gestureState.currentTap.x,
                 y: gestureState.currentTap.y
             };
-        };
+        }
 
         function updateCurrentForDoubleTap(e) {
             gestureState.currentTap = {
@@ -247,14 +247,14 @@
                 x: e.touches[0].pageX,
                 y: e.touches[0].pageY
             };
-        };
+        }
 
         function updateStateForLongTapEnd(e) {
             gestureState.currentTapEnd = {
                 x: e.touches[0].pageX,
                 y: e.touches[0].pageY
             };
-        };
+        }
 
         function isDoubleTap(e) {
             var currentTime = new Date().getTime(),

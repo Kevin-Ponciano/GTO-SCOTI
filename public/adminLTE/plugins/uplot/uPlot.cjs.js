@@ -2244,7 +2244,7 @@ function splineInterp(interp, opts) {
 						addGap(gaps, prevXPos, xPos);
 						inGap = true;
 					}
-					continue;
+
 				}
 				else {
 					if (inGap) {

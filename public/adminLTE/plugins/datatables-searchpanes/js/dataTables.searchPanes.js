@@ -617,7 +617,7 @@
                     _this.dom.topRow.off('click');
                 }
                 _this.s.dt.state.save();
-                return;
+
             });
             // When the clear button is clicked reset the pane
             this.dom.clear.off('click.dtsp');
@@ -690,7 +690,7 @@
                         }
                         this.s.rowData.totalOptions++;
                     }
-                    return;
+
                 }
                 else {
                     throw new Error('display and filter not the same length');
@@ -711,7 +711,7 @@
                 else {
                     bins[filter]++;
                     this.s.rowData.totalOptions++;
-                    return;
+
                 }
             }
             // Otherwise we must just be adding an option
@@ -1376,7 +1376,7 @@
                 else {
                     bins[filter]++;
                     this.s.rowData.totalOptions++;
-                    return;
+
                 }
             }
         };

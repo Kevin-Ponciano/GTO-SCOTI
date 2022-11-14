@@ -146,7 +146,7 @@ CodeMirror.defineMode('yacas', function(_config, _parserConfig) {
       state.tokenize = tokenBase;
     }
     return 'string';
-  };
+  }
 
   function tokenComment(stream, state) {
     var prev, next;

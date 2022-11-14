@@ -27,7 +27,7 @@ class NewTask extends Component
             'deadline' => date('Y-m-d'),
             'situation' => rand(0, 10000),
             'user_id' => $this->user_id,
-            'team_id' => rand(0, 10000),
+            //'team_id' => rand(0, 10000),
         ]);
 
         $this->emit('refreshParent');

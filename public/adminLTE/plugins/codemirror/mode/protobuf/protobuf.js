@@ -13,7 +13,7 @@
 
   function wordRegexp(words) {
     return new RegExp("^((" + words.join(")|(") + "))\\b", "i");
-  };
+  }
 
   var keywordArray = [
     "package", "message", "import", "syntax",
@@ -54,12 +54,12 @@
 
     // Handle words
     if (stream.match(keywords)) { return "keyword"; }
-    if (stream.match(identifiers)) { return "variable"; } ;
+    if (stream.match(identifiers)) { return "variable"; }
 
     // Handle non-detected items
     stream.next();
     return null;
-  };
+  }
 
   CodeMirror.defineMode("protobuf", function() {
     return {

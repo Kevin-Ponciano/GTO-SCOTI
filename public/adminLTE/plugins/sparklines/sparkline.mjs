@@ -3,7 +3,7 @@ export default class Sparkline {
     this.element = element;
     this.options = { ...Sparkline.options, ...options };
 
-    init: {
+    {
       this.element.innerHTML = "<canvas></canvas>";
       this.canvas = this.element.firstChild;
       this.context = this.canvas.getContext("2d");

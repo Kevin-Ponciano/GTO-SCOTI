@@ -18,7 +18,7 @@ CodeMirror.defineMode('shell', function() {
     for(var i = 0; i < dict.length; i++) {
       words[dict[i]] = style;
     }
-  };
+  }
 
   var commonAtoms = ["true", "false"];
   var commonKeywords = ["if", "then", "do", "else", "elif", "while", "until", "for", "in", "esac", "fi",
@@ -115,7 +115,7 @@ CodeMirror.defineMode('shell', function() {
       }
       return style;
     };
-  };
+  }
 
   function tokenStringStart(quote, style) {
     return function(stream, state) {
@@ -147,7 +147,7 @@ CodeMirror.defineMode('shell', function() {
 
   function tokenize(stream, state) {
     return (state.tokens[0] || tokenBase) (stream, state);
-  };
+  }
 
   return {
     startState: function() {return {tokens:[]};},

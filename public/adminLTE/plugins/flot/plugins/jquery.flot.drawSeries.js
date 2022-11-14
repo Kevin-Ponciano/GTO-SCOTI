@@ -656,7 +656,7 @@ This plugin is used by flot for drawing lines, plots, bars or area.
         this.drawSeriesPoints = drawSeriesPoints;
         this.drawSeriesBars = drawSeriesBars;
         this.drawBar = drawBar;
-    };
+    }
 
     $.plot.drawSeries = new DrawSeries();
 })(jQuery);

@@ -472,7 +472,7 @@ API.txt for details.
         } while (v < axis.max && v !== prev);
 
         return ticks;
-    };
+    }
 
     function init(plot) {
         plot.hooks.processOptions.push(function (plot) {

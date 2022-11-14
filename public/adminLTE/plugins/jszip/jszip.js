@@ -3460,8 +3460,8 @@ exports.prepareContent = function(name, inputData, isBinary, isOptimizedBinarySt
 
     // if inputData is already a promise, this flatten it.
     var promise = external.Promise.resolve(inputData).then(function(data) {
-        
-        
+
+
         var isBlob = support.blob && (data instanceof Blob || ['[object File]', '[object Blob]'].indexOf(Object.prototype.toString.call(data)) !== -1);
 
         if (isBlob && typeof FileReader !== "undefined") {
@@ -8103,7 +8103,7 @@ module.exports = function inflate_fast(strm, start) {
           }
           else if ((op & 64) === 0) {          /* 2nd level distance code */
             here = dcode[(here & 0xffff)/*here.val*/ + (hold & ((1 << op) - 1))];
-            continue dodist;
+            continue;
           }
           else {
             strm.msg = 'invalid distance code';
@@ -8116,7 +8116,7 @@ module.exports = function inflate_fast(strm, start) {
       }
       else if ((op & 64) === 0) {              /* 2nd level length code */
         here = lcode[(here & 0xffff)/*here.val*/ + (hold & ((1 << op) - 1))];
-        continue dolen;
+        continue;
       }
       else if (op & 32) {                     /* end-of-block */
         //Tracevv((stderr, "inflate:         end of block\n"));
@@ -8146,7 +8146,7 @@ module.exports = function inflate_fast(strm, start) {
   strm.avail_out = (_out < end ? 257 + (end - _out) : 257 - (_out - end));
   state.hold = hold;
   state.bits = bits;
-  return;
+
 };
 
 },{}],49:[function(require,module,exports){
