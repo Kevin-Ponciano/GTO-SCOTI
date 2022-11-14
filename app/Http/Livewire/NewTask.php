@@ -3,13 +3,14 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Task;
 
 class NewTask extends Component
 {
-    public $tasks, $title, $description, $priority = 'Baixa', $date_create, $deadline, $status, $situation, $user_id, $team_id, $task_id;
+    public $tasks, $title, $description, $priority = 'Baixa', $date_create, $deadline, $situation, $user_id, $team_id, $task_id;
 
     public function mount()
     {
@@ -24,7 +25,6 @@ class NewTask extends Component
             'priority' => $this->priority,
             'date_create' => date('Y-m-d'),
             'deadline' => date('Y-m-d'),
-            'status' => rand(0, 10000),
             'situation' => rand(0, 10000),
             'user_id' => $this->user_id,
             'team_id' => rand(0, 10000),
@@ -54,4 +54,5 @@ class NewTask extends Component
     {
         return view('livewire.new-task');
     }
+
 }

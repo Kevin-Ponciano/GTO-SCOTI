@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('priority');
             $table->date('date_create');
             $table->date('deadline');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->string('situation');
 
 //            $table->integer('company_id');

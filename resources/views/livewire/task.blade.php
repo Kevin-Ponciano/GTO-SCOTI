@@ -1,4 +1,8 @@
-@php use App\Models\User; @endphp
+@php use App\Models\User;
+use app\http\Livewire\Tasks;
+$d = Tasks::status_controller('2022-11-20');
+debug($d)
+@endphp
 <div>
     <div class="col-12">
         <style>
