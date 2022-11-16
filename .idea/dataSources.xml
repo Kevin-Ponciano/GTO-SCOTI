@@ -8,7 +8,7 @@
       <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="GTO" uuid="32cedfa7-8460-4127-a2c2-5dec0e49e6e2">
+    <data-source source="LOCAL" name="GTO-DO" uuid="32cedfa7-8460-4127-a2c2-5dec0e49e6e2">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

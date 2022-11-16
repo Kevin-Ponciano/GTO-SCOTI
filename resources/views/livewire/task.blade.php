@@ -1,7 +1,7 @@
-@php use App\Models\User;
-use app\http\Livewire\Tasks;
-$d = Tasks::status_controller('2022-11-20');
-debug($d)
+@php
+    use App\Models\User;
+    use app\http\Livewire\Tasks;
+    use Carbon\Carbon;
 @endphp
 <div>
     <div class="col-12">
@@ -14,7 +14,7 @@ debug($d)
         <button class="btn btn-dark font-bold px-4 rounded my-3" onclick="$('#modal').modal('show')">Nova Tarefa
         </button>
 
-        <table id="table" class="table table-sm table-bordered table-secondary table-striped table-hover">
+        <table id="table" class="table table-sm table-bordered table-secondary table-striped table-hover m-0">
             <thead class="bg-dark rounded items-center">
             <tr>
                 <th>Título</th>
@@ -29,11 +29,24 @@ debug($d)
             </thead>
             <tbody>
             @foreach($tasks as $task)
+                @php
+                    $task->status = Tasks::status_controller($task->deadline);
+                    if($task->status == 'Em dia')
+                        $status_color = 'success';
+                    elseif ($task->status == 'Expirado')
+                        $status_color = 'danger';
+                    elseif ($task->status == 'Expira Hoje')
+                        $status_color = 'warning';
+                    else
+                        $status_color = 'warning';
+                    //$task->deadline = Carbon::createFromFormat("Y-m-d", $task['deadline'])->format("d/m/Y");
+                @endphp
+
                 <tr>
                     <td>{{$task->title}}</td>
                     <td>{{$task->priority}}</td>
                     <td>{{$task->deadline}}</td>
-                    <td>{{$task->status}}</td>
+                    <td><span class="badge badge-{{$status_color}}">{{$task->status}}</span></td>
                     @if(Route::current()->uri == 'tarefas')
                         @php
                             $user_name =  User::find($task->user_id);

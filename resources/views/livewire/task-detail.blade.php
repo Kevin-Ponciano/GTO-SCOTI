@@ -1,4 +1,5 @@
 @php
+    use app\http\Livewire\Tasks;
     use Carbon\Carbon;
     use App\Models\User;
 @endphp
@@ -97,6 +98,17 @@
                                 <div class="info-box bg-light">
                                     <div class="info-box-content">
                                         <span class="info-box-text text-center text-muted">Status</span>
+{{--                                        @php--}}
+{{--                                            $task->status = Tasks::status_controller($task->deadline);--}}
+{{--                    if($task->status == 'Em dia')--}}
+{{--                        $status_color = 'success';--}}
+{{--                    elseif ($task->status == 'Expirado')--}}
+{{--                        $status_color = 'danger';--}}
+{{--                    elseif ($task->status == 'Expira Hoje')--}}
+{{--                        $status_color = 'warning';--}}
+{{--                    else--}}
+{{--                        $status_color = 'warning';--}}
+{{--                                        @endphp--}}
                                         <span
                                             class="info-box-number text-center text-muted mb-0">{{$task->status}}</span>
                                     </div>

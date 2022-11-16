@@ -21,15 +21,20 @@ class Tasks extends Component
 
     public static function status_controller($deadline)
     {
-        $deadline = $deadline . ' 24:00:00';
+        $date = $deadline . ' 24:00:00';
         $today = Carbon::now();
-        $days_difference = $today->diffInDays($deadline);
-        if ($deadline < $today)
+        $days_difference = $today->diffInDays($date);
+        if ($date < $today) {
             return 'Expirado';
-        elseif ($days_difference <= 7) {
-            $days_to_expire = $today->diffInDays($deadline);
-            return $days_to_expire . ' para expirar';
-        } else
+        } elseif ($days_difference == 0) {
+            return 'Expira Hoje';
+        } elseif ($days_difference < 4) {
+            $days_to_expire = $today->diffInDays($date);
+            return $days_to_expire . " dias para expirar";
+        } else {
             return 'Em dia';
+        }
+
+
     }
 }
