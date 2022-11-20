@@ -39,9 +39,6 @@ class TaskDetail extends Component
                     $comment->user_name = $user->name;
         }
 
-        $this->task['deadline'] = Carbon::createFromFormat("Y-m-d", $this->task['deadline'])->format("d/m/y");
-        $this->task['date_create'] = Carbon::createFromFormat("Y-m-d", $this->task['date_create'])->format("d/m/y");
-
         return view('livewire.task-detail');
 
 //        try {
@@ -56,11 +53,22 @@ class TaskDetail extends Component
 
 
     }
+
     public function label_private()
     {
         if($this->private)
             $this->isPrivate = 'Privado';
         else
             $this->isPrivate = 'Publico';
+    }
+
+    public function task_finalize($id)
+    {
+        $task = Task::find($id);
+        $task['situation'] = 'close';
+        $task['status'] = 'Finalizada';
+        $task->save();
+
+        return redirect('/dashboard')->with('finished', '\nTarefa '. $id. '\nFinalizada com sucesso\n\n');
     }
 }

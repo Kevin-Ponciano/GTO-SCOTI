@@ -20,6 +20,7 @@ class Task extends Model
         'user_id',
         'team_id'
     ];
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

@@ -1,5 +1,14 @@
-@extends('errors::minimal')
+<x-app-layout>
+    <div class="error-page" style="padding-top: 135px; margin: auto">
+        <h2 class="headline text-warning"> 403</h2>
 
-@section('title', __('Forbidden'))
-@section('code', '403')
-@section('message', __($exception->getMessage() ?: 'Forbidden'))
+        <div class="error-content">
+            <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Acesso Negado.</h3>
+            <p>
+                Você não tem permissão para acessar esta pagina.
+                Enquanto isso, você pode voltar para as <a href="{{route('user-tasks')}}"> <b>Suas Tarefas</b></a>
+            </p>
+        </div>
+    </div>
+</x-app-layout>
+

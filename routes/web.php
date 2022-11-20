@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Dashboard;
+use App\Http\Livewire\Enterprise;
 use App\Http\Livewire\TaskDetail;
 use App\Http\Livewire\Tasks;
 use App\Http\Livewire\UserTask;
@@ -25,17 +26,23 @@ Route::middleware([
     Route::get('dashboard/', Dashboard::class)->name('dashboard');
     Route::redirect('/', 'dashboard/');
 
-    Route::get('minhas-tarefas/', UserTask::class)->name('user-tasks');
-    Route::get('tarefas/', Tasks::class)->name('tasks');
-    Route::get('tarefas/{task_id}', TaskDetail::class)->name('task_detail');
-
-
     Route::get('/perfil', function () {
         return view('profile.show');
     })->name('profile');
 
+    Route::get('minhas-tarefas/', UserTask::class)->name('user-tasks');
+    Route::get('tarefas/', Tasks::class)->name('tasks');
+    Route::get('tarefas/{task_id}', TaskDetail::class)->name('task_detail');
+
+    Route::get('enterprise', Enterprise::class)->name('enterprise');
+
+
+    Route::get('/navi', function () {
+        return view('navigation-menu');
+    });
 
 });
 Route::get('/reg', function () {
     return view('auth.register');
+
 });

@@ -14,6 +14,7 @@
     <!-- STYLES -->
     <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/all.min.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/v4-shims.min.css")}}>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.min.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/summernote/summernote-bs4.min.css")}}>
@@ -82,8 +83,9 @@
                 <div
                     class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition"
                     style="padding-left: 10px">
-                    <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
-                         alt="{{ Auth::user()->name }}"/>
+                    <a href="{{route('profile.show')}}">
+                        <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
+                             alt="{{ Auth::user()->name }}"></a>
 
                 </div>
             @endif
@@ -93,17 +95,17 @@
                 </div>
             </div>
 
-            <div class="form-inline">
-                <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                           aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-sidebar">
-                            <i class="fas fa-search fa-fw"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            {{--            <div class="form-inline">--}}
+            {{--                <div class="input-group" data-widget="sidebar-search">--}}
+            {{--                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"--}}
+            {{--                           aria-label="Search">--}}
+            {{--                    <div class="input-group-append">--}}
+            {{--                        <button class="btn btn-sidebar">--}}
+            {{--                            <i class="fas fa-search fa-fw"></i>--}}
+            {{--                        </button>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
 
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -116,7 +118,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{route('user-tasks')}}" class="nav-link">
-                            <i class="nav-icon far fa-user"></i>
+                            <i class="nav-icon  fa bi-person-lines-fill"></i>
                             <p>Minhas Tarefas</p>
                         </a>
                     </li>
@@ -127,39 +129,88 @@
                         </a>
                     </li>
 
-                    {{--                    <li class="nav-item">--}}
-                    {{--                        <a href="#" class="nav-link">--}}
-                    {{--                            <i class="nav-icon fas fa-book"></i>--}}
-                    {{--                            <p>Tutorial</p>--}}
-                    {{--                        </a>--}}
-                    {{--                    </li>--}}
+                    {{--                                        <li class="nav-item">--}}
+                    {{--                                            <a href="#" class="nav-link">--}}
+                    {{--                                                <i class="nav-icon fas fa-book"></i>--}}
+                    {{--                                                <p>Tutorial</p>--}}
+                    {{--                                            </a>--}}
+                    {{--                                        </li>--}}
 
-                    {{--                    <li class="nav-item">--}}
-                    {{--                        <a href="#" class="nav-link">--}}
-                    {{--                            <i class="nav-icon fas fa-edit"></i>--}}
-                    {{--                            <p>Cadastro<i class="fas fa-angle-left right"></i></p>--}}
-                    {{--                        </a>--}}
-                    {{--                        <ul class="nav nav-treeview">--}}
-                    {{--                            <li class="nav-item">--}}
-                    {{--                                <a href="#" class="nav-link">--}}
-                    {{--                                    <i class="far fa-circle nav-icon"></i>--}}
-                    {{--                                    <p>Tarefas Recorrentes</p>--}}
-                    {{--                                </a>--}}
-                    {{--                            </li>--}}
-                    {{--                            <li class="nav-item">--}}
-                    {{--                                <a href="#" class="nav-link">--}}
-                    {{--                                    <i class="far fa-circle nav-icon"></i>--}}
-                    {{--                                    <p>Usuário</p>--}}
-                    {{--                                </a>--}}
-                    {{--                            </li>--}}
-                    {{--                        </ul>--}}
+                    {{--                                        <li class="nav-item">--}}
+                    {{--                                            <a href="#" class="nav-link">--}}
+                    {{--                                                <i class="nav-icon fas fa-edit"></i>--}}
+                    {{--                                                <p>Cadastro<i class="fas fa-angle-left right"></i></p>--}}
+                    {{--                                            </a>--}}
+                    {{--                                            <ul class="nav nav-treeview">--}}
+                    {{--                                                <li class="nav-item">--}}
+                    {{--                                                    <a href="#" class="nav-link">--}}
+                    {{--                                                        <i class="far fa-circle nav-icon"></i>--}}
+                    {{--                                                        <p>Tarefas Recorrentes</p>--}}
+                    {{--                                                    </a>--}}
+                    {{--                                                </li>--}}
+                    {{--                                                <li class="nav-item">--}}
+                    {{--                                                    <a href="#" class="nav-link">--}}
+                    {{--                                                        <i class="far fa-circle nav-icon"></i>--}}
+                    {{--                                                        <p>Usuário</p>--}}
+                    {{--                                                    </a>--}}
+                    {{--                                                </li>--}}
+                    {{--                                            </ul>--}}
 
-                    {{--                    <li class="nav-item">--}}
-                    {{--                        <a href="#" class="nav-link" onclick="">--}}
-                    {{--                            <i class="nav-icon fas fa-chart-pie"></i>--}}
-                    {{--                            <p>Gestor</p>--}}
-                    {{--                        </a>--}}
-                    {{--                    </li>--}}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <p>Gestor<i class="fas fa-angle-left right"></i></p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class=" nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="far bi-building-fill-gear nav-icon"></i>
+                                    <p>Empresas<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class=" nav-item">
+                                        <a href="{{ route('enterprise') }}" class="nav-link">
+                                            <i class="far bi-gear-fill nav-icon"></i>
+                                            <p>Gerenciar</p>
+                                        </a>
+                                    </li>
+                                    <!-- Team Switcher -->
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        Visualização de Empresa Atual
+                                    </div>
+                                    @foreach (Auth::user()->allTeams() as $team)
+                                        <li class="nav-item">
+                                            <a href="#"
+                                               class="nav-link team @if (Auth::user()->isCurrentTeam($team)) active @endif">
+                                                <i class="far bi-building-fill-gear nav-icon"></i>
+                                                <p>{{$team->name}}</p>
+                                            </a>
+                                            <form id="switch_team" method="POST"
+                                                  action="{{ route('current-team.update') }}"
+                                                  x-data>
+                                                @method('PUT')
+                                                @csrf
+                                                <input type="hidden" name="team_id" value="{{$team->id}}">
+                                            </form>
+                                            @endforeach
+                                            <script>
+                                                $('.nav-link.team').on('click', function () {
+                                                    $(this).next().submit()
+                                                })
+                                            </script>
+                                        </li>
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link">
+                                    <i class="far bi-people-fill nav-icon"></i>
+                                    <p>Usuários</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <script>
                         let url = window.location;
                         let nav = $('ul.nav a[href="' + url + '"]').addClass('active')
@@ -248,7 +299,17 @@
         })
     }
 
+    let finished_task = (info) => {
+        Toast.fire({
+            icon: 'warning',
+            title: info,
+        })
+    }
 </script>
-
+@if (session()->has('finished'))
+    <script>
+        finished_task('{{session('finished')}}')
+    </script>
+@endif
 </body>
 </html>

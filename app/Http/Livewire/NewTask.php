@@ -25,7 +25,7 @@ class NewTask extends Component
             'priority' => $this->priority,
             'date_create' => date('Y-m-d'),
             'deadline' => date('Y-m-d'),
-            'situation' => rand(0, 10000),
+            'situation' => 'open',
             'user_id' => $this->user_id,
             //'team_id' => rand(0, 10000),
         ]);

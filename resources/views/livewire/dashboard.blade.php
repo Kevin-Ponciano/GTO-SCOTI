@@ -16,7 +16,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>0</h3>
+                    <h3>{{$user_tasks_expired_length}}</h3>
                     <p>Minhas tarefas vencidas</p>
                 </div>
                 <div class="icon">

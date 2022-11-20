@@ -24,7 +24,7 @@ class AddTeamMember implements AddsTeamMembers
      */
     public function add($user, $team, string $email, string $role = null)
     {
-        Gate::forUser($user)->authorize('addTeamMember', $team);
+        $team->userHasPermission(\Auth::user(), 'addTeamMember');
 
         $this->validate($team, $email, $role);
 

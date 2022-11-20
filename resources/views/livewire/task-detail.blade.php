@@ -79,7 +79,8 @@
                             <button type="button" class="btn btn-sm btn-primary"
                                     onclick="$('#modal_comment').modal('show')">Comentar
                             </button>
-                            <a href="#" class="btn btn-sm btn-danger">Finalizar</a>
+                            <button class="btn btn-sm btn-danger"
+                                    onclick="$('#finalize-confirm-modal').modal('show')">Finalizar</button>
                         </div>
                     </div>
                     <div class="col-12 col-md-12 col-lg-8 order-1 order-md-2">
@@ -98,19 +99,20 @@
                                 <div class="info-box bg-light">
                                     <div class="info-box-content">
                                         <span class="info-box-text text-center text-muted">Status</span>
-{{--                                        @php--}}
-{{--                                            $task->status = Tasks::status_controller($task->deadline);--}}
-{{--                    if($task->status == 'Em dia')--}}
-{{--                        $status_color = 'success';--}}
-{{--                    elseif ($task->status == 'Expirado')--}}
-{{--                        $status_color = 'danger';--}}
-{{--                    elseif ($task->status == 'Expira Hoje')--}}
-{{--                        $status_color = 'warning';--}}
-{{--                    else--}}
-{{--                        $status_color = 'warning';--}}
-{{--                                        @endphp--}}
+                                        @php
+                                            if($task->status == 'Em dia')
+                                                $status_color = 'success';
+                                            elseif ($task->status == 'Expirado')
+                                                $status_color = 'danger';
+                                            else
+                                                $status_color = 'warning';
+
+                                            $task->deadline = Carbon::createFromFormat("Y-m-d", $task->deadline)->format("d/m/y");
+                                            $task->date_create = Carbon::createFromFormat("Y-m-d", $task->date_create)->format("d/m/y");
+                                        @endphp
                                         <span
-                                            class="info-box-number text-center text-muted mb-0">{{$task->status}}</span>
+                                            class="info-box-number text-center text-muted mb-0"><span
+                                                class="badge lg badge-{{$status_color}}">{{$task->status}}</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -213,5 +215,24 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade py-5" id="finalize-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header py-1">
+                    <b>Finalizar Tarefa</b>
+                </div>
+                <div class="modal-body">
+                    <p>Deseja finalizar a tarefa <b>{{$task->id}}</b>?</p>
+                </div>
+                <div class="modal-footer py-1">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+                    <button type="button" class="btn btn-danger" wire:click="task_finalize({{$task->id}})">Finalizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
