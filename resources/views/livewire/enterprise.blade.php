@@ -8,7 +8,6 @@
         <thead class="bg-dark rounded items-center">
         <tr>
             <th>Empresa</th>
-            <th>Funcionários</th>
             <th class="col-sm-1"></th>
         </tr>
         </thead>
@@ -16,8 +15,6 @@
         @foreach($enterprises as $enterprise)
             <tr>
                 <td>{{$enterprise->name}}</td>
-                <td></td>
-
                 <td><a href="{{route('teams.show', $enterprise->id) }}">
                         <button class="btn btn-dark p-1" style="font-size: 12px">DETALHES</button>
                     </a>

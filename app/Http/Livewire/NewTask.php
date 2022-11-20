@@ -21,13 +21,13 @@ class NewTask extends Component
     {
         Task::create([
             'title' => $this->title,
-            'description' => rand(0, 10000),
+            'description' => $this->description,
             'priority' => $this->priority,
             'date_create' => date('Y-m-d'),
-            'deadline' => date('Y-m-d'),
+            'deadline' => $this->deadline,
             'situation' => 'open',
             'user_id' => $this->user_id,
-            //'team_id' => rand(0, 10000),
+            'team_id' => Auth::user()->current_team_id,
         ]);
 
         $this->emit('refreshParent');

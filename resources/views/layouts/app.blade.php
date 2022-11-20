@@ -44,7 +44,14 @@
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse layout-fixed">
 @stack('modals')
-
+@php
+    if (Auth::user()->currentTeam==null){
+         abort(402);
+    }
+    $isAdmin = Auth::user()->hasTeamRole(Auth::user()->currentTeam,'admin');
+    $isManager = Auth::user()->hasTeamRole(Auth::user()->currentTeam,'manager');
+    $team = Auth::user()->teamRole(Auth::user()->currentTeam);
+@endphp
 <div class="wrapper">
 
     {{--    <<div class="preloader flex-column justify-content-center align-items-center">--}}
@@ -60,11 +67,20 @@
                 <a href="{{route('dashboard')}}" class="nav-link">Dashboard</a>
             </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+        <ul class="navbar-nav ml-auto ">
+            <li class="nav-item px-2">
                 <button class="btn btn-outline-dark font-bold px-4 rounded btn-xs"
                         onclick="$('#modal').modal('show')">Nova Tarefa
                 </button>
+            </li>
+            <li class="nav-item px-2">
+                <a href="@if($isManager) {{route('teams.show', Auth::user()->current_team_id)}} @else #@endif">
+                    <div class="text-muted px-4 text-bold text-uppercase">
+                        {{Auth::user()->currentTeam->name}}
+                        <p class="text-sm-center" style="font-size: 10px">{{$team->name}}</p>
+                    </div>
+
+                </a>
             </li>
         </ul>
     </nav>
@@ -156,13 +172,13 @@
                     {{--                                                </li>--}}
                     {{--                                            </ul>--}}
 
-                    <li class="nav-item">
+                    <li class="nav-item @if(!$isManager) d-none @endif">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-chart-pie"></i>
                             <p>Gestor<i class="fas fa-angle-left right"></i></p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class=" nav-item">
+                            <li class=" nav-item @if(!$isAdmin) d-none @endif ">
                                 <a href="" class="nav-link">
                                     <i class="far bi-building-fill-gear nav-icon"></i>
                                     <p>Empresas<i class="fas fa-angle-left right"></i></p>
@@ -203,12 +219,19 @@
                             </li>
 
 
-                            <li class="nav-item ">
+                            <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="far bi-people-fill nav-icon"></i>
                                     <p>Usuários</p>
                                 </a>
                             </li>
+                            <li class="nav-item @if(!$isManager || $isAdmin) d-none @endif">
+                                <a href="{{route('teams.show', Auth::user()->current_team_id)}}" class="nav-link">
+                                    <i class="far bi-person-add nav-icon"></i>
+                                    <p>Vincular Funcionário</p>
+                                </a>
+                            </li>
+
                         </ul>
                     </li>
                     <script>
@@ -250,7 +273,7 @@
         <strong>Copyright &copy; 2022 <a href="#">GTO - Gestão de Tarefas Online</a> - </strong>
         Todos os direitos reservados.
         <div class="float-right d-none d-sm-inline-block">
-            <b>Versão</b> 0.2
+            <b>Versão</b> 0.3.2
         </div>
     </footer>
 </div>

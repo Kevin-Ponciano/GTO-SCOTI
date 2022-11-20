@@ -31,7 +31,7 @@
             @php
                 if($task->status == 'Em dia')
                     $status_color = 'success';
-                elseif ($task->status == 'Expirado')
+                elseif ($task->status == 'Expirado' || $task->status == 'Finalizada')
                     $status_color = 'danger';
                 else
                     $status_color = 'warning';

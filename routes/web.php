@@ -41,8 +41,8 @@ Route::middleware([
         return view('navigation-menu');
     });
 
+
 });
 Route::get('/reg', function () {
     return view('auth.register');
-
 });
