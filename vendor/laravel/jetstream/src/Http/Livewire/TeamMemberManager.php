@@ -2,7 +2,6 @@
 
 namespace Laravel\Jetstream\Http\Livewire;
 
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Jetstream\Actions\UpdateTeamMemberRole;
 use Laravel\Jetstream\Contracts\AddsTeamMembers;
@@ -71,7 +70,7 @@ class TeamMemberManager extends Component
      */
     public $addTeamMemberForm = [
         'email' => '',
-        'role' => 'employer',
+        'role' => null,
     ];
 
     /**
@@ -110,11 +109,9 @@ class TeamMemberManager extends Component
             );
         }
 
-        $users = User::where('email',$this->addTeamMemberForm['email'])->update(['current_team_id'=>$this->team->id]);
-
         $this->addTeamMemberForm = [
             'email' => '',
-            'role' => $this->addTeamMemberForm['role'],
+            'role' => null,
         ];
 
         $this->team = $this->team->fresh();

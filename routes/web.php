@@ -4,6 +4,7 @@ use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Enterprise;
 use App\Http\Livewire\TaskDetail;
 use App\Http\Livewire\Tasks;
+use App\Http\Livewire\Users;
 use App\Http\Livewire\UserTask;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,7 @@ Route::middleware([
 
     Route::get('enterprise', Enterprise::class)->name('enterprise');
 
+    Route::get('users', Users::class)->name('users');
 
     Route::get('/navi', function () {
         return view('navigation-menu');

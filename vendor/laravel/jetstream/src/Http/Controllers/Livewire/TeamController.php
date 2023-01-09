@@ -20,8 +20,8 @@ class TeamController extends Controller
     {
         $team = Jetstream::newTeamModel()->findOrFail($teamId);
 
-        if (!$team->userHasPermission(\Auth::user(), 'read')) {
-            return view('errors.403');
+        if (Gate::denies('view', $team)) {
+            abort(403);
         }
 
         return view('teams.show', [
