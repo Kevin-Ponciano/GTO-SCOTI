@@ -42,7 +42,7 @@ class NewComment extends Component
 
     public function label_private()
     {
-        if($this->private)
+        if ($this->private)
             $this->isPrivate = 'Privado';
         else
             $this->isPrivate = 'Publico';

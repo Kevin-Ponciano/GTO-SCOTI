@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Http\Livewire\Tasks;
-use App\Models\Task;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 

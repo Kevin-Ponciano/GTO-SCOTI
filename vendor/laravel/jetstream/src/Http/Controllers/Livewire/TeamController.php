@@ -12,16 +12,16 @@ class TeamController extends Controller
     /**
      * Show the team management screen.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $teamId
+     * @param \Illuminate\Http\Request $request
+     * @param int $teamId
      * @return \Illuminate\View\View
      */
     public function show(Request $request, $teamId)
     {
         $team = Jetstream::newTeamModel()->findOrFail($teamId);
 
-        if (Gate::denies('view', $team)) {
-            abort(403);
+        if (!$team->userHasPermission(\Auth::user(), 'read')) {
+            return view('errors.403');
         }
 
         return view('teams.show', [
@@ -33,7 +33,7 @@ class TeamController extends Controller
     /**
      * Show the team creation screen.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
      */
     public function create(Request $request)

@@ -220,7 +220,7 @@
 
 
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{route('users')}}" class="nav-link">
                                     <i class="far bi-people-fill nav-icon"></i>
                                     <p>Usuários</p>
                                 </a>
@@ -258,22 +258,25 @@
         </main>
     </div>
 
-    <x-modal>
-        @section('id')
-            'modal'
-        @endsection
-        @section('header-name')
-            Nova Tarefa
-        @endsection
-        @section('body')
-            <livewire:new-task/>
-        @endsection
-    </x-modal>
+    <div class="modal fade" id='modal' tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title"><b>Nova Tarefa</b></h6>
+                </div>
+                <div class="modal-body">
+                    <livewire:new-task/>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="main-footer" style="font-size: 12px">
         <strong>Copyright &copy; 2022 <a href="#">GTO - Gestão de Tarefas Online</a> - </strong>
         Todos os direitos reservados.
         <div class="float-right d-none d-sm-inline-block">
-            <b>Versão</b> 0.3.2
+            <b>Versão</b> 0.4.1
         </div>
     </footer>
 </div>
@@ -298,6 +301,8 @@
     window.addEventListener('closeModal', event => {
         $('#modal').modal('hide')
         $('#modal_comment').modal('hide')
+        $('#new_user_modal').modal('hide')
+        $('#edit_user_modal').modal('hide')
     })
     const Toast = Swal.mixin({
         toast: true,
@@ -315,7 +320,7 @@
             html: "<a href=/tarefas/" + task_id + "> Visualizar Tafera</a>"
         })
     }
-    let success_comment_info = (info) => {
+    let success_info = (info) => {
         Toast.fire({
             icon: 'success',
             title: info,

@@ -45,6 +45,3 @@ Route::middleware([
 
 
 });
-Route::get('/reg', function () {
-    return view('auth.register');
-});

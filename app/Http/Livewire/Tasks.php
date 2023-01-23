@@ -2,13 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use App\Actions\Jetstream\AddTeamMember;
 use App\Models\Task;
-use App\Models\Team;
-use App\Models\User;
 use Auth;
 use Carbon\Carbon;
-use Laravel\Jetstream\Events\TeamMemberAdded;
 use Livewire\Component;
 
 class Tasks extends Component

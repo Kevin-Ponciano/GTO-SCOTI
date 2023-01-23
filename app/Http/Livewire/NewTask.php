@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use App\Models\Task;
 
 class NewTask extends Component
 {

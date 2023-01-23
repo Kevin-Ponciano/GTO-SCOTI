@@ -2,26 +2,21 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Comment;
 use App\Models\Task;
 use App\Models\User;
-use Carbon\Carbon;
-use Exception;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class TaskDetail extends Component
 {
-    public  $task_id;
+    public $task_id;
 
     public function mount()
     {
         $this->task_id = request()->task_id;
     }
 
-
-
-    protected  $listeners = [
+    /// update page with listener
+    protected $listeners = [
         'refreshParent' => '$refresh'
     ];
 
@@ -56,7 +51,7 @@ class TaskDetail extends Component
 
     public function label_private()
     {
-        if($this->private)
+        if ($this->private)
             $this->isPrivate = 'Privado';
         else
             $this->isPrivate = 'Publico';
@@ -69,6 +64,6 @@ class TaskDetail extends Component
         $task['status'] = 'Finalizada';
         $task->save();
 
-        return redirect('/dashboard')->with('finished', '\nTarefa '. $id. '\nFinalizada com sucesso\n\n');
+        return redirect('/dashboard')->with('finished', '\nTarefa ' . $id . '\nFinalizada com sucesso\n\n');
     }
 }

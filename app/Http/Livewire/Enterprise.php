@@ -11,7 +11,7 @@ class Enterprise extends Component
 
     public function render()
     {
-        if (!\Auth::user()->hasTeamRole(\Auth::user()->currentTeam,'admin'))
+        if (!\Auth::user()->hasTeamRole(\Auth::user()->currentTeam, 'admin'))
             return view('errors.403');
 
         $this->enterprises = Team::all();
