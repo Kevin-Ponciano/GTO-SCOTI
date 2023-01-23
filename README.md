@@ -19,9 +19,9 @@ senha: 1234
 
 ## Screenshots
 
-![App Screenshot](https://raw.githubusercontent.com/Kevin-Ponciano/GTO-LARAVEL/main/doc/images/Captura%20de%20tela_20230123_131058.png?token=GHSAT0AAAAAAB5PZCLAYDG3DOOWI2N7ZITIY6OYDQQ)
-![App Screenshot](https://raw.githubusercontent.com/Kevin-Ponciano/GTO-LARAVEL/main/doc/images/Captura%20de%20tela_20230123_131043.png?token=GHSAT0AAAAAAB5PZCLBSJLAIF4A5JIQ63ROY6OYDOQ)
-![App Screenshot](https://raw.githubusercontent.com/Kevin-Ponciano/GTO-LARAVEL/main/doc/images/Captura%20de%20tela_20230123_131030.png?token=GHSAT0AAAAAAB5PZCLA4ARC4NAFYBQO7DLMY6OYCHQ)
+![App Screenshot](https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131058.png)
+![App Screenshot](https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131043.png)
+![App Screenshot](https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131030.png)
 
 
 
