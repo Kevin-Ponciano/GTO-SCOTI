@@ -20,10 +20,11 @@ https://www.gto.kevinp.studio/
 **password:** 1234
 
 ## Screenshots
+<img src="https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131058.png" alt="App Screenshot" width="500"/><br/>
 
-![App Screenshot](https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131058.png)
-![App Screenshot](https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131043.png)
-![App Screenshot](https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131030.png)
+<img src="https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131043.png" alt="App Screenshot" width="500"/><br/>
+
+<img src="https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131030.png" alt="App Screenshot" width="500"/>
 
 
 
