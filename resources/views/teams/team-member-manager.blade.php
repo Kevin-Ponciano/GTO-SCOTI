@@ -3,7 +3,7 @@
         <x-jet-section-border/>
 
         <!-- Add Team Member -->
-        <div class="mt-10 sm:mt-0">
+        <div id="users-manager" class="mt-10 sm:mt-0">
             <x-jet-form-section submit="addTeamMember">
                 <x-slot name="title">
                     {{ __('Add Team Member') }}

@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="shortcut icon" href={{asset('/favicon.png')}}>
 
     <!-- Fonts -->
     <link rel="stylesheet"
@@ -48,16 +49,11 @@
     if (Auth::user()->currentTeam==null){
          abort(406);
     }
-    $isAdmin = Auth::user()->hasTeamRole(Auth::user()->currentTeam,'admin');
-    $isManager = Auth::user()->hasTeamRole(Auth::user()->currentTeam,'manager');
-    $team = Auth::user()->teamRole(Auth::user()->currentTeam);
+    $team = Auth::user()->currentTeam;
+    $isAdminRole = $team->userHasPermission(Auth::user(), 'admin');
+    $isManagerRole = $team->userHasPermission(Auth::user(), 'manager');
 @endphp
 <div class="wrapper">
-
-    {{--    <<div class="preloader flex-column justify-content-center align-items-center">--}}
-    {{--        <img class="animation__shake" src="{{asset('adminLTE/dist/img/logo.png')}}" alt="logo" height="60" width="60">--}}
-    {{--    </div>--}}
-
     <nav class="main-header navbar navbar-expand navbar-light">
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -70,16 +66,15 @@
         <ul class="navbar-nav ml-auto ">
             <li class="nav-item px-2">
                 <button class="btn btn-outline-dark font-bold px-4 rounded btn-xs"
-                        onclick="$('#modal').modal('show')">Nova Tarefa
+                        onclick="$('#new_task_modal').modal('show')">Nova Tarefa
                 </button>
             </li>
             <li class="nav-item px-2">
-                <a href="@if($isManager) {{route('teams.show', Auth::user()->current_team_id)}} @else #@endif">
+                <a href="@if($isManagerRole) {{route('teams.show', Auth::user()->current_team_id)}} @else #@endif">
                     <div class="text-muted px-4 text-bold text-uppercase">
                         {{Auth::user()->currentTeam->name}}
-                        <p class="text-sm-center" style="font-size: 10px">{{$team->name}}</p>
+                        <p class="text-sm-center" style="font-size: 10px">{{Auth::user()->teamRole($team)->name}}</p>
                     </div>
-
                 </a>
             </li>
         </ul>
@@ -89,27 +84,26 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
         <a href="#" class="brand-link">
-            <img src="{{asset('adminLTE/dist/img/logo.png')}}" alt="Logo" class="brand-image img-circle elevation-3"
+            <img src="{{asset('adminLTE/dist/img/logo.png')}}"
+                 alt="Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">GTO</span>
+            <span class="brand-text font-weight-light text-md">{{config('app.name')}}</span>
         </a>
 
         <div class="sidebar">
             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                <div
-                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition"
-                    style="padding-left: 10px">
-                    <a href="{{route('profile.show')}}">
-                        <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
-                             alt="{{ Auth::user()->name }}"></a>
 
-                </div>
+                <a href="{{route('profile.show')}}" class="brand-link">
+                    <img src="{{ Auth::user()->profile_photo_url }}"
+                         class="h-10 w-10 rounded-full object-cover"
+                         alt="{{ Auth::user()->name }}">
+                    <span class="brand-text font-weight-light text-md"
+                    style="padding-left: 7px">
+                        {{ Auth::user()->name }}
+                    </span>
+                </a>
+
             @endif
-            <div class="user-panel pb-1 mb-3 d-flex">
-                <div class="info px-3">
-                    <a href="{{route('profile.show')}}" class="d-block">{{Auth::user()->name}}</a>
-                </div>
-            </div>
 
             {{--            <div class="form-inline">--}}
             {{--                <div class="input-group" data-widget="sidebar-search">--}}
@@ -172,68 +166,62 @@
                     {{--                                                </li>--}}
                     {{--                                            </ul>--}}
 
-                    <li class="nav-item @if(!$isManager) d-none @endif">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-chart-pie"></i>
-                            <p>Gestor<i class="fas fa-angle-left right"></i></p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class=" nav-item @if(!$isAdmin) d-none @endif ">
-                                <a href="" class="nav-link">
-                                    <i class="far bi-building-fill-gear nav-icon"></i>
-                                    <p>Empresas<i class="fas fa-angle-left right"></i></p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class=" nav-item">
-                                        <a href="{{ route('enterprise') }}" class="nav-link">
-                                            <i class="far bi-gear-fill nav-icon"></i>
-                                            <p>Gerenciar</p>
-                                        </a>
-                                    </li>
-                                    <!-- Team Switcher -->
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        Visualização de Empresa Atual
-                                    </div>
-                                    @foreach (Auth::user()->allTeams() as $team)
-                                        <li class="nav-item">
-                                            <a href="#"
-                                               class="nav-link team @if (Auth::user()->isCurrentTeam($team)) active @endif">
-                                                <i class="far bi-building-fill-gear nav-icon"></i>
-                                                <p>{{$team->name}}</p>
-                                            </a>
-                                            <form id="switch_team" method="POST"
-                                                  action="{{ route('current-team.update') }}"
-                                                  x-data>
-                                                @method('PUT')
-                                                @csrf
-                                                <input type="hidden" name="team_id" value="{{$team->id}}">
-                                            </form>
-                                            @endforeach
-                                            <script>
-                                                $('.nav-link.team').on('click', function () {
-                                                    $(this).next().submit()
-                                                })
-                                            </script>
-                                        </li>
-                                </ul>
-                            </li>
+                    @if($isAdminRole)
+                        <li class="nav-item">
+                            <a href="{{route('users')}}" class="nav-link">
+                                <i class="far bi-people-fill nav-icon"></i>
+                                <p>Usuários</p>
+                            </a>
+                        </li>
+                        {{--                                <li class=" nav-item @if(!$isAdmin) d-none @endif ">--}}
+                        {{--                                    <a href="" class="nav-link">--}}
+                        {{--                                        <i class="far bi-building-fill-gear nav-icon"></i>--}}
+                        {{--                                        <p>Empresas<i class="fas fa-angle-left right"></i></p>--}}
+                        {{--                                    </a>--}}
+                        {{--                                    <ul class="nav nav-treeview">--}}
+                        {{--                                        <li class=" nav-item">--}}
+                        {{--                                            <a href="{{ route('enterprise') }}" class="nav-link">--}}
+                        {{--                                                <i class="far bi-gear-fill nav-icon"></i>--}}
+                        {{--                                                <p>Gerenciar</p>--}}
+                        {{--                                            </a>--}}
+                        {{--                                        </li>--}}
+                        {{--                                        <!-- Team Switcher -->--}}
+                        {{--                                        <div class="block px-4 py-2 text-xs text-gray-400">--}}
+                        {{--                                            Visualização de Empresa Atual--}}
+                        {{--                                        </div>--}}
+                        {{--                                        @foreach (Auth::user()->allTeams() as $team)--}}
+                        {{--                                            <li class="nav-item">--}}
+                        {{--                                                <a href="#"--}}
+                        {{--                                                   class="nav-link team @if (Auth::user()->isCurrentTeam($team)) active @endif">--}}
+                        {{--                                                    <i class="far bi-building-fill-gear nav-icon"></i>--}}
+                        {{--                                                    <p>{{$team->name}}</p>--}}
+                        {{--                                                </a>--}}
+                        {{--                                                <form id="switch_team" method="POST"--}}
+                        {{--                                                      action="{{ route('current-team.update') }}"--}}
+                        {{--                                                      x-data>--}}
+                        {{--                                                    @method('PUT')--}}
+                        {{--                                                    @csrf--}}
+                        {{--                                                    <input type="hidden" name="team_id" value="{{$team->id}}">--}}
+                        {{--                                                </form>--}}
+                        {{--                                                @endforeach--}}
+                        {{--                                                <script>--}}
+                        {{--                                                    $('.nav-link.team').on('click', function () {--}}
+                        {{--                                                        $(this).next().submit()--}}
+                        {{--                                                    })--}}
+                        {{--                                                </script>--}}
+                        {{--                                            </li>--}}
+                        {{--                                    </ul>--}}
+                        {{--                                </li>--}}
+                    @elseif($isManagerRole)
+                        <li class="nav-item">
+                            <a href="{{route('teams.show', Auth::user()->current_team_id).'#users-manager'}}"
+                               class="nav-link">
+                                <i class="far bi-person-add nav-icon"></i>
+                                <p>Vincular Funcionário</p>
+                            </a>
+                        </li>
+                    @endif
 
-
-                            <li class="nav-item">
-                                <a href="{{route('users')}}" class="nav-link">
-                                    <i class="far bi-people-fill nav-icon"></i>
-                                    <p>Usuários</p>
-                                </a>
-                            </li>
-                            <li class="nav-item @if(!$isManager || $isAdmin) d-none @endif">
-                                <a href="{{route('teams.show', Auth::user()->current_team_id)}}" class="nav-link">
-                                    <i class="far bi-person-add nav-icon"></i>
-                                    <p>Vincular Funcionário</p>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
                     <script>
                         let url = window.location;
                         let nav = $('ul.nav a[href="' + url + '"]').addClass('active')
@@ -258,7 +246,7 @@
         </main>
     </div>
 
-    <div class="modal fade" id='modal' tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    <div class="modal fade" id='new_task_modal' tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -273,7 +261,8 @@
     </div>
 
     <footer class="main-footer" style="font-size: 12px">
-        <strong>Copyright &copy; 2022 <a href="https://github.com/Kevin-Ponciano/GTO-LARAVEL">GTO - Gestão de Tarefas Online</a> - </strong>
+        <strong>Copyright &copy; 2022 <a href="https://github.com/Kevin-Ponciano/GTO-LARAVEL">GTO - Gestão de Tarefas
+                Online</a> - </strong>
         Todos os direitos reservados.
         <div class="float-right d-none d-sm-inline-block">
             <b>Versão</b> 0.4.2
@@ -299,7 +288,7 @@
 
 <script>
     window.addEventListener('closeModal', event => {
-        $('#modal').modal('hide')
+        $('#new_task_modal').modal('hide')
         $('#modal_comment').modal('hide')
         $('#new_user_modal').modal('hide')
         $('#edit_user_modal').modal('hide')
