@@ -27,41 +27,6 @@ class Users extends Component
     ];
 
     /**
-     * Pego o nome do TEAM atravez do TeamID do usuario
-     *
-     * @param $enterpriseId
-     * @return HigherOrderCollectionProxy|mixed|string
-     */
-    public static function get_enterprise($enterpriseId)
-    {
-        if ($enterpriseId == null) {
-            return 'Não Registrado';
-        }
-
-        return Team::find($enterpriseId)->name;
-    }
-
-    /**
-     * Utilizando o getRolesProperty pego o nome da key role
-     *
-     * @param $role
-     * @return mixed|string
-     */
-    public static function getRole($role)
-    {
-        if ($role == null) {
-            return '-';
-        }
-        $rolesWithName = array();
-        $roles = app(TeamMemberManager::class)->getRolesProperty();
-        foreach ($roles as $item) {
-            $rolesWithName = [$item->key => $item] + $rolesWithName;
-        }
-
-        return $rolesWithName[$role]->name;
-    }
-
-    /**
      * @return Application|Factory|View
      */
     public function render()

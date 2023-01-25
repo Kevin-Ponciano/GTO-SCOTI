@@ -27,8 +27,8 @@
             <tr>
                 <td>{{$user->id}}</td>
                 <td>{{$user->name}}</td>
-                <td>{{Users::get_enterprise($user->current_team_id)}}</td>
-                <td>{{Users::getRole($user->userRole())}}</td>
+                <td>{{$user->teams[0]->name}}</td>
+                <td>{{$user->teamRole($user->currentTeam)->name}}</td>
                 <td>
                     <button class="btn btn-dark p-1" style="font-size: 12px"
                             wire:click="$emit('edit',{{$user->id}})"

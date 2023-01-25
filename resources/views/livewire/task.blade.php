@@ -10,7 +10,7 @@
         }
     </style>
 
-    <button class="btn btn-dark font-bold px-4 rounded my-3" onclick="$('#modal').modal('show')">Nova Tarefa
+    <button class="btn btn-dark font-bold px-4 rounded my-3" onclick="$('#new_task_modal').modal('show')">Nova Tarefa
     </button>
 
     <table id="table" class="table table-sm table-bordered table-secondary table-striped table-hover m-0">
