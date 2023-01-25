@@ -3,6 +3,7 @@
 namespace App\Actions\Jetstream;
 
 use Closure;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -24,10 +25,11 @@ class InviteTeamMember implements InvitesTeamMembers
      * @param string $email
      * @param string|null $role
      * @return void
+     * @throws AuthorizationException
      */
     public function invite($user, $team, string $email, string $role = null)
     {
-        Gate::forUser($user)->authorize('addTeamMember', $team);
+        #Gate::forUser($user)->authorize('addTeamMember', $team);
 
         $this->validate($team, $email, $role);
 

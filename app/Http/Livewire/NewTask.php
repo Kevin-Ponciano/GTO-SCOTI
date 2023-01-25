@@ -10,6 +10,7 @@ use Livewire\Component;
 
 class NewTask extends Component
 {
+    // priority não esta inicializando com valor 'Baixa' todo list
     public $tasks, $title, $description, $priority = 'Baixa', $date_create, $deadline, $situation, $user_id, $team_id, $task_id;
 
     public function mount()

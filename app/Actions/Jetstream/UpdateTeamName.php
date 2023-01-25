@@ -18,7 +18,7 @@ class UpdateTeamName implements UpdatesTeamNames
      */
     public function update($user, $team, array $input)
     {
-        Gate::forUser($user)->authorize('update', $team);
+        #Gate::forUser($user)->authorize('update', $team);
 
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],

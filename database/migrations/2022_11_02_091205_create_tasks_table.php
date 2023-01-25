@@ -11,16 +11,12 @@ return new class extends Migration {
             $table->id();
 
             $table->string('title');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->string('priority');
             $table->date('date_create');
             $table->date('deadline');
             $table->string('status')->nullable();
             $table->string('situation');
-
-//            $table->integer('company_id');
-//            $table->foreign('company_id')->references('id')->on('companies');
-
             $table->foreignId('user_id')->constrained();
             $table->foreignId('team_id')->constrained();
             $table->timestamps();

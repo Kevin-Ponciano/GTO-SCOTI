@@ -66,7 +66,31 @@ class Users extends Component
      */
     public function render()
     {
-        $this->users = User::where('id', '!=', Auth::id())->get();
+        if (!Auth::user()->teams[0]->userHasPermission(Auth::user(), 'manager')) {
+            return view('errors.403');
+        }
+
+        $users = User::where('id', '!=', Auth::id())->get();
+        $array = array();
+        $i = 0;
+
+        if (Auth::user()->teams[0]->userHasPermission(Auth::user(), 'admin')) {
+            foreach ($users as $user) {
+                if ($user->userRole() != 'admin') {
+                    $array[$i] = $user;
+                }
+                $i++;
+            }
+        }else{
+            foreach ($users as $user) {
+                if ($user->userRole() != 'admin' && $user->userRole() != 'manager') {
+                    $array[$i] = $user;
+                }
+                $i++;
+            }
+        }
+
+        $this->users = $array;
         return view('livewire.users');
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,6 +9,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+
 
 class User extends Authenticatable
 {
@@ -62,5 +62,21 @@ class User extends Authenticatable
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    /**
+     * Verifica se o usuário possui um time e então retorna sua função
+     *
+     * @return string|null
+     */
+    public function userRole()
+    {
+        if ($this->teams->count() == 0) {
+            return null;
+        } elseif ($this->teams->count() == 1) {
+            return $this->teams[0]->membership->role;
+        } else {
+            return abort(500);
+        }
     }
 }

@@ -23,7 +23,7 @@ class AddTeamMember implements AddsTeamMembers
      */
     public function add($user, $team, string $email, string $role = null)
     {
-        $team->userHasPermission(\Auth::user(), 'addTeamMember');
+        #Gate::forUser($user)->authorize('addTeamMember', $team);
 
         $this->validate($team, $email, $role);
 
@@ -34,6 +34,14 @@ class AddTeamMember implements AddsTeamMembers
         $team->users()->attach(
             $newTeamMember, ['role' => $role]
         );
+
+        /*
+         * Ao adicionar um usuario no Team,
+         * o ID do Team é adicionado na coluna "current_team_id"
+         */
+
+        $newTeamMember['current_team_id'] = $team->id;
+        $newTeamMember->save();
 
         TeamMemberAdded::dispatch($team, $newTeamMember);
     }

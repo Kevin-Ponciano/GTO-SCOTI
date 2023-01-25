@@ -56,19 +56,21 @@ class JetstreamServiceProvider extends ServiceProvider
 
         Jetstream::role('manager', 'Gerente', [
             'manager',
-            'create',
             'read',
             'update',
-            'updateTeamMember'
+            'addTeamMember',
+            'updateTeamMember',
+            'removeTeamMember',
         ])->description('Os gerentes têm a capacidade de ler, criar e atualizar.');
 
         Jetstream::role('admin', 'Administrador', [
             'admin',
             'manager',
-            'create',
             'read',
             'update',
-            'updateTeamMember'
+            'addTeamMember',
+            'updateTeamMember',
+            'removeTeamMember',
         ])->description('Os usuários administradores podem executar qualquer ação.');
 
     }

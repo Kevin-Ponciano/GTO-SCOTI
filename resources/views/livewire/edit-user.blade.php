@@ -1,7 +1,7 @@
 <div>
     @if (session()->has('success'))
         <script>
-            success_comment_info('{{session('success')}}')
+            success_info('{{session('success')}}')
         </script>
     @endif
 

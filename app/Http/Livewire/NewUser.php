@@ -57,17 +57,12 @@ class NewUser extends Component
             $this->name,
             Team::find($this->enterpriseId),
             $this->email,
-            $this->role);
-
-        $user = Jetstream::findUserByEmailOrFail($this->email);
-        $user['role'] = $this->role;
-        $user['current_team_id'] = $this->enterpriseId;
-
-        $user->save();
+            $this->role
+        );
 
         $this->emit('refreshParent');
         $this->dispatchBrowserEvent('closeModal');
-        session()->flash('success', '\nUsuário ' . $user['name'] . ' Criado\n\n');
+        session()->flash('success', '\nUsuário ' . $this->name . ' Criado\n\n');
 
         $this->resetInputFields();
     }

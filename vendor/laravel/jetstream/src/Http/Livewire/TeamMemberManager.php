@@ -109,11 +109,6 @@ class TeamMemberManager extends Component
                 $this->addTeamMemberForm['role']
             );
         }
-        /*
-         * Ao adicionar um usuario no Team,
-         * o ID do Team é adicionado na coluna "current_team_id"
-         */
-        $users = User::where('email', $this->addTeamMemberForm['email'])->update(['current_team_id' => $this->team->id]);
 
         $this->addTeamMemberForm = [
             'email' => '',
@@ -232,6 +227,8 @@ class TeamMemberManager extends Component
             $this->team,
             $user = Jetstream::findUserByIdOrFail($this->teamMemberIdBeingRemoved)
         );
+
+//
 
         $this->confirmingTeamMemberRemoval = false;
 

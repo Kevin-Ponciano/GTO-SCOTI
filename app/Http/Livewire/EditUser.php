@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\Jetstream\UpdateTeamMemberRole;
 use App\Models\Team;
 use App\Models\User;
 use Auth;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Laravel\Jetstream\Actions\UpdateTeamMemberRole;
 use Laravel\Jetstream\Contracts\AddsTeamMembers;
 use Laravel\Jetstream\Contracts\RemovesTeamMembers;
 use Laravel\Jetstream\Http\Livewire\TeamMemberManager;
@@ -37,9 +37,15 @@ class EditUser extends Component
         $this->user = User::find($userId);
 
         $this->name = $this->user->name;
-        $this->role = $this->user->role;
-        $this->enterpriseId = $this->user->current_team_id;
 
+        if($this->user->current_team_id){
+            $this->enterpriseId = $this->user->current_team_id;
+            $this->role = $this->user->userRole();
+        }else{
+            $this->enterpriseId = Team::first()->id;
+            $this->role = 'employer';
+        }
+        debug($this->enterpriseId);
     }
 
     /**
@@ -52,11 +58,14 @@ class EditUser extends Component
 
         // Só atualiza o TEAM caso aja alteração no input
         if ($this->enterpriseId != $user['current_team_id']) {
-            app(RemovesTeamMembers::class)->remove(
-                Auth::user(),
-                Team::find($user->current_team_id),
-                Jetstream::findUserByIdOrFail($user->id)
-            );
+            if ($user->current_team_id != null) {
+                app(RemovesTeamMembers::class)->remove(
+                    Auth::user(),
+                    Team::find($user->current_team_id),
+                    Jetstream::findUserByIdOrFail($user->id)
+                );
+            }
+
 
             app(AddsTeamMembers::class)->add(
                 $this->name,
@@ -74,8 +83,6 @@ class EditUser extends Component
             );
         }
 
-        $user['role'] = $this->role;
-        $user['current_team_id'] = $this->enterpriseId;
         $user->save();
 
         $this->emit('refreshParent');

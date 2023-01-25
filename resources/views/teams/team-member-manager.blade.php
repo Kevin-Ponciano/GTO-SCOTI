@@ -1,11 +1,3 @@
-@php
-    use App\Models\User;
-    foreach($team->users as $user)
-    {
-        $user->role = $user->membership->role;
-        $user->save();
-    }
-@endphp
 <div>
     @if ($team->userHasPermission(Auth::user(), 'manager'))
         <x-jet-section-border/>
@@ -29,23 +21,24 @@
                     </div>
 
                     <!-- Member Email -->
-{{--                    <div class="col-span-6 sm:col-span-4">--}}
-{{--                        <x-jet-label for="email" value="{{ __('Email') }}"/>--}}
-{{--                        <select id="email" class="mt-1 block w-full" wire:model.defer="addTeamMemberForm.email">--}}
-{{--                            @php($users = User::where('current_team_id',null)->get())--}}
-{{--                            <option class="text-muted" value="" disabled selected><span>Selecione um membro</span>--}}
-{{--                            </option>--}}
-{{--                            @foreach($users as $user)--}}
-{{--                                <option value="{{$user->email}}">{{$user->name}}</option>--}}
-{{--                            @endforeach--}}
-{{--                        </select>--}}
-{{--                        <x-jet-input-error for="email" class="mt-2"/>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="col-span-6 sm:col-span-4">--}}
+                    {{--                        <x-jet-label for="email" value="{{ __('Email') }}"/>--}}
+                    {{--                        <select id="email" class="mt-1 block w-full" wire:model.defer="addTeamMemberForm.email">--}}
+                    {{--                            @php($users = User::where('current_team_id',null)->get())--}}
+                    {{--                            <option class="text-muted" value="" disabled selected><span>Selecione um membro</span>--}}
+                    {{--                            </option>--}}
+                    {{--                            @foreach($users as $user)--}}
+                    {{--                                <option value="{{$user->email}}">{{$user->name}}</option>--}}
+                    {{--                            @endforeach--}}
+                    {{--                        </select>--}}
+                    {{--                        <x-jet-input-error for="email" class="mt-2"/>--}}
+                    {{--                    </div>--}}
 
                     <div class="col-span-6 sm:col-span-4">
-                        <x-jet-label for="email" value="{{ __('Email') }}" />
-                        <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="addTeamMemberForm.email" />
-                        <x-jet-input-error for="email" class="mt-2" />
+                        <x-jet-label for="email" value="{{ __('Email') }}"/>
+                        <x-jet-input id="email" type="email" class="mt-1 block w-full"
+                                     wire:model.defer="addTeamMemberForm.email"/>
+                        <x-jet-input-error for="email" class="mt-2"/>
                     </div>
 
                     <!-- Role -->
@@ -157,7 +150,7 @@
                                 <div class="text-gray-600">{{ $invitation->email }}</div>
 
                                 <div class="flex items-center">
-                                    @if (Gate::check('removeTeamMember', $team))
+                                    @if ($team->userHasPermission(Auth::user(), 'manager'))
                                         <!-- Cancel Team Invitation -->
                                         <button class="cursor-pointer ml-6 text-sm text-red-500 focus:outline-none"
                                                 wire:click="cancelTeamInvitation({{ $invitation->id }})">
