@@ -12,6 +12,7 @@ use Laravel\Jetstream\Events\InvitingTeamMember;
 use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\Mail\TeamInvitation;
 use Laravel\Jetstream\Rules\Role;
+use App\Models\User;
 
 class InviteTeamMember implements InvitesTeamMembers
 {
@@ -56,7 +57,7 @@ class InviteTeamMember implements InvitesTeamMembers
         ], $this->rules($team), [
             'email.unique' => __('This user has already been invited to the team.'),
         ])->after(
-            $this->ensureUserIsNotAlreadyOnTeam($team, $email)
+            $this->ensuringThatTheUserHasNoTeam($email)
         )->validateWithBag('addTeamMember');
     }
 
@@ -94,5 +95,27 @@ class InviteTeamMember implements InvitesTeamMembers
                 __('This user already belongs to the team.')
             );
         };
+    }
+
+    protected function ensuringThatTheUserHasNoTeam(string $email)
+    {
+        return function ($validator) use ($email) {
+            $validator->errors()->addIf(
+                $this->userExist($email),
+                'email',
+                __('Este usuário já pertence à uma empresa.')
+            );
+        };
+    }
+
+    private function userExist(string $email){
+        $user = User::where('email','=',$email)->first();
+        if($user == null){
+            return false;
+        }elseif($user->teams->count() == 0){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

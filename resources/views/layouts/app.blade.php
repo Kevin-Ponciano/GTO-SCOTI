@@ -46,7 +46,7 @@
 @stack('modals')
 @php
     if (Auth::user()->currentTeam==null){
-         abort(402);
+         abort(406);
     }
     $isAdmin = Auth::user()->hasTeamRole(Auth::user()->currentTeam,'admin');
     $isManager = Auth::user()->hasTeamRole(Auth::user()->currentTeam,'manager');
@@ -273,7 +273,7 @@
     </div>
 
     <footer class="main-footer" style="font-size: 12px">
-        <strong>Copyright &copy; 2022 <a href="#">GTO - Gestão de Tarefas Online</a> - </strong>
+        <strong>Copyright &copy; 2022 <a href="https://github.com/Kevin-Ponciano/GTO-LARAVEL">GTO - Gestão de Tarefas Online</a> - </strong>
         Todos os direitos reservados.
         <div class="float-right d-none d-sm-inline-block">
             <b>Versão</b> 0.4.1

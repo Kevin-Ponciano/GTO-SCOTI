@@ -1,8 +1,9 @@
 <x-guest-layout>
     <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+        <div class="card-header text-center">
+                <a href="#" class="h1"><b>GTO</b></a>
+                <p>Gestão de Tarefas Online</p>
+            </div>
 
         <x-jet-validation-errors class="mb-4" />
 

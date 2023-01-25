@@ -29,19 +29,23 @@
                     </div>
 
                     <!-- Member Email -->
+{{--                    <div class="col-span-6 sm:col-span-4">--}}
+{{--                        <x-jet-label for="email" value="{{ __('Email') }}"/>--}}
+{{--                        <select id="email" class="mt-1 block w-full" wire:model.defer="addTeamMemberForm.email">--}}
+{{--                            @php($users = User::where('current_team_id',null)->get())--}}
+{{--                            <option class="text-muted" value="" disabled selected><span>Selecione um membro</span>--}}
+{{--                            </option>--}}
+{{--                            @foreach($users as $user)--}}
+{{--                                <option value="{{$user->email}}">{{$user->name}}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                        <x-jet-input-error for="email" class="mt-2"/>--}}
+{{--                    </div>--}}
+
                     <div class="col-span-6 sm:col-span-4">
-                        <x-jet-label for="email" value="{{ __('Email') }}"/>
-
-                        <select id="email" class="mt-1 block w-full" wire:model.defer="addTeamMemberForm.email">
-                            @php($users = User::where('current_team_id',null)->get())
-                            <option class="text-muted" value="" disabled selected><span>Selecione um membro</span>
-                            </option>
-                            @foreach($users as $user)
-                                <option value="{{$user->email}}">{{$user->name}}</option>
-                            @endforeach
-                        </select>
-
-                        <x-jet-input-error for="email" class="mt-2"/>
+                        <x-jet-label for="email" value="{{ __('Email') }}" />
+                        <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="addTeamMemberForm.email" />
+                        <x-jet-input-error for="email" class="mt-2" />
                     </div>
 
                     <!-- Role -->

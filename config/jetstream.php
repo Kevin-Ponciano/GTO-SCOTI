@@ -58,10 +58,10 @@ return [
     */
 
     'features' => [
-        // Features::termsAndPrivacyPolicy(),
+        Features::termsAndPrivacyPolicy(),
         Features::profilePhotos(),
         // Features::api(),
-        Features::teams(['invitations' => false]),
+        Features::teams(['invitations' => true]),
         // Features::accountDeletion(),
     ],
 

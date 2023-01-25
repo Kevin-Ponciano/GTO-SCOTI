@@ -36,7 +36,6 @@ Route::middleware([
     Route::get('tarefas/{task_id}', TaskDetail::class)->name('task_detail');
 
     Route::get('enterprise', Enterprise::class)->name('enterprise');
-
     Route::get('users', Users::class)->name('users');
 
     Route::get('/navi', function () {
