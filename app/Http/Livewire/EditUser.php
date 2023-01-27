@@ -38,14 +38,14 @@ class EditUser extends Component
 
         $this->name = $this->user->name;
 
-        if($this->user->current_team_id){
+        if ($this->user->current_team_id) {
             $this->enterpriseId = $this->user->current_team_id;
             $this->role = $this->user->userRole();
-        }else{
+        } else {
             $this->enterpriseId = Team::first()->id;
-            $this->role = 'employer';
+            $this->role = $this->roles = app(TeamMemberManager::class)->getRolesProperty()[0]->key;
         }
-        debug($this->enterpriseId);
+
     }
 
     /**
@@ -99,6 +99,7 @@ class EditUser extends Component
     {
         $this->roles = app(TeamMemberManager::class)->getRolesProperty();
         $this->enterprises = Team::all();
+
 
         return view('livewire.edit-user');
     }

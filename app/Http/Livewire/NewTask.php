@@ -4,22 +4,41 @@ namespace App\Http\Livewire;
 
 use App\Models\Task;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class NewTask extends Component
 {
-    // priority não esta inicializando com valor 'Baixa' todo list
-    public $tasks, $title, $description, $priority = 'Baixa', $date_create, $deadline, $situation, $user_id, $team_id, $task_id;
+    public $tasks, $title, $description, $priority = 'Baixa', $date_create, $deadline, $situation;
+    public $userId, $teamId, $taskId, $users;
 
-    public function mount()
+    protected $rules = [
+        'title' => 'required',
+        'deadline' => 'required',
+    ];
+
+    /**
+     * Inicializa a página com o input Responsavel ja preenchido por quem está abrindo a tarefa
+     * e filtra para que a lista de responsaveis só apareça os membros da mesma equipe.
+     * @return void
+     */
+    public function mount(): void
     {
-        $this->user_id = Auth::user()->id;
+        $this->userId = Auth::user()->id;
+        $this->users = User::where('current_team_id', Auth::user()->current_team_id)->get();
     }
 
-    public function store()
+    /**
+     * @return void
+     */
+    public function store(): void
     {
+        $this->dispatchBrowserEvent('dateTodayRefresh');
+        $this->validate();
+
         Task::create([
             'title' => $this->title,
             'description' => $this->description,
@@ -27,7 +46,7 @@ class NewTask extends Component
             'date_create' => date('Y-m-d'),
             'deadline' => $this->deadline,
             'situation' => 'open',
-            'user_id' => $this->user_id,
+            'user_id' => $this->userId,
             'team_id' => Auth::user()->current_team_id,
         ]);
 
@@ -37,21 +56,24 @@ class NewTask extends Component
 
         $this->tasks = User::find(Auth::user()->id)->tasks;
         foreach ($this->tasks as $task) {
-            $this->task_id = $task->id;
+            $this->taskId = $task->id;
         }
 
         $this->resetInputFields();
     }
 
-    private function resetInputFields()
+    /**
+     * @return void
+     */
+    private function resetInputFields(): void
     {
         $this->title = null;
         $this->description = null;
-        $this->priority = null;
+        $this->priority = 'Baixa';
         $this->deadline = null;
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         return view('livewire.new-task');
     }

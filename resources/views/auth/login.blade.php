@@ -14,7 +14,7 @@
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Faça login para iniciar sua sessão</p>
-
+                <x-jet-validation-errors class="mb-4"/>
                 <form action="{{ route('login') }}" method="post">
                     @csrf
 

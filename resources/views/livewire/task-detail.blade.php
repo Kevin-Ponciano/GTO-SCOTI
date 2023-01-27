@@ -47,7 +47,7 @@
                         <br>
                         <div class="text-muted">
                             <p class="text-sm">Responsável
-                                <b class="d-block">{{$user_name}}</b>
+                                <b class="d-block">{{$userName}}</b>
                             </p>
                             {{--                        <p class="text-sm">Empresa--}}
                             {{--                            <b class="d-block">Tony Chicken</b>--}}

@@ -16,8 +16,13 @@ class NewComment extends Component
         $this->user_id = Auth::user()->id;
     }
 
+    protected $rules = [
+        'comment' => 'required'
+    ];
     public function store()
     {
+        $this->validate();
+
         Comment::create([
             'comment' => $this->comment,
             'date_time_create' => date('Y-m-d H:i:s'),
