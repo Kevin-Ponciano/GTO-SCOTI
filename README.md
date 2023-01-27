@@ -15,9 +15,9 @@ Um gerenciador de tarefas online, podendo criar suas equipes e gerenciar-las, on
 ## Demostração
 https://www.gto.kevinp.studio/
 
-**user:** teste@teste
+**user:** admin@admin
 
-**password:** 1234
+**password:** ponciano
 
 ## Screenshots
 <img src="https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131058.png" alt="App Screenshot" width="500"/><br/>
