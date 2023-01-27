@@ -26,6 +26,25 @@ class Users extends Component
         'refreshParent' => '$refresh'
     ];
 
+
+    public static function get_enterprise($enterpriseId)
+    {
+        if ($enterpriseId == null) {
+            return 'Não Registrado';
+        }
+
+        return Team::find($enterpriseId)->name;
+    }
+
+
+     public static function getRole($role)
+    {
+        if ($role == null) {
+            return '-';
+        }
+        return $role->name;
+    }
+
     /**
      * @return Application|Factory|View
      */

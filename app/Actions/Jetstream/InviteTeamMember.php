@@ -2,18 +2,17 @@
 
 namespace App\Actions\Jetstream;
 
+use App\Mail\TeamInvitation;
+use App\Models\User;
 use Closure;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Jetstream\Contracts\InvitesTeamMembers;
 use Laravel\Jetstream\Events\InvitingTeamMember;
 use Laravel\Jetstream\Jetstream;
-use Laravel\Jetstream\Mail\TeamInvitation;
 use Laravel\Jetstream\Rules\Role;
-use App\Models\User;
 
 class InviteTeamMember implements InvitesTeamMembers
 {

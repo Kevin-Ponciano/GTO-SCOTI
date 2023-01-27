@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegisteredUserController;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Enterprise;
 use App\Http\Livewire\TaskDetail;
@@ -38,9 +39,16 @@ Route::middleware([
     Route::get('enterprise', Enterprise::class)->name('enterprise');
     Route::get('users', Users::class)->name('users');
 
-    Route::get('/navi', function () {
+    Route::get('navi', function () {
         return view('navigation-menu');
     });
-
-
 });
+
+
+Route::get('register/{email}', [RegisteredUserController::class, 'create'])
+    ->middleware(['guest:' . config('fortify.guard')])
+    ->name('registerWithEmail');
+
+Route::post('register', [RegisteredUserController::class, 'store'])
+    ->middleware(['guest:' . config('fortify.guard')]);
+

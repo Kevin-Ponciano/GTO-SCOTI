@@ -26,6 +26,7 @@ class Dashboard extends Component
             ->where('team_id', Auth::user()->current_team_id)
             ->count();
 
+
         return view('livewire.dashboard');
     }
 }
