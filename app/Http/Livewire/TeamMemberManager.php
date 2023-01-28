@@ -76,10 +76,10 @@ class TeamMemberManager extends Component
      * @var array
      */
     public $addTeamMemberForm = [
-        'email' => '',
+        'email' => ' ',
         'role' => '',
     ];
-
+    public $selectEmail = ' ';
     /**
      * Mount the component.
      *
@@ -149,7 +149,7 @@ class TeamMemberManager extends Component
      * @param int $userId
      * @return void
      */
-    public function manageRole($userId)
+    public function manageRole(int $userId): void
     {
         $this->currentlyManagingRole = true;
         $this->managingRoleFor = Jetstream::findUserByIdOrFail($userId);
@@ -181,7 +181,7 @@ class TeamMemberManager extends Component
      *
      * @return void
      */
-    public function stopManagingRole()
+    public function stopManagingRole(): void
     {
         $this->currentlyManagingRole = false;
     }
@@ -192,7 +192,7 @@ class TeamMemberManager extends Component
      * @param RemovesTeamMembers $remover
      * @return Application|RedirectResponse|Redirector
      */
-    public function leaveTeam(RemovesTeamMembers $remover)
+    public function leaveTeam(RemovesTeamMembers $remover): Redirector|RedirectResponse|Application
     {
         $remover->remove(
             $this->user,
@@ -213,7 +213,7 @@ class TeamMemberManager extends Component
      * @param int $userId
      * @return void
      */
-    public function confirmTeamMemberRemoval($userId): void
+    public function confirmTeamMemberRemoval(int $userId): void
     {
         $this->confirmingTeamMemberRemoval = true;
 

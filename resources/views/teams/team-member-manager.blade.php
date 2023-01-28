@@ -1,4 +1,7 @@
 <div>
+    @php
+        use App\Models\User
+    @endphp
     @if ($team->userHasPermission(Auth::user(), 'manager'))
         <x-jet-section-border/>
 
@@ -21,24 +24,28 @@
                     </div>
 
                     <!-- Member Email -->
-                    {{--                    <div class="col-span-6 sm:col-span-4">--}}
-                    {{--                        <x-jet-label for="email" value="{{ __('Email') }}"/>--}}
-                    {{--                        <select id="email" class="mt-1 block w-full" wire:model.defer="addTeamMemberForm.email">--}}
-                    {{--                            @php($users = User::where('current_team_id',null)->get())--}}
-                    {{--                            <option class="text-muted" value="" disabled selected><span>Selecione um membro</span>--}}
-                    {{--                            </option>--}}
-                    {{--                            @foreach($users as $user)--}}
-                    {{--                                <option value="{{$user->email}}">{{$user->name}}</option>--}}
-                    {{--                            @endforeach--}}
-                    {{--                        </select>--}}
-                    {{--                        <x-jet-input-error for="email" class="mt-2"/>--}}
-                    {{--                    </div>--}}
-
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="email" value="{{ __('Email') }}"/>
-                        <x-jet-input id="email" type="email" class="mt-1 block w-full"
-                                     wire:model.defer="addTeamMemberForm.email"/>
+                        <x-jet-input id="email" @endif type="email" class="mt-1 block w-full"
+                                     wire:model="addTeamMemberForm.email"
+                                     list="emailsList"
+                        />
                         <x-jet-input-error for="email" class="mt-2"/>
+                        <datalist id="emailsList" class="select2-blue">
+                        @php
+                            if(!$team->userHasPermission(Auth::user(), 'admin'))
+                                $users = User::where('current_team_id',null)
+                                        ->where('email','like',$addTeamMemberForm['email'].'%')
+                                        ->get();
+                            elseif($team->userHasPermission(Auth::user(), 'admin')){
+                                $users = User::where('email','like',$addTeamMemberForm['email'].'%')
+                                        ->get();
+                            }
+                        @endphp
+                        @foreach($users as $user)
+                            <option value="{{$user->email}}">{{$user->email}}</option>
+                        @endforeach
+                        </datalist>
                     </div>
 
                     <!-- Role -->

@@ -31,7 +31,7 @@ class EditUser extends Component
      * @param $userId
      * @return void
      */
-    public function edit($userId)
+    public function edit($userId): void
     {
         $this->user = User::find($userId);
 
