@@ -201,6 +201,7 @@ return [
         'text' => 'texto',
         'time' => 'hora',
         'title' => 'título',
+        'deadline' => 'prazo',
         'username' => 'usuário',
         'year' => 'ano',
         'description' => 'descrição',

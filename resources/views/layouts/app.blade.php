@@ -290,7 +290,6 @@
 <script src={{asset("adminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
 <script src={{asset("adminLTE/dist/js/adminlte.js")}}></script>
 <script src={{asset("adminLTE/plugins/sweetalert2/sweetalert2.min.js")}}></script>
-<script src={{asset('assets/js/ajaxPage.js')}}></script>
 <script src={{asset('//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js')}}></script>
 
 

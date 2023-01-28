@@ -15,6 +15,7 @@
             <excludedPath local="true" path="$PROJECT_DIR$/storage" />
             <excludedPath local="true" path="$PROJECT_DIR$/public/adminLTE" />
             <excludedPath local="true" path="$PROJECT_DIR$/.env.example" />
+            <excludedPath local="true" path="$PROJECT_DIR$/tests" />
           </excludedPaths>
         </serverdata>
       </paths>
