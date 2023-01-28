@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Http\Livewire\CreateTeamForm;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Jetstream\Http\Livewire\CreateTeamForm;
 use Livewire\Livewire;
 use Tests\TestCase;
 

@@ -21,7 +21,7 @@ class AddTeamMember implements AddsTeamMembers
      * @param string|null $role
      * @return void
      */
-    public function add($user, $team, string $email, string $role = null)
+    public function add($user, $team, string $email, string $role = null): void
     {
         #Gate::forUser($user)->authorize('addTeamMember', $team);
 
@@ -54,7 +54,7 @@ class AddTeamMember implements AddsTeamMembers
      * @param string|null $role
      * @return void
      */
-    protected function validate($team, string $email, ?string $role)
+    protected function validate(mixed $team, string $email, ?string $role): void
     {
         Validator::make([
             'email' => $email,
@@ -71,7 +71,7 @@ class AddTeamMember implements AddsTeamMembers
      *
      * @return array
      */
-    protected function rules()
+    protected function rules(): array
     {
         return array_filter([
             'email' => ['required', 'email', 'exists:users'],
@@ -88,7 +88,7 @@ class AddTeamMember implements AddsTeamMembers
      * @param string $email
      * @return Closure
      */
-    protected function ensureUserIsNotAlreadyOnTeam($team, string $email)
+    protected function ensureUserIsNotAlreadyOnTeam(mixed $team, string $email): Closure
     {
         return function ($validator) use ($team, $email) {
             $validator->errors()->addIf(

@@ -8,8 +8,6 @@ use Auth;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\HigherOrderCollectionProxy;
-use Laravel\Jetstream\Http\Livewire\TeamMemberManager;
 use Livewire\Component;
 
 class Users extends Component
