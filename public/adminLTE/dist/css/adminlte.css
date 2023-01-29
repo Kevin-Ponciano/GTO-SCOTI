@@ -7173,7 +7173,7 @@ button.bg-dark:focus {
 }
 
 .border {
-    border: 1px solid #dee2e6 !important;
+    border: 1px solid #dee2e6;
 }
 
 .border-top {
@@ -7277,7 +7277,7 @@ button.bg-dark:focus {
 }
 
 .rounded-lg {
-    border-radius: 0.3rem !important;
+    border-radius: 0.3rem;
 }
 
 .rounded-circle {
@@ -8873,7 +8873,7 @@ button.bg-dark:focus {
 }
 
 .p-2 {
-    padding: 0.5rem !important;
+    padding: 0.5rem;
 }
 
 .pt-2,
@@ -46660,7 +46660,7 @@ blockquote.quote-gray-dark h6 {
 }
 
 .text-sm {
-    font-size: 0.875rem !important;
+    font-size: 0.875rem;
 }
 
 .text-md {

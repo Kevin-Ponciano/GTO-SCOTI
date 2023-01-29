@@ -13,21 +13,22 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <!-- STYLES -->
+
     <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/all.min.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/v4-shims.min.css")}}>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.min.css")}}>
+    <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/summernote/summernote-bs4.min.css")}}>
     <link rel="stylesheet" href="{{asset("adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css")}}">
-    <link rel="stylesheet" href="{{asset("//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css")}}">
+{{--    <link rel="stylesheet" href="{{asset("//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css")}}">--}}
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
     <script src={{asset("https://code.jquery.com/jquery-3.6.1.js")}}></script>
 
+
     <!-- Tallwind css -->
-    <script src="{{ asset('assets/js/app.js') }}" defer></script>
-    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/flowbite-v1.6.3.css') }}" rel="stylesheet">
 
     <style>
         .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
@@ -150,7 +151,7 @@
     <a href="#" class="brand-link">
         <img src="{{asset('adminLTE/dist/img/logo.png')}}"
              alt="Logo" class="brand-image img-circle elevation-3"
-             style="opacity: .8">
+             style="opacity: .8;">
         <span class="brand-text font-weight-light text-md">{{config('app.name')}}</span>
     </a>
 
@@ -160,7 +161,8 @@
             <a href="{{route('profile.show')}}" class="brand-link" style="width: 234px">
                 <img src="{{ Auth::user()->profile_photo_url }}"
                      class="h-10 w-10 rounded-full object-cover"
-                     alt="{{ Auth::user()->name }}">
+                     alt="{{ Auth::user()->name }}"
+                     style="display: inline;">
                 <span class="brand-text font-weight-light text-md"
                       style="padding-left: 7px">
                         {{ Auth::user()->name }}
@@ -241,8 +243,8 @@
     </div>
 </aside>
 
-<div class="content-wrapper">
-    <main class="content" id="main">
+<div class="content-wrapper py-2">
+    <main class="content">
         {{ $slot }}
     </main>
 </div>
@@ -291,6 +293,8 @@
 <script src={{asset("adminLTE/dist/js/adminlte.js")}}></script>
 <script src={{asset("adminLTE/plugins/sweetalert2/sweetalert2.min.js")}}></script>
 <script src={{asset('//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js')}}></script>
+<script src="{{asset('assets/js/app.js') }}" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
 
 
 <script>
@@ -300,6 +304,7 @@
         $('#new_user_modal').modal('hide')
         $('#edit_user_modal').modal('hide')
     })
+
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -333,6 +338,11 @@
 @if (session()->has('finished'))
     <script>
         finished_task('{{session('finished')}}')
+    </script>
+@endif
+@if (session('status'))
+    <script>
+        success_info('{{session('status')}}')
     </script>
 @endif
 </body>

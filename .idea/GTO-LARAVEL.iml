@@ -146,5 +146,8 @@
     <orderEntry type="library" name="ionicons" level="application" />
     <orderEntry type="library" name="ionicons" level="application" />
     <orderEntry type="library" name="bootstrap-icons" level="application" />
+    <orderEntry type="library" name="flowbite" level="application" />
+    <orderEntry type="library" name="bootstrap-icons" level="application" />
+    <orderEntry type="library" name="ionicons" level="application" />
   </component>
 </module>

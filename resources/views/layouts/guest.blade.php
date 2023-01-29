@@ -17,7 +17,7 @@
 
         <!-- Tallwind css -->
         <script src="{{ asset('assets/js/app.js') }}" defer></script>
-        <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/tailwind-v3.1.8.css') }}" rel="stylesheet">
 
     </head>
     <body>

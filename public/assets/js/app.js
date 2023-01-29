@@ -22604,7 +22604,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
 
         /***/ "./resources/css/app.css":
         /*!*******************************!*\
-  !*** ./resources/css/app.css ***!
+  !*** ./resources/css/tailwind-v3.1.8.css ***!
   \*******************************/
         /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 

@@ -5,7 +5,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/css/app.css',
+                'resources/css/tailwind-v3.1.8.css',
                 'resources/js/app.js',
             ],
             refresh: [

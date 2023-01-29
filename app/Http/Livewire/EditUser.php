@@ -16,7 +16,7 @@ use Livewire\Component;
 
 class EditUser extends Component
 {
-    public $user, $name, $role, $roles, $enterpriseId, $enterprises;
+    public $user, $name, $email, $profile_photo_url, $role, $roleName, $roles, $enterpriseId, $enterprises;
 
     /**
      * Ao escutar 'edit' executa a função edit()
@@ -36,6 +36,9 @@ class EditUser extends Component
         $this->user = User::find($userId);
 
         $this->name = $this->user->name;
+        $this->email = $this->user->email;
+        $this->roleName = Users::getRole($this->user->teamRole($this->user->currentTeam));
+        $this->profile_photo_url = $this->user->profile_photo_url;
 
         if ($this->user->current_team_id) {
             $this->enterpriseId = $this->user->current_team_id;
@@ -53,8 +56,6 @@ class EditUser extends Component
      */
     public function store(User $user): void
     {
-        $user['name'] = $this->name;
-
         // Só atualiza o TEAM caso aja alteração no input
         if ($this->enterpriseId != $user['current_team_id']) {
             if ($user->current_team_id != null) {
@@ -82,13 +83,21 @@ class EditUser extends Component
             );
         }
 
-        $user->save();
-
         $this->emit('refreshParent');
         $this->dispatchBrowserEvent('closeModal');
         session()->flash('success', '\nUsuário ' . $this->name . ' alterado\n\n');
 
-        app(NewUser::class)->resetInputFields();
+        $this->resetInputFields();
+    }
+
+    /**
+     * @return void
+     */
+    public function resetInputFields(): void
+    {
+        $this->name = null;
+        $this->email = null;
+
     }
 
     /**
