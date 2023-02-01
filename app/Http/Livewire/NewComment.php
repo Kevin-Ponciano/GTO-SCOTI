@@ -38,7 +38,7 @@ class NewComment extends Component
         $this->resetInputFields();
     }
 
-    private function resetInputFields()
+    public function resetInputFields()
     {
         $this->comment = null;
         $this->private = false;

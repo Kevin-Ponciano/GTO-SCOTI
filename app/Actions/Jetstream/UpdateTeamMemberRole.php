@@ -33,6 +33,11 @@ class UpdateTeamMemberRole
             'role' => $role,
         ]);
 
+        $teamMember =  Jetstream::findUserByIdOrFail($teamMemberId);
+        $teamMember['role'] = $role;
+        $teamMember->save();
+
+
         TeamMemberUpdated::dispatch($team->fresh(), Jetstream::findUserByIdOrFail($teamMemberId));
     }
 }

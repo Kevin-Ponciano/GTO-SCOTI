@@ -5,12 +5,22 @@ namespace App\Http\Livewire;
 use App\Models\Task;
 use Auth;
 use Carbon\Carbon;
+use App\Models\User;
 use Livewire\Component;
+use Livewire\withPagination;
+use App\Http\Livewire\Route;
 
 class Tasks extends Component
 {
+    use withPagination;
+
+    public $search, $sortField = 'id', $sortDirection = 'desc', $userFilter, $priorityFilter, $statusFilter;
+
+    protected $queryString = ['userFilter','statusFilter'];
+
     protected $listeners = [
-        'refreshParent' => '$refresh'
+        'refreshParent' => '$refresh',
+        'resetSearch'
     ];
 
     public static function status_controller()
@@ -42,17 +52,60 @@ class Tasks extends Component
         }
     }
 
-    public static function open()
+    public static function getTaskCreator($userId)
     {
-        return Task::all()->where('situation', 'open')
-            ->where('team_id', Auth::user()->current_team_id);
+        $user = User::find($userId);
+        if ($user == null) {
+            return 'Usuário deletado';
+        } else {
+            return $user->name;
+        }
+    }
+
+    public function sortBy($field)
+    {
+        $this->sortDirection = $this->sortField === $field
+            ? $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc'
+            : 'asc';
+
+        $this->sortField = $field;
+    }
+
+    public function applyFilter(){}
+
+    public function resetFilter()
+    {
+        $this->userFilter = '';
+        $this->priorityFilter = '';
+        $this->statusFilter = '';
+
     }
 
     public function render()
     {
-        $this->tasks = $this->open();
+        $tasks = Task::search('situation', 'open')
+            ->search('team_id', Auth::user()->current_team_id);
 
+        if ($this->userFilter) {
+            $tasks = $tasks->where('user_id', $this->userFilter);
+        }
+        if ($this->priorityFilter) {
+            $tasks = $tasks->where('priority', $this->priorityFilter);
+        }
+        if ($this->statusFilter) {
+            $tasks = $tasks->where('status', 'like', '%' . $this->statusFilter);
+        }
 
-        return view('livewire.task');
+        return view('livewire.tasks', [
+            'tasks' => $tasks
+                ->search('title', $this->search)
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->paginate(10)
+        ]);
+    }
+
+    public function resetSearch()
+    {
+        $this->search = '';
     }
 }

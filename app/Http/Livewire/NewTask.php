@@ -51,6 +51,7 @@ class NewTask extends Component
         ]);
 
         $this->emit('refreshParent');
+        $this->emit('resetSearch');
         $this->dispatchBrowserEvent('closeModal');
         session()->flash('success', '\nTarefa Criada com Sucesso\n');
 
@@ -65,8 +66,9 @@ class NewTask extends Component
     /**
      * @return void
      */
-    private function resetInputFields(): void
+    public function resetInputFields(): void
     {
+        $this->resetValidation();
         $this->title = null;
         $this->description = null;
         $this->priority = 'Baixa';

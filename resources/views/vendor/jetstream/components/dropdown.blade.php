@@ -41,7 +41,7 @@ switch ($width) {
             style="display: none; {{$style}}"
 {{--            @click="open = false"--}}
     >
-        <div class="rounded-md ring-1 ring-black ring-opacity-5 {{ $contentClasses }}">
+        <div class="rounded-md ring-1 ring-gray-300 {{ $contentClasses }}">
             {{ $content }}
         </div>
     </div>

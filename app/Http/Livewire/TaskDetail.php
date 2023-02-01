@@ -13,7 +13,7 @@ use Livewire\Component;
 
 class TaskDetail extends Component
 {
-    public $task_id, $comments, $task, $users, $userName;
+    public $task_id, $comments, $task, $userName;
     /**
      * @var string[]
      */
@@ -50,9 +50,9 @@ class TaskDetail extends Component
     {
         $this->comments = Task::find($this->task_id)->comments->sortByDesc('date_time_create');
         $this->task = Task::find($this->task_id);
-        $this->users = User::all();
+        $users = User::all();
 
-        foreach ($this->users as $user) {
+        foreach ($users as $user) {
             if ($user->id == $this->task->user_id)
                 $this->userName = $user->name;
             foreach ($this->comments as $comment)

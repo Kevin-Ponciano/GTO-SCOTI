@@ -32,7 +32,7 @@ Route::middleware([
         return view('profile.show');
     })->name('profile');
 
-    Route::get('minhas-tarefas/', UserTask::class)->name('user-tasks');
+
     Route::get('tarefas/', Tasks::class)->name('tasks');
     Route::get('tarefas/{task_id}', TaskDetail::class)->name('task_detail');
 
@@ -42,8 +42,8 @@ Route::middleware([
         return view('navigation-menu');
     });
 
-    Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
-        ->name('password.email');
+    Route::post('redefine-password/', [PasswordResetLinkController::class, 'store'])
+        ->name('redefine-password');
 });
 
 
@@ -53,4 +53,8 @@ Route::get('register/{email}', [RegisteredUserController::class, 'create'])
 
 Route::post('register', [RegisteredUserController::class, 'store'])
     ->middleware(['guest:' . config('fortify.guard')]);
+
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+            ->middleware(['guest:'.config('fortify.guard')])
+            ->name('password.email');
 

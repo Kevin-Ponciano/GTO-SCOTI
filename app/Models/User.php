@@ -63,20 +63,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class);
     }
-
-    /**
-     * Verifica se o usuário possui um time e então retorna sua função
-     *
-     * @return string|null
-     */
-    public function userRole()
-    {
-        if ($this->teams->count() == 0) {
-            return null;
-        } elseif ($this->teams->count() == 1) {
-            return $this->teams[0]->membership->role;
-        } else {
-            return abort(500);
-        }
-    }
 }

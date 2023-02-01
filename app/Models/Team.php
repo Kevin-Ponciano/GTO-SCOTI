@@ -41,4 +41,23 @@ class Team extends JetstreamTeam
         'updated' => TeamUpdated::class,
         'deleted' => TeamDeleted::class,
     ];
+
+    /**
+     * Remove the given user from the team.
+     *
+     * @param User $user
+     * @return void
+     */
+    public function removeUser($user): void
+    {
+        if ($user->current_team_id === $this->id) {
+            $user->forceFill([
+                'current_team_id' => null,
+                'role' => 'null'
+            ])->save();
+        }
+
+        $this->users()->detach($user);
+    }
+
 }

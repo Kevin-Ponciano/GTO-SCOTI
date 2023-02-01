@@ -9,21 +9,24 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Users extends Component
 {
-    public $users, $enterprise;
+    use withPagination;
 
+    public $search, $sortField = 'id', $sortDirection = 'desc';
 
+    // protected $queryString = ['sortField', 'sortDirection'];
     /**
      * Atualiza a pagina ao escutar o comando
      *
      * @var string[]
      */
     protected $listeners = [
-        'refreshParent' => '$refresh'
+        'refreshParent' => '$refresh',
+        'resetSearch'
     ];
-
 
     public static function get_enterprise($enterpriseId)
     {
@@ -34,13 +37,21 @@ class Users extends Component
         return Team::find($enterpriseId)->name;
     }
 
-
-     public static function getRole($role)
+    public static function getRole($role)
     {
         if ($role == null) {
             return '-';
         }
         return $role->name;
+    }
+
+    public function sortBy($field)
+    {
+        $this->sortDirection = $this->sortField === $field
+            ? $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc'
+            : 'asc';
+
+        $this->sortField = $field;
     }
 
     /**
@@ -50,29 +61,23 @@ class Users extends Component
     {
         if (!Auth::user()->teams[0]->userHasPermission(Auth::user(), 'manager')) {
             return view('errors.403');
+        } elseif (Auth::user()->teams[0]->userHasPermission(Auth::user(), 'admin')) {
+            $users = User::where('id', '!=', auth()->id());
+        } else {
+            $users = User::where('role', '!=', 'admin')
+                ->where('role', '!=', 'manager');
         }
 
-        $users = User::where('id', '!=', Auth::id())->get();
-        $array = array();
-        $i = 0;
+        return view('livewire.users', [
+            'users' => $users
+                ->search('email', $this->search)
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->paginate(10)
+        ]);
+    }
 
-        if (Auth::user()->teams[0]->userHasPermission(Auth::user(), 'admin')) {
-            foreach ($users as $user) {
-                if ($user->userRole() != 'admin') {
-                    $array[$i] = $user;
-                }
-                $i++;
-            }
-        }else{
-            foreach ($users as $user) {
-                if ($user->userRole() != 'admin' && $user->userRole() != 'manager') {
-                    $array[$i] = $user;
-                }
-                $i++;
-            }
-        }
-
-        $this->users = $array;
-        return view('livewire.users');
+    protected function resetSearch()
+    {
+        $this->search = '';
     }
 }

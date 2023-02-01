@@ -20,10 +20,6 @@ class TermsOfServiceController extends Controller
      */
     public function show(Request $request)
     {
-        $termsFile = Jetstream::localizedMarkdownPath('terms.md');
-
-        return view('terms', [
-            'terms' => Str::markdown(file_get_contents($termsFile)),
-        ]);
+        return view('terms-and-policy.terms');
     }
 }

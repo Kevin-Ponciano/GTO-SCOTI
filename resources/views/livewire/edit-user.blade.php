@@ -1,6 +1,4 @@
-@php
-    use App\Http\Livewire\Users;
-@endphp
+
 <div>
     <style>
         .gradient-custom {
@@ -24,12 +22,7 @@
             <h5>{{__($name)}}</h5>
             <p>{{$roleName}}</p>
 
-            <form method="POST" action="{{ route('password.email') }}">
-                @csrf
-                <input value="{{$email}}" name="email" hidden>
 
-                <button type="submit" class="btn btn-outline-dark font-extralight">Redefinir senha</button>
-            </form>
         </div>
         <div class="col-md-8">
             <div class="card-body p-4">
@@ -49,27 +42,26 @@
                 <hr class="mt-0 mb-1">
                 <div class="row pt-1">
                     <div class="col-6 mb-3">
-                        <select class="form-control"
+                        <select class="bg-gray-50 font-semibold border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 wire:model="enterpriseId">
                             @foreach($enterprises as $enterprise)
-                                <option value="{{$enterprise->id}}">{{$enterprise->name}}</option>
+                                <option class="text-gray-500" value="{{$enterprise->id}}">{{$enterprise->name}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-6 mb-3">
-                        <select class="form-control"
+                        <select class="bg-gray-50 font-semibold border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 wire:model="role">
                             @foreach($roles as $role)
-                                <option value="{{$role->key}}">{{$role->name}}</option>
+                                <option class="text-gray-500" value="{{$role->key}}">{{$role->name}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mx-auto">
-                        <button type="button"
-                                class="btn btn-outline-info"
+                        <x-button-blue
                                 wire:click="store({{$user}})">
                             Update
-                        </button>
+                        </x-button-blue>
                     </div>
                 </div>
             </div>

@@ -42,7 +42,7 @@ class EditUser extends Component
 
         if ($this->user->current_team_id) {
             $this->enterpriseId = $this->user->current_team_id;
-            $this->role = $this->user->userRole();
+            $this->role = $this->user->role;
         } else {
             $this->enterpriseId = Team::first()->id;
             $this->role = $this->roles = app(TeamMemberManager::class)->getRolesProperty()[0]->key;

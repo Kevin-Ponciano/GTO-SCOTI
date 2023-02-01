@@ -9,7 +9,7 @@
                 <div class="icon">
                     <i class="ion ion-person"></i>
                 </div>
-                <a href="{{route('user-tasks')}}" class="small-box-footer">Detalhes <i
+                <a href="{{url('tarefas?userFilter=1')}}" class="small-box-footer">Detalhes <i
                         class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
@@ -23,7 +23,7 @@
                 <div class="icon">
                     <i class="ion ion-clock"></i>
                 </div>
-                <a href="{{route('user-tasks')}}" class="small-box-footer">Detalhes <i
+                <a href="{{url('tarefas?userFilter=1&statusFilter=Expirado')}}" class="small-box-footer">Detalhes <i
                         class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>

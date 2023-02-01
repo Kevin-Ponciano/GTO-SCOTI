@@ -19,7 +19,6 @@
 {{--</section>--}}
 
 <div>
-    <br>
     <section class="content">
         <div class="card">
             <div class="card-header">
@@ -76,11 +75,17 @@
                         {{--                        </li>--}}
                         {{--                    </ul>--}}
                         <div class="text-start mt-5 mb-3">
-                            <button type="button" class="btn btn-sm btn-primary"
-                                    onclick="$('#modal_comment').modal('show')">Comentar
-                            </button>
-                            <button class="btn btn-sm btn-danger"
-                                    onclick="$('#finalize-confirm-modal').modal('show')">Finalizar</button>
+                            @if($task->status != 'Finalizada')
+                                <x-button-blue
+                                    class="text-xs"
+                                    onclick="$('#modal_comment').modal('show')">
+                                    {{__('Comment')}}
+                                </x-button-blue>
+                                <x-button-red type="button"
+                                              onclick="$('#finalize-confirm-modal').modal('show')">
+                                    {{__('Finalize')}}
+                                </x-button-red>
+                            @endif
                         </div>
                     </div>
                     <div class="col-12 col-md-12 col-lg-8 order-1 order-md-2">
@@ -91,7 +96,6 @@
                                         <span class="info-box-text text-center text-muted">Prioridade</span>
                                         <span
                                             class="info-box-number text-center text-muted mb-0">{{$task->priority}}</span>
-
                                     </div>
                                 </div>
                             </div>
@@ -110,9 +114,9 @@
                                             $task->deadline = Carbon::createFromFormat("Y-m-d", $task->deadline)->format("d/m/y");
                                             $task->date_create = Carbon::createFromFormat("Y-m-d", $task->date_create)->format("d/m/y");
                                         @endphp
-                                        <span
-                                            class="info-box-number text-center text-muted mb-0"><span
-                                                class="badge lg badge-{{$status_color}}">{{$task->status}}</span></span>
+                                        <span class="info-box-number text-center text-muted mb-0">
+                                            <span class="badge lg badge-{{$status_color}}">{{$task->status}}</span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -120,8 +124,9 @@
                                 <div class="info-box bg-light">
                                     <div class="info-box-content">
                                         <span class="info-box-text text-center text-muted">Criado - Prazo</span>
-                                        <span
-                                            class="info-box-number text-center text-muted mb-0">{{$task->date_create}} - {{$task->deadline}}</span>
+                                        <span class="info-box-number text-center text-muted mb-0">
+                                            {{$task->date_create}} - {{$task->deadline}}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +135,6 @@
                             <div class="col-12">
                                 <h3 class="text-muted py-1"><b>Comentários</b></h3>
                                 <div class="timeline">
-
                                     @foreach ($comments as $comment)
                                         @if ($comment->private == 1 && $comment->user_id == Auth::user()->id)
                                             @php
@@ -148,7 +152,7 @@
                                                                 $user = User::find($comment->user_id);
                                                             @endphp
                                                             <img class="h-10 w-10 rounded-full object-cover"
-                                                                 src="{{'/storage/'.$user->profile_photo_path}}"/>
+                                                                 src="{{$user->profile_photo_url}}"/>
                                                             <span class="username">
                                                                 <a href="#">{{$comment->user_name}}</a>
                                                             </span>
@@ -168,7 +172,6 @@
                                                 $comment_date = Carbon::createFromFormat("Y-m-d H:i:s", $comment->date_time_create)->format("d M. Y");
                                             @endphp
                                             <div>
-
                                                 <i class="fas fa-circle bg-dark"></i>
                                                 <div class="timeline-item">
                                                     <span class="time">{{$comment_time.' '}}<i class="fas fa-clock"></i><br>{{$comment_date}}</span>
@@ -178,11 +181,18 @@
                                                             @php
                                                                 $user = User::find($comment->user_id);
                                                             @endphp
-                                                            <img class="h-10 w-10 rounded-full object-cover"
-                                                                 src="{{'/storage/'.$user->profile_photo_path}}"/>
-                                                            <span class="username">
-                                                        <a href="#">{{$comment->user_name}}</a>
-                                                    </span>
+                                                            @if($user != null)
+                                                                <img class="h-10 w-10 rounded-full object-cover"
+                                                                 src="{{$user->profile_photo_url}}"/>
+                                                                <span class="username">
+                                                                <a href="#">{{$comment->user_name}}</a>
+                                                            </span>
+                                                            @else
+                                                                <img class="h-10 w-10 rounded-full object-cover"
+                                                                 src="{{asset('assets/images/peaple.png')}}"/>
+                                                                <span class="username">
+                                                                <a href="#">{{__('Deleted user')}}</a>
+                                                            @endif
                                                             <span class="description">comentou</span>
                                                         </div>
                                                     </div>
@@ -205,14 +215,7 @@
     <div class="modal fade" id="modal_comment" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title"><b>Adicionar Comentário</b></h6>
-                </div>
-                <div class="modal-body">
-                    <livewire:new-comment/>
-                </div>
-            </div>
+            <livewire:new-comment/>
         </div>
     </div>
 
@@ -220,19 +223,24 @@
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header py-1">
-                    <b>Finalizar Tarefa</b>
-                </div>
-                <div class="modal-body">
-                    <p>Deseja finalizar a tarefa <b>{{$task->id}}</b>?</p>
-                </div>
-                <div class="modal-footer py-1">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
-                    <button type="button" class="btn btn-danger" wire:click="task_finalize({{$task->id}})">Finalizar</button>
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="p-6 text-center">
+                        <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
+                             fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            {{__('Are you sure you want to finish the task ')}}<b>{{$task->id}}</b>?</h3>
+                        <x-button-red class="text-md py-2.5"
+                                      wire:click="task_finalize({{$task->id}})">
+                            {{__('Finalize')}}
+                        </x-button-red>
+                        <x-button-dark data-dismiss="modal">{{__('Cancel')}}</x-button-dark>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
