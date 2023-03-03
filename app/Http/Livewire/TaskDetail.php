@@ -4,36 +4,38 @@ namespace App\Http\Livewire;
 
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use Auth;
 use Illuminate\Routing\Redirector;
 use Livewire\Component;
 
 class TaskDetail extends Component
 {
-    public $task_id, $comments, $task, $userName;
-    /**
-     * @var string[]
-     */
+    public $taskId, $task, $comments, $userName;
+
     protected $listeners = [
         'refreshParent' => '$refresh'
     ];
 
-    /**
-     * @return void
-     */
     public function mount(): void
     {
-        $this->task_id = request()->task_id;
+        # Habilitar o admin a visualizar as tarefas de todos os teams sem necessidade de alterar o CurrentTeam todo list
+        $this->taskId = request()->task_id;
+        $task = Task::find($this->taskId);
+
+        if (!$task || $task->team_id != Auth::user()->current_team_id) {
+            abort(404);
+        }
+
+        $this->comments = $task->comments->sortByDesc('date_time_create');
+        $this->task = $task;
+        $this->userName = User::find($task->user_id)->name;
+
+        foreach ($this->comments as $comment) {
+            $comment->user_name = User::find($comment->user_id)->name;
+        }
     }
 
-    /**
-     * @param $id
-     * @return Application|RedirectResponse|Redirector
-     */
-    public function task_finalize($id): Redirector|RedirectResponse|Application
+    public function finalizeTask($id): Redirector
     {
         $task = Task::find($id);
         $task['situation'] = 'close';
@@ -43,23 +45,8 @@ class TaskDetail extends Component
         return redirect('/dashboard')->with('finished', '\nTarefa ' . $id . '\nFinalizada com sucesso\n\n');
     }
 
-    /**
-     * @return Application|Factory|View
-     */
-    public function render(): View|Factory|Application
+    public function render()
     {
-        $this->comments = Task::find($this->task_id)->comments->sortByDesc('date_time_create');
-        $this->task = Task::find($this->task_id);
-        $users = User::all();
-
-        foreach ($users as $user) {
-            if ($user->id == $this->task->user_id)
-                $this->userName = $user->name;
-            foreach ($this->comments as $comment)
-                if ($user->id == $comment->user_id)
-                    $comment->user_name = $user->name;
-        }
-
         return view('livewire.task-detail');
     }
 }

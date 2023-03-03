@@ -9,24 +9,33 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
-    public $user_tasks_length, $user_tasks_expired_length, $all_tasks_open;
+    public $userTasksLength, $userTasksExpiredLength, $allTasksOpen;
+
+    protected $listeners = [
+        'refreshParent' => '$refresh',
+    ];
+
+    public function mount()
+    {
+        $user = User::find(Auth::user()->id);
+        $teamId = Auth::user()->current_team_id;
+
+        $this->userTasksLength = $user->tasks()
+            ->where('team_id', $teamId)
+            ->where('situation', 'open')
+            ->count();
+        $this->userTasksExpiredLength = $user->tasks()
+            ->where('status', 'Expirado')
+            ->where('team_id', $teamId)
+            ->where('situation', 'open')
+            ->count();
+        $this->allTasksOpen = Task::where('situation', 'open')
+            ->where('team_id', $teamId)
+            ->count();
+    }
 
     public function render()
     {
-        $this->user_tasks_length = User::find(Auth::user()->id)->tasks
-            ->where('team_id', Auth::user()->current_team_id)
-            ->where('situation', 'open')
-            ->count();
-        $this->user_tasks_expired_length = User::find(Auth::user()->id)->tasks->where('status', 'Expirado')
-            ->where('team_id', Auth::user()->current_team_id)
-            ->where('situation', 'open')
-            ->count();
-        $this->all_tasks_open = Task::all()
-            ->where('situation', 'open')
-            ->where('team_id', Auth::user()->current_team_id)
-            ->count();
-
-
         return view('livewire.dashboard');
     }
 }

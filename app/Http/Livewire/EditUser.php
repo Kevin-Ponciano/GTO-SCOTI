@@ -16,7 +16,7 @@ use Livewire\Component;
 
 class EditUser extends Component
 {
-    public $user, $name, $email, $profile_photo_url, $role, $roleName, $roles, $enterpriseId, $enterprises;
+    public $user, $name, $email, $profile_photo_url, $role, $roleName, $roles, $enterpriseId, $enterprises, $userIsAdmin;
 
     /**
      * Ao escutar 'edit' executa a função edit()
@@ -34,6 +34,11 @@ class EditUser extends Component
     public function edit($userId): void
     {
         $this->user = User::find($userId);
+        $this->userIsAdmin = false;
+
+        if($this->user->role == 'admin') {
+            $this->userIsAdmin = true;
+        }
 
         $this->name = $this->user->name;
         $this->email = $this->user->email;
@@ -47,7 +52,6 @@ class EditUser extends Component
             $this->enterpriseId = Team::first()->id;
             $this->role = $this->roles = app(TeamMemberManager::class)->getRolesProperty()[0]->key;
         }
-
     }
 
     /**

@@ -5,7 +5,7 @@
         <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Acesso Negado.</h3>
         <p>
             Você não tem permissão para acessar esta pagina.<br/>
-            Enquanto isso, você pode voltar para as <a href="{{route('user-tasks')}}"> <b>Suas Tarefas</b></a>
+            Enquanto isso, você pode voltar para as <a href="{{url('tarefas?userFilter='.Auth::user()->id)}}"> <b>Suas Tarefas</b></a>
         </p>
     </div>
 </div>

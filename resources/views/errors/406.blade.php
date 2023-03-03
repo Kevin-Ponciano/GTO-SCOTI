@@ -21,7 +21,7 @@
                             <div class="col-4">
                             </div>
                             <div class="col-4">
-                                <button type="submit" class="btn btn-primary btn-block">Sair</button>
+                                <x-button-blue>Sair</x-button-blue>
                             </div>
                         </div>
                     </form>

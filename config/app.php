@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://gto.kevinp.studio'),
 
     'asset_url' => env('ASSET_URL'),
 

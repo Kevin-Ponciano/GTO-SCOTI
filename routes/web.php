@@ -5,7 +5,6 @@ use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\TaskDetail;
 use App\Http\Livewire\Tasks;
 use App\Http\Livewire\Users;
-use App\Http\Livewire\UserTask;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 
@@ -28,24 +27,14 @@ Route::middleware([
     Route::get('dashboard/', Dashboard::class)->name('dashboard');
     Route::redirect('/', 'dashboard/');
 
-    Route::get('/perfil', function () {
-        return view('profile.show');
-    })->name('profile');
-
-
     Route::get('tarefas/', Tasks::class)->name('tasks');
     Route::get('tarefas/{task_id}', TaskDetail::class)->name('task_detail');
 
     Route::get('users', Users::class)->name('users');
 
-    Route::get('navi', function () {
-        return view('navigation-menu');
-    });
-
     Route::post('redefine-password/', [PasswordResetLinkController::class, 'store'])
         ->name('redefine-password');
 });
-
 
 Route::get('register/{email}', [RegisteredUserController::class, 'create'])
     ->middleware(['guest:' . config('fortify.guard')])
@@ -57,4 +46,3 @@ Route::post('register', [RegisteredUserController::class, 'store'])
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
             ->middleware(['guest:'.config('fortify.guard')])
             ->name('password.email');
-

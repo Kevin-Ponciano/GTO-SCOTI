@@ -233,7 +233,7 @@
                         <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                             {{__('Are you sure you want to finish the task ')}}<b>{{$task->id}}</b>?</h3>
                         <x-button-red class="text-md py-2.5"
-                                      wire:click="task_finalize({{$task->id}})">
+                                      wire:click="finalizeTask({{$task->id}})">
                             {{__('Finalize')}}
                         </x-button-red>
                         <x-button-dark data-dismiss="modal">{{__('Cancel')}}</x-button-dark>

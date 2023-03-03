@@ -28,7 +28,9 @@
 
 
     <!-- Tallwind css -->
+    <link href="{{ asset('assets/css/tailwind-v3.1.8.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/flowbite-v1.6.3.css') }}" rel="stylesheet">
+
 
     <style>
         .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
@@ -197,7 +199,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url('tarefas?userFilter=1')}}" class="nav-link">
+                    <a href="{{url('tarefas?userFilter='.Auth::user()->id)}}" class="nav-link">
                         <i class="nav-icon  fa bi-person-lines-fill"></i>
                         <p>Minhas Tarefas</p>
                     </a>
@@ -336,6 +338,7 @@
         })
     }
 </script>
+
 {{--<script>--}}
 {{--    // On page load or when changing themes, best to add inline in `head` to avoid FOUC--}}
 {{--    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {--}}

@@ -6,17 +6,16 @@ use App\Models\Task;
 use Auth;
 use Carbon\Carbon;
 use App\Models\User;
-use Livewire\Component;
-use Livewire\withPagination;
 use App\Http\Livewire\Route;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Tasks extends Component
 {
     use withPagination;
 
     public $search, $sortField = 'id', $sortDirection = 'desc', $userFilter, $priorityFilter, $statusFilter;
-
-    protected $queryString = ['userFilter','statusFilter'];
+    protected $queryString = ['userFilter', 'statusFilter'];
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -25,30 +24,34 @@ class Tasks extends Component
 
     public static function status_controller()
     {
-        $tasks = Task::all();
+        $tasks = Task::where('situation', '!=', 'close')->get();
+
+        $today = Carbon::now();
 
         foreach ($tasks as $task) {
-            if ($task->situation != 'close') {
-                $deadline = $task['deadline'];
-                $date = $deadline . ' 24:00:00';
-                $today = Carbon::now();
-                $days_difference = $today->diffInDays($date);
+            $deadline = Carbon::parse($task->deadline);
+            $difference = $deadline->diffInDays($today);
 
-                if ($date < $today) {
-                    $task['status'] = 'Expirado';
-                } elseif ($days_difference == 0) {
-                    $task['status'] = 'Expira hoje';
-                } elseif ($days_difference == 1) {
-                    $task['status'] = 'Expira amanhã';
-                } elseif ($days_difference < 4) {
-                    $days_to_expire = $today->diffInDays($date);
-                    $task['status'] = $days_to_expire . " dias para expirar";
-                } else {
-                    $task['status'] = 'Em dia';
-                }
-                $task->save();
+            switch ($difference) {
+                case 0:
+                    $status = 'Expira hoje';
+                    break;
+                case 1:
+                    $status = 'Expira amanhã';
+                    break;
+                case ($difference < 4):
+                    $status = "{$difference} dias para expirar";
+                    break;
+                default:
+                    if ($today > $deadline) {
+                        $status = 'Expirado';
+                    } else {
+                        $status = 'Em dia';
+                    }
+                    break;
             }
 
+            $task->update(['status' => $status]);
         }
     }
 
@@ -71,7 +74,9 @@ class Tasks extends Component
         $this->sortField = $field;
     }
 
-    public function applyFilter(){}
+    public function applyFilter()
+    {
+    }
 
     public function resetFilter()
     {
@@ -83,8 +88,15 @@ class Tasks extends Component
 
     public function render()
     {
-        $tasks = Task::search('situation', 'open')
+        if ($this->statusFilter == 'Finalizadas') {
+            $situationFilter = 'close';
+        } else {
+            $situationFilter = 'open';
+        }
+
+        $tasks = Task::search('situation', $situationFilter)
             ->search('team_id', Auth::user()->current_team_id);
+
 
         if ($this->userFilter) {
             $tasks = $tasks->where('user_id', $this->userFilter);
@@ -92,7 +104,7 @@ class Tasks extends Component
         if ($this->priorityFilter) {
             $tasks = $tasks->where('priority', $this->priorityFilter);
         }
-        if ($this->statusFilter) {
+        if ($this->statusFilter != 'Finalizadas' && $this->statusFilter != '') {
             $tasks = $tasks->where('status', 'like', '%' . $this->statusFilter);
         }
 

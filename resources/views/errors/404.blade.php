@@ -2,14 +2,15 @@
     <div class="bg-gray-50 dark:bg-gray-900">
         <div class="flex flex-col justify-center items-center px-6 mx-auto h-screen xl:px-0 dark:bg-gray-900">
             <div class="max-w-lg">
-                <img src="https://flowbite-admin-dashboard.vercel.app/images/illustrations/500.svg"
+                <img src="https://flowbite-admin-dashboard.vercel.app/images/illustrations/404.svg"
                      alt="astronaut image">
             </div>
             <div class="text-center xl:max-w-4xl">
                 <h1 class="mb-3 text-2xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl dark:text-white">
-                    Algo deu muito errado</h1>
-                <p class="mb-3 text-base font-normal text-gray-500 md:text-lg dark:text-gray-400">
-                    Sempre é hora de uma pausa para o café. Devemos estar de volta quando você terminar seu café.
+                    Page
+                    not found</h1>
+                <p class="mb-5 text-base font-normal text-gray-500 md:text-lg dark:text-gray-400">
+                    Ops! Parece que você seguiu um link inválido. Se você acha que isso é um problema conosco, por favor, diga-nos.
                 </p>
                 <a href="{{route('dashboard')}}"
                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -23,6 +24,5 @@
                 </a>
             </div>
         </div>
-
     </div>
 </x-guest-layout>

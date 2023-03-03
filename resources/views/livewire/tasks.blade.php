@@ -73,7 +73,7 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody wire:loading.class="opacity-50">
                 @forelse($tasks as $task)
                     @php
                         if($task->status == 'Em dia')
@@ -84,7 +84,7 @@
                             $status_color = 'warning';
                         $task->deadline = Carbon::createFromFormat("Y-m-d", $task['deadline'])->format("d/m/Y");
                     @endphp
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row"
                             class="text-muted text-left px-6 text-gray-900 whitespace-nowrap dark:text-white">
                             {{$task->title}}
@@ -115,7 +115,7 @@
                     <tr class="bg-white">
                         <td colspan="6">
                             <div class="flex justify-center items-center">
-                                <span class="font-medium py-6 text-gray-400 text-xl">
+                                <span class="font-medium py-6 text-gray-400 text-lg">
                                     {{__('No Task Found...')}}
                                 </span>
                             </div>
@@ -177,6 +177,7 @@
                                 <option value="Em dia">Em dia</option>
                                 <option value="dias para expirar">Proximo</option>
                                 <option value="Expirado">Expirado</option>
+                                <option value="Finalizadas">Finalizadas</option>
                             </select>
                         </div>
                     </div>
@@ -191,6 +192,4 @@
             </div>
         </div>
     </div>
-
 </div>
-

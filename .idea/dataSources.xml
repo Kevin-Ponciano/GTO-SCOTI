@@ -8,11 +8,11 @@
       <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="GTO-DO" uuid="32cedfa7-8460-4127-a2c2-5dec0e49e6e2">
+    <data-source source="LOCAL" name="Servidor - GTO" uuid="30bf3750-0247-4ad2-87a1-f90f00263fff">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://192.241.128.191:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://142.93.15.175:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

@@ -60,7 +60,7 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody wire:loading.class="opacity-50">
                 @forelse($users as $user)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row"
@@ -74,17 +74,19 @@
                         </th>
 
                         <td class="py-2 w-48 px-6">
-                            {{Users::get_enterprise($user->current_team_id)}}
+                            {{Users::get_enterprise($user->allTeams()->jsonSerialize())}}
                         </td>
                         <td class="py-2 w-44 px-6">
                             {{Users::getRole($user->teamRole($user->currentTeam))}}
                         </td>
                         <td class="flex items-end justify-end py-2 space-x-3">
-                            <button
+                            @if(Auth::user()->role == 'admin')
+                                <button
                                 class="text-white text-xs bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg px-3 py-2 mr-2 mb-2"
                                 wire:click="$emit('edit',{{$user->id}})"
                                 onclick="$('#edit_user_modal').modal('show')">Editar
                             </button>
+                            @endif
                             <form method="POST" action="{{ route('redefine-password') }}">
                                 @csrf
                                 <input value="{{$user->email}}" name="email" hidden>
@@ -100,7 +102,7 @@
                     <tr class="bg-white">
                         <td colspan="6">
                             <div class="flex justify-center items-center">
-                                <span class="font-medium py-6 text-gray-400 text-xl">
+                                <span class="font-medium py-6 text-gray-400 text-lg">
                                     {{__('No Users Found...')}}
                                 </span>
                             </div>

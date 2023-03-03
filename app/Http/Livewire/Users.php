@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Team;
 use App\Models\User;
 use Auth;
 use Illuminate\Contracts\Foundation\Application;
@@ -28,13 +27,13 @@ class Users extends Component
         'resetSearch'
     ];
 
-    public static function get_enterprise($enterpriseId)
+    public static function get_enterprise($team)
     {
-        if ($enterpriseId == null) {
+        if ($team == []) {
             return 'Não Registrado';
         }
 
-        return Team::find($enterpriseId)->name;
+        return $team[0]['name'];
     }
 
     public static function getRole($role)
@@ -60,17 +59,27 @@ class Users extends Component
     public function render()
     {
         if (!Auth::user()->teams[0]->userHasPermission(Auth::user(), 'manager')) {
-            return view('errors.403');
+            return abort('404');
         } elseif (Auth::user()->teams[0]->userHasPermission(Auth::user(), 'admin')) {
-            $users = User::where('id', '!=', auth()->id());
+            $users = User::where('id', '!=', auth()->id())
+                ->where(function ($query) {
+                    foreach (Auth::user()->allTeams() as $team) {
+                        $query->orWhere('current_team_id', $team->id);
+                    }
+                });
         } else {
-            $users = User::where('role', '!=', 'admin')
+            $users = User::where('current_team_id', Auth::user()->current_team_id)
+                ->where('role', '!=', 'admin')
                 ->where('role', '!=', 'manager');
         }
 
         return view('livewire.users', [
             'users' => $users
-                ->search('email', $this->search)
+                ->where(function ($query) {
+                    $query->Where('email','like', '%'.$this->search.'%');
+                    $query->orWhere('name','like', '%'.$this->search.'%');
+                })
+                #->search('email', $this->search)
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate(10)
         ]);
