@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\Route;
 use App\Models\Task;
+use App\Models\User;
 use Auth;
 use Carbon\Carbon;
-use App\Models\User;
-use App\Http\Livewire\Route;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,37 +25,31 @@ class Tasks extends Component
     public static function status_controller()
     {
         $tasks = Task::where('situation', '!=', 'close')->get();
-
         $today = Carbon::now();
 
         foreach ($tasks as $task) {
-            $deadline = Carbon::parse($task->deadline);
-            $difference = $deadline->diffInDays($today);
+            $deadline = $task['deadline'];
+            $date = $deadline . ' 24:00:00';
+            $days_difference = $today->diffInDays($date);
 
-            switch ($difference) {
-                case 0:
-                    $status = 'Expira hoje';
-                    break;
-                case 1:
-                    $status = 'Expira amanhã';
-                    break;
-                case ($difference < 4):
-                    $status = "{$difference} dias para expirar";
-                    break;
-                default:
-                    if ($today > $deadline) {
-                        $status = 'Expirado';
-                    } else {
-                        $status = 'Em dia';
-                    }
-                    break;
+            if ($date < $today) {
+                $task['status'] = 'Expirado';
+            } elseif ($days_difference == 0) {
+                $task['status'] = 'Expira hoje';
+            } elseif ($days_difference == 1) {
+                $task['status'] = 'Expira amanhã';
+            } elseif ($days_difference < 4) {
+                $days_to_expire = $today->diffInDays($date);
+                $task['status'] = $days_to_expire . " dias para expirar";
+            } else {
+                $task['status'] = 'Em dia';
             }
-
-            $task->update(['status' => $status]);
+            $task->save();
         }
     }
 
-    public static function getTaskCreator($userId)
+    public
+    static function getTaskCreator($userId)
     {
         $user = User::find($userId);
         if ($user == null) {
@@ -65,7 +59,8 @@ class Tasks extends Component
         }
     }
 
-    public function sortBy($field)
+    public
+    function sortBy($field)
     {
         $this->sortDirection = $this->sortField === $field
             ? $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc'
@@ -74,11 +69,13 @@ class Tasks extends Component
         $this->sortField = $field;
     }
 
-    public function applyFilter()
+    public
+    function applyFilter()
     {
     }
 
-    public function resetFilter()
+    public
+    function resetFilter()
     {
         $this->userFilter = '';
         $this->priorityFilter = '';
@@ -86,7 +83,8 @@ class Tasks extends Component
 
     }
 
-    public function render()
+    public
+    function render()
     {
         if ($this->statusFilter == 'Finalizadas') {
             $situationFilter = 'close';
@@ -116,7 +114,8 @@ class Tasks extends Component
         ]);
     }
 
-    public function resetSearch()
+    public
+    function resetSearch()
     {
         $this->search = '';
     }

@@ -7,17 +7,25 @@ module.exports = {
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        "./node_modules/flowbite/**/*.js"
     ],
-
+    darkMode: 'class',
     theme: {
+        colors:{
+            'green-default': '#3db92e'
+        },
         extend: {
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+
         },
     },
 
-    darkMode: 'media',
+    plugins: [
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography'),
+        require('flowbite/plugin')
+    ],
 
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 };

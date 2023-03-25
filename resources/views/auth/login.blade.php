@@ -5,6 +5,9 @@
             {{ session('status') }}
         </div>
     @endif
+    <a href="/">
+        <img src="{{asset("assets/images/logomarca.png")}}" class="h-24 mb-2" alt="logo">
+    </a>
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">

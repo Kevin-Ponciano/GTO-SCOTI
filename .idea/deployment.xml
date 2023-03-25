@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="GTO - DO" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeUploading="false">
+  <component name="PublishConfigData" serverName="SCOTI" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeUploading="false">
     <option name="confirmBeforeUploading" value="false" />
     <serverData>
       <paths name="GTO - DO">
@@ -16,6 +16,22 @@
             <excludedPath local="true" path="$PROJECT_DIR$/public/adminLTE" />
             <excludedPath local="true" path="$PROJECT_DIR$/.env.example" />
             <excludedPath local="true" path="$PROJECT_DIR$/tests" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="SCOTI">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/gto" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/vendor" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.env" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bootstrap" />
+            <excludedPath local="true" path="$PROJECT_DIR$/resources/adminLTE" />
+            <excludedPath local="true" path="$PROJECT_DIR$/config/filesystems.php" />
+            <excludedPath path="/gto/node_modules" />
+            <excludedPath local="true" path="$PROJECT_DIR$/public/hot" />
           </excludedPaths>
         </serverdata>
       </paths>

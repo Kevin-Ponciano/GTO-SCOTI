@@ -6,28 +6,33 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="shortcut icon" href={{asset('/favicon.png')}}>
+    <link rel="shortcut icon" href={{asset('logo.png')}}>
 
     <!-- Fonts -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <!-- STYLES -->
-
+    {{--    @vite([--}}
+    {{--        'resources/adminLTE/dist/css/adminlte.css',--}}
+    {{--        'resources/adminLTE/plugins/fontawesome-free/css/all.min.css',--}}
+    {{--        'resources/adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css',--}}
+    {{--        'resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css'--}}
+    {{--    ])--}}
     <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/all.min.css")}}>
-    <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/v4-shims.min.css")}}>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
-    <link rel="stylesheet" href={{asset("adminLTE/plugins/summernote/summernote-bs4.min.css")}}>
     <link rel="stylesheet" href="{{asset("adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css")}}">
-    {{--    <link rel="stylesheet" href="{{asset("//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css")}}">--}}
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
+    <!-- ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Jquery -->
     <script src={{asset("https://code.jquery.com/jquery-3.6.1.js")}}></script>
 
 
     <!-- Tallwind css -->
+    {{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
     <link href="{{ asset('assets/css/tailwind-v3.1.8.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/flowbite-v1.6.3.css') }}" rel="stylesheet">
 
@@ -45,7 +50,8 @@
 
     @livewireStyles
 </head>
-<body class="hold-transition sidebar-mini @if(Route::current()->action['as'] != 'dashboard') sidebar-collapse @endif layout-fixed">
+<body
+    class="hold-transition sidebar-mini @if(Route::current()->action['as'] != 'dashboard') sidebar-collapse @endif layout-fixed">
 @stack('modals')
 @php
     if (Auth::user()->currentTeam==null){
@@ -153,7 +159,7 @@
 
 <aside class="main-sidebar sidebar-light-blue shadow ">
     <a href="#" class="brand-link">
-        <img src="{{asset('adminLTE/dist/img/logo.png')}}"
+        <img src="{{asset('logo.png')}}"
              alt="Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8;">
         <span class="brand-text text-gray-700 text-md">{{config('app.name')}}</span>
@@ -162,7 +168,7 @@
     <div class="sidebar">
         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
             <a href="{{route('profile.show')}}" class="brand-link" style="width: 234px">
-                <img src="{{ Auth::user()->profile_photo_url }}"
+                <img src="{{Auth::user()->profile_photo_url}}"
                      class="h-10 w-10 rounded-full object-cover"
                      alt="{{ Auth::user()->name }}"
                      style="display: inline;">
@@ -289,12 +295,11 @@
 <script>
     $.widget.bridge('uibutton', $.ui.button)
 </script>
+
 <script src={{asset("adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js")}}></script>
-<script src={{asset("adminLTE/plugins/summernote/summernote-bs4.min.js")}}></script>
 <script src={{asset("adminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
 <script src={{asset("adminLTE/dist/js/adminlte.js")}}></script>
 <script src={{asset("adminLTE/plugins/sweetalert2/sweetalert2.min.js")}}></script>
-<script src={{asset('//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js')}}></script>
 <script src="{{asset('assets/js/app.js') }}" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.js"></script>
 

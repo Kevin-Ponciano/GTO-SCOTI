@@ -21,7 +21,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-client" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/log" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/event-dispatcher" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/filp/whoops" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psy/psysh" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/voku/portable-ascii" />
@@ -44,7 +43,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/sail" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/egulias/email-validator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/sanctum" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/tinker" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/pint" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/serializable-closure" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mockery/mockery" />
@@ -127,10 +125,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/bacon/bacon-qr-code" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/fortify" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mobiledetect/mobiledetectlib" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/jetstream" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dasprid/enum" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/livewire/livewire" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/lucascudo/laravel-pt-br-localization" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/maximebf/debugbar" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-debugbar" />
       <excludeFolder url="file://$MODULE_DIR$/storage/debugbar" />
@@ -186,6 +181,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/vlucas" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/voku" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/jetstream" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/tinker" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
