@@ -3,7 +3,12 @@
   <component name="LaravelIdeaPersonalSettings">
     <option name="generationStringOptionValues">
       <map>
+        <entry key="createDatabaseMigration.anonymous" value="" />
+        <entry key="createDatabaseMigration.create" value="" />
         <entry key="createModel.createMigration" value="1" />
+        <entry key="newModelSimpleOption:idField" value="" />
+        <entry key="newModelSimpleOption:timestampsFields" value="" />
+        <entry key="postGeneration:migration" value="" />
       </map>
     </option>
   </component>

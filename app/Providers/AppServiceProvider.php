@@ -30,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
             return $string ? $this->where($field, 'like', '%' . $string . '%') : $this;
         });
         Schema::defaultStringLength(191);
+        #Criar uma tarefa que rode todos os dias para executar status_controller
+        #Porem precisa ser feito algo para que quando uma tarefa for criada o
+        #status_controller execute nesta tarefa todo
         Tasks::status_controller();
     }
 }

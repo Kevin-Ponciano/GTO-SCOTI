@@ -13,16 +13,16 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <!-- STYLES -->
-    {{--    @vite([--}}
-    {{--        'resources/adminLTE/dist/css/adminlte.css',--}}
-    {{--        'resources/adminLTE/plugins/fontawesome-free/css/all.min.css',--}}
-    {{--        'resources/adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css',--}}
-    {{--        'resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css'--}}
-    {{--    ])--}}
-    <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/all.min.css")}}>
-    <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.css")}}>
-    <link rel="stylesheet" href={{asset("adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
-    <link rel="stylesheet" href="{{asset("adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css")}}">
+    @vite([
+        'resources/adminLTE/dist/css/adminlte.css',
+        'resources/adminLTE/plugins/fontawesome-free/css/all.min.css',
+        'resources/adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css',
+        'resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css'
+    ])
+{{--    <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/all.min.css")}}>--}}
+{{--    <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.css")}}>--}}
+{{--    <link rel="stylesheet" href={{asset("adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>--}}
+{{--    <link rel="stylesheet" href="{{asset("adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css")}}">--}}
 
     <!-- ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
@@ -32,9 +32,9 @@
 
 
     <!-- Tallwind css -->
-    {{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
-    <link href="{{ asset('assets/css/tailwind-v3.1.8.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/flowbite-v1.6.3.css') }}" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+{{--    <link href="{{ asset('assets/css/tailwind-v3.1.8.css') }}" rel="stylesheet">--}}
+{{--    <link href="{{ asset('assets/css/flowbite-v1.6.3.css') }}" rel="stylesheet">--}}
 
 
     <style>
@@ -300,8 +300,8 @@
 <script src={{asset("adminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
 <script src={{asset("adminLTE/dist/js/adminlte.js")}}></script>
 <script src={{asset("adminLTE/plugins/sweetalert2/sweetalert2.min.js")}}></script>
-<script src="{{asset('assets/js/app.js') }}" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.js"></script>
+{{--<script src="{{asset('assets/js/app.js') }}" defer></script>--}}
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.js"></script>--}}
 
 
 <script>
