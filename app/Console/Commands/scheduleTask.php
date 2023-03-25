@@ -59,21 +59,9 @@ class scheduleTask extends Command
                 #Agendo novamente o scheduleTask 'daily', 'weekly', 'monthly', 'yearly'
                 $frequency = $scheduleTask->frequency;
                 $nextScheduleDay = Carbon::createFromFormat('Y-m-d', $scheduleTask->date);
-                switch ($frequency) {
-                    case 'daily':
-                        $nextScheduleDay->add('');
-                        break;
-                    case 'weekly':
-                        $nextScheduleDay->addWeek();
-                        break;
-                    case 'monthly':
-                        $nextScheduleDay->addMonth();
-                        break;
-                    case 'yearly':
-                        $nextScheduleDay->addYear();
-                        break;
-                }
+                $nextScheduleDay->add('1', $frequency);
                 $scheduleTask->date = $nextScheduleDay;
+
             } else {
                 $scheduleTask->task->situation = 'open';
                 $scheduleTask->task->status = 'Em dia';
