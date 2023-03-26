@@ -47,32 +47,61 @@
                     {{__('Deadline')}}
                 </label>
                 <input type="date" id="deadline"
-                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       class="dateTodayController bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                        wire:model.defer="deadline">
                 @error('deadline')<span class="text-sm text-red">{{$message}}</span>@enderror
-                <script>
-                    dateTodayController = () => {
-                        let dtToday = new Date()
-                        let month = dtToday.getMonth() + 1
-                        let day = dtToday.getDate()
-                        let year = dtToday.getFullYear()
-
-                        if (month < 10)
-                            month = '0' + month.toString();
-                        if (day < 10)
-                            day = '0' + day.toString();
-
-                        let maxDate = year + '-' + month + '-' + day;
-
-                        $('#deadline').attr('min', maxDate)
-                    }
-                    dateTodayController()
-                    window.addEventListener('dateTodayRefresh', event => {
-                        dateTodayController()
-                    })
-                </script>
             </div>
+            <div class="flex items-center">
+                <input id="schedule-task" type="checkbox"
+                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                       wire:click="showSchedule()">
+                <label for="schedule-task" class="mt-2 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Agendar Tarefa
+                </label>
+            </div>
+            @if($isSchedule)
+                <div class="flex items-center">
+                    <input id="recorrence" type="checkbox"
+                           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                           wire:click="showRecorrence()">
+                    <label for="recorrence" class="mt-2 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        Tarefa Recorrente
+                    </label>
+                </div>
+            @endif
         </div>
+        @if($isSchedule)
+            <div class="grid gap-6 mb-6 md:grid-cols-2">
+                <div>
+                    <x-flowbite-label value="Data"/>
+                    <x-flowbite-input type="date" wire:model.defer="date" class="dateTodayController"/>
+                    @error('date')<span class="text-sm text-red">{{$message}}</span>@enderror
+                </div>
+                <div>
+                    <x-flowbite-label value="Hora"/>
+                    <x-flowbite-input type="time" wire:model.defer="hour"/>
+                    @error('hour')<span class="text-sm text-red">{{$message}}</span>@enderror
+                </div>
+                @if($isRecorrence)
+                    <div>
+                        <x-flowbite-label value="Quantas vezes deseja repetir?"/>
+                        <x-flowbite-input wire:model.defer="recorrenceCount" class="greaterThanOne"/>
+                        @error('recorrenceCount')<span class="text-sm text-red">{{$message}}</span>@enderror
+                    </div>
+                    <div>
+                        <x-flowbite-label value="Com que frequência repetir?"/>
+                        <select
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            wire:model.defer="frequency">
+                            <option value="day">Diariamente</option>
+                            <option value="week">Semanalmente</option>
+                            <option value="month">Mensalmente</option>
+                            <option value="year">Anualmente</option>
+                        </select>
+                    </div>
+                @endif
+            </div>
+        @endif
         <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             {{__('Description')}}
         </label>
@@ -92,4 +121,41 @@
             success_task_info('{{session('success')}}', {{$taskId}})
         </script>
     @endif
+    <script>
+        $(document).ready(function () {
+            let dateTodayController = () => {
+                let dtToday = new Date()
+                let month = dtToday.getMonth() + 1
+                let day = dtToday.getDate()
+                let year = dtToday.getFullYear()
+
+                if (month < 10)
+                    month = '0' + month.toString();
+                if (day < 10)
+                    day = '0' + day.toString();
+
+                let maxDate = year + '-' + month + '-' + day;
+
+                $('.dateTodayController').attr('min', maxDate)
+            }
+            dateTodayController()
+
+            let inputMask = () => {
+                $('.greaterThanOne').mask('000')
+                let input = $('.greaterThanOne');
+                input.on('input', function () {
+                    let valor = parseInt(input.val());
+                    if (valor < 1) {
+                        input.val(1);
+                    }
+                });
+            }
+            inputMask()
+            window.addEventListener('dateTodayRefresh', event => {
+                dateTodayController()
+                inputMask()
+            })
+        });
+
+    </script>
 </div>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Livewire\Dashboard;
+use App\Http\Livewire\ScheduledTasks;
 use App\Http\Livewire\TaskDetail;
 use App\Http\Livewire\Tasks;
 use App\Http\Livewire\Users;
@@ -28,6 +29,7 @@ Route::middleware([
     Route::redirect('/', 'dashboard/');
 
     Route::get('tarefas/', Tasks::class)->name('tasks');
+    Route::get('tarefas-agendadas/', ScheduledTasks::class)->name('tasks-scheduled');
     Route::get('tarefas/{task_id}', TaskDetail::class)->name('task_detail');
 
     Route::get('users', Users::class)->name('users');
@@ -44,5 +46,5 @@ Route::post('register', [RegisteredUserController::class, 'store'])
     ->middleware(['guest:' . config('fortify.guard')]);
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
-            ->middleware(['guest:'.config('fortify.guard')])
-            ->name('password.email');
+    ->middleware(['guest:' . config('fortify.guard')])
+    ->name('password.email');

@@ -75,7 +75,7 @@
                         {{--                        </li>--}}
                         {{--                    </ul>--}}
                         <div class="text-start mt-5 mb-3">
-                            @if($task->status != 'Finalizada')
+                            @if($task->situation == 'open')
                                 <x-button-blue
                                     class="text-xs"
                                     onclick="$('#modal_comment').modal('show')">

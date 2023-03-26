@@ -34,7 +34,7 @@
     <!-- Tallwind css -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 {{--    <link href="{{ asset('assets/css/tailwind-v3.1.8.css') }}" rel="stylesheet">--}}
-{{--    <link href="{{ asset('assets/css/flowbite-v1.6.3.css') }}" rel="stylesheet">--}}
+    <link href="{{ asset('assets/css/flowbite-v1.6.3.css') }}" rel="stylesheet">
 
 
     <style>
@@ -61,7 +61,7 @@
     $isAdminRole = $team->userHasPermission(Auth::user(), 'admin');
     $isManagerRole = $team->userHasPermission(Auth::user(), 'manager');
 @endphp
-@if(Route::current()->action['as'] != 'tasks' && Route::current()->action['as'] != 'users')
+@if(Route::current()->action['as'] == 'dashboard')
     <nav class="main-header navbar navbar-expand navbar-light">
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -216,6 +216,12 @@
                         <p>Tarefas</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('tasks-scheduled')}}" class="nav-link">
+                        <i class="nav-icon far fa-clock"></i>
+                        <p>Tarefas Agendadas</p>
+                    </a>
+                </li>
                 @if($isAdminRole)
                     <li class="nav-item">
                         <a href="{{route('users')}}" class="nav-link">
@@ -266,7 +272,7 @@
     </div>
 </div>
 
-@if(Route::current()->action['as'] != 'tasks' && Route::current()->action['as'] != 'users')
+@if(Route::current()->action['as'] == 'dashboard')
 
     <footer class="main-footer" style="font-size: 12px">
         <strong>Copyright &copy; {{date('Y')}} <a href="https://github.com/Kevin-Ponciano/GTO-LARAVEL" target="_blank">GTO
@@ -300,6 +306,7 @@
 <script src={{asset("adminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
 <script src={{asset("adminLTE/dist/js/adminlte.js")}}></script>
 <script src={{asset("adminLTE/plugins/sweetalert2/sweetalert2.min.js")}}></script>
+<script src={{asset("assets/js/jquery.mask.min.js")}}></script>
 {{--<script src="{{asset('assets/js/app.js') }}" defer></script>--}}
 {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.js"></script>--}}
 

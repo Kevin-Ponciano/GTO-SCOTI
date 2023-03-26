@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ScheduledTask extends Model
 {
-    public $timestamps = false;
+    protected $fillable = [
+        'date',
+        'hour',
+        'recorrence_count',
+        'frequency'
+    ];
 
     public function task(): HasOne
     {

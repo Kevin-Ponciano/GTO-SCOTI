@@ -13,7 +13,14 @@ use Livewire\Component;
 
 class NewUser extends Component
 {
-    public $name, $email, $password, $enterpriseId, $enterprises, $role, $roles;
+    public $name;
+    public $email;
+    public $password;
+    public $enterpriseId;
+    public $enterprises;
+    public $role;
+    public $roles;
+
 
     /**
      * Ao escutar 'initVariables' executa a função initVariables()

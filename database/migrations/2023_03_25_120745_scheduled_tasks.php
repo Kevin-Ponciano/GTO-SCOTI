@@ -9,10 +9,10 @@ return new class extends Migration {
     {
         Schema::create('scheduled_tasks', function (Blueprint $table) {
             $table->id();
-            $table->integer('recorrence_count');
-            $table->enum('frequency', ['day', 'week', 'month', 'year']);
             $table->date('date');
             $table->time('hour');
+            $table->integer('recorrence_count')->default(1);
+            $table->enum('frequency', ['day', 'week', 'month', 'year'])->default('day');
 
             $table->timestamps();
         });

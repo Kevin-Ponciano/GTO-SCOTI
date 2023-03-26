@@ -20,7 +20,8 @@ class Task extends Model
         'status',
         'situation',
         'user_id',
-        'team_id'
+        'team_id',
+        'scheduled_task_id'
     ];
 
     public function comments(): HasMany

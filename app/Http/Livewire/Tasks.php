@@ -24,7 +24,7 @@ class Tasks extends Component
 
     public static function status_controller()
     {
-        $tasks = Task::where('situation', '!=', 'close')->get();
+        $tasks = Task::where('situation', '=', 'open')->get();
         $today = Carbon::now();
 
         foreach ($tasks as $task) {
@@ -48,8 +48,7 @@ class Tasks extends Component
         }
     }
 
-    public
-    static function getTaskCreator($userId)
+    public static function getTaskCreator($userId)
     {
         $user = User::find($userId);
         if ($user == null) {
@@ -59,8 +58,7 @@ class Tasks extends Component
         }
     }
 
-    public
-    function sortBy($field)
+    public function sortBy($field)
     {
         $this->sortDirection = $this->sortField === $field
             ? $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc'
@@ -69,13 +67,11 @@ class Tasks extends Component
         $this->sortField = $field;
     }
 
-    public
-    function applyFilter()
+    public function applyFilter()
     {
     }
 
-    public
-    function resetFilter()
+    public function resetFilter()
     {
         $this->userFilter = '';
         $this->priorityFilter = '';
@@ -83,8 +79,7 @@ class Tasks extends Component
 
     }
 
-    public
-    function render()
+    public function render()
     {
         if ($this->statusFilter == 'Finalizadas') {
             $situationFilter = 'close';
@@ -114,8 +109,7 @@ class Tasks extends Component
         ]);
     }
 
-    public
-    function resetSearch()
+    public function resetSearch()
     {
         $this->search = '';
     }
