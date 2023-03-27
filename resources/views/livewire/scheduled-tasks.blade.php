@@ -1,5 +1,5 @@
 @php
-    use app\http\Livewire\Tasks;
+    use App\Http\Livewire\ScheduledTasks;use app\http\Livewire\Tasks;
     use Carbon\Carbon;
     use App\Models\User;
 
@@ -45,17 +45,17 @@
                         {{__('Title')}}
                         <i class="pl-2 bi bi-chevron-{{$sortField === 'title' ? $sortDirectionIcon : null}}"></i>
                     </th>
-                    <th scope="col" class="px-6 py-3 hover:underline" wire:click="sortBy('priority')">
-                        {{__('Date')}}
-                        <i class="pl-2 bi bi-chevron-{{$sortField === 'priority' ? $sortDirectionIcon : null}}"></i>
+                    <th scope="col" class="px-6 py-3 hover:underline" wire:click="sortBy('date')">
+                        {{__('Schedule Date')}}
+                        <i class="pl-2 bi bi-chevron-{{$sortField === 'date' ? $sortDirectionIcon : null}}"></i>
                     </th>
-                    <th scope="col" class="px-6 py-3 hover:underline" wire:click="sortBy('priority')">
-                        {{__('Hour')}}
-                        <i class="pl-2 bi bi-chevron-{{$sortField === 'priority' ? $sortDirectionIcon : null}}"></i>
+                    <th scope="col" class="px-6 py-3 hover:underline" wire:click="sortBy('hour')">
+                        {{__('Schedule Hour')}}
+                        <i class="pl-2 bi bi-chevron-{{$sortField === 'hour' ? $sortDirectionIcon : null}}"></i>
                     </th>
-                    <th scope="col" class="px-6 py-3 hover:underline" wire:click="sortBy('deadline')">
-                        {{__('Deadline')}}
-                        <i class="pl-2 bi bi-chevron-{{$sortField === 'deadline' ? $sortDirectionIcon : null}}"></i>
+                    <th scope="col" class="px-6 py-3 hover:underline" wire:click="sortBy('frequency')">
+                        {{__('Frequency')}}
+                        <i class="pl-2 bi bi-chevron-{{$sortField === 'frequency' ? $sortDirectionIcon : null}}"></i>
                     </th>
                     <th scope="col" class="px-6 py-3 hover:underline" wire:click="sortBy('status')">
                         {{__('Status')}}
@@ -93,7 +93,7 @@
                             {{$task->scheduledTask->hour = Carbon::createFromFormat("H:i:s", $task['scheduledTask']['hour'])->format("H:i")}}
                         </td>
                         <td class="px-6">
-                            {{$task->deadline = Carbon::createFromFormat("Y-m-d", $task['deadline'])->format("d/m/Y")}}
+                            {{ScheduledTasks::frequencyTranslate($task->scheduledTask->frequency)}}
                         </td>
                         <td class="px-6 ">
                             <span class="badge badge-{{$status_color}}">

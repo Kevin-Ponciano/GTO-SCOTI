@@ -13,16 +13,16 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <!-- STYLES -->
-    @vite([
-        'resources/adminLTE/dist/css/adminlte.css',
-        'resources/adminLTE/plugins/fontawesome-free/css/all.min.css',
-        'resources/adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css',
-        'resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css'
-    ])
-{{--    <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/all.min.css")}}>--}}
-{{--    <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.css")}}>--}}
-{{--    <link rel="stylesheet" href={{asset("adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>--}}
-{{--    <link rel="stylesheet" href="{{asset("adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css")}}">--}}
+{{--    @vite([--}}
+{{--        'resources/adminLTE/dist/css/adminlte.css',--}}
+{{--        'resources/adminLTE/plugins/fontawesome-free/css/all.min.css',--}}
+{{--        'resources/adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css',--}}
+{{--        'resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css'--}}
+{{--    ])--}}
+    <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/all.min.css")}}>
+    <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.css")}}>
+    <link rel="stylesheet" href={{asset("adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
+    <link rel="stylesheet" href="{{asset("adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css")}}">
 
     <!-- ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">

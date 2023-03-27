@@ -31,7 +31,7 @@
                         <p class="text-muted">{{$email}}</p>
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>Phone</h6>
+                        <h6>{{__('Phone')}}</h6>
                         <p class="text-muted">123 456 789</p>
                     </div>
                 </div>

@@ -11,37 +11,37 @@
     "file": "assets/fa-solid-900.373c04fd.eot",
     "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-solid-900.eot"
   },
-  "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.woff2": {
-    "file": "assets/fa-brands-400.8ea87917.woff2",
-    "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.woff2"
-  },
   "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-regular-400.woff2": {
     "file": "assets/fa-regular-400.e42a8844.woff2",
     "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-regular-400.woff2"
+  },
+  "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.woff2": {
+    "file": "assets/fa-brands-400.8ea87917.woff2",
+    "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.woff2"
   },
   "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-solid-900.woff2": {
     "file": "assets/fa-solid-900.9834b82a.woff2",
     "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-solid-900.woff2"
   },
-  "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.woff": {
-    "file": "assets/fa-brands-400.f9217f66.woff",
-    "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.woff"
-  },
   "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-regular-400.woff": {
     "file": "assets/fa-regular-400.cb9e9e69.woff",
     "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-regular-400.woff"
+  },
+  "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.woff": {
+    "file": "assets/fa-brands-400.f9217f66.woff",
+    "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.woff"
   },
   "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-solid-900.woff": {
     "file": "assets/fa-solid-900.3f6d3488.woff",
     "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-solid-900.woff"
   },
-  "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.ttf": {
-    "file": "assets/fa-brands-400.cda59d6e.ttf",
-    "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.ttf"
-  },
   "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-regular-400.ttf": {
     "file": "assets/fa-regular-400.e8711bbb.ttf",
     "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-regular-400.ttf"
+  },
+  "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.ttf": {
+    "file": "assets/fa-brands-400.cda59d6e.ttf",
+    "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.ttf"
   },
   "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-solid-900.ttf": {
     "file": "assets/fa-solid-900.af639750.ttf",
@@ -51,13 +51,13 @@
     "file": "assets/fa-regular-400.62f1f2b9.svg",
     "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-regular-400.svg"
   },
-  "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-solid-900.svg": {
-    "file": "assets/fa-solid-900.25630646.svg",
-    "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-solid-900.svg"
-  },
   "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.svg": {
     "file": "assets/fa-brands-400.9b3a8965.svg",
     "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-brands-400.svg"
+  },
+  "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-solid-900.svg": {
+    "file": "assets/fa-solid-900.25630646.svg",
+    "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-solid-900.svg"
   },
   "resources/js/app.js": {
     "file": "assets/app.c388bc6b.js",
@@ -67,11 +67,6 @@
   "resources/js/dark-mode.js": {
     "file": "assets/dark-mode.505a38a1.js",
     "src": "resources/js/dark-mode.js",
-    "isEntry": true
-  },
-  "resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css": {
-    "file": "assets/bootstrap-4.min.f9264e7b.css",
-    "src": "resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css",
     "isEntry": true
   },
   "resources/adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css": {
@@ -84,8 +79,13 @@
     "src": "resources/adminLTE/plugins/fontawesome-free/css/all.min.css",
     "isEntry": true
   },
+  "resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css": {
+    "file": "assets/bootstrap-4.min.f9264e7b.css",
+    "src": "resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css",
+    "isEntry": true
+  },
   "resources/css/app.css": {
-    "file": "assets/app.5a60b75d.css",
+    "file": "assets/app.0ae49b0c.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },

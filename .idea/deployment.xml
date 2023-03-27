@@ -32,6 +32,7 @@
             <excludedPath local="true" path="$PROJECT_DIR$/config/filesystems.php" />
             <excludedPath path="/gto/node_modules" />
             <excludedPath local="true" path="$PROJECT_DIR$/public/hot" />
+            <excludedPath local="true" path="$PROJECT_DIR$/public/adminLTE" />
           </excludedPaths>
         </serverdata>
       </paths>

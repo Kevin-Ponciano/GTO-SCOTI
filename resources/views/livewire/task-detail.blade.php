@@ -18,7 +18,7 @@
 {{--    </div>--}}
 {{--</section>--}}
 
-<div>
+<div class="mt-2">
     <section class="content">
         <div class="card">
             <div class="card-header">
