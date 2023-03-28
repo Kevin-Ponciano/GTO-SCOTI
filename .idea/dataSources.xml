@@ -8,18 +8,11 @@
       <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="Servidor - GTO" uuid="30bf3750-0247-4ad2-87a1-f90f00263fff">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://142.93.15.175:3306</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="GTO_PROD" uuid="c0cfb483-2628-474c-b4b3-66f71fd0afe6">
+    <data-source source="LOCAL" name="fisconsult" uuid="87551b30-047e-4ff5-b7ac-2fb5a157b284">
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mariadb://156.67.72.1:3306/u644243978_oQEAi</jdbc-url>
+      <jdbc-url>jdbc:mariadb://156.67.72.1:3306/u644243978_WvbiB</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
