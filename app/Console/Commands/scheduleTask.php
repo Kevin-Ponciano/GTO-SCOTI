@@ -30,6 +30,8 @@ class scheduleTask extends Command
      */
     public function handle(): void
     {
+        # Finalizar a recorrencia, para verificar se nas datas anteriores foi aberto a tarefa
+        # Caso não tenha sido aberta, avançar a data agendada de acordo com a frequencia todo
         $today = Carbon::now()->format('Y-m-d');
         $currentTime = Carbon::now()->format('H:i');
 
