@@ -23,7 +23,6 @@ class scheduleTask extends Command
      */
     protected $description = 'Cria tarefas agendadas';
 
-
     /**
      * Execute the console command.
      *
@@ -34,10 +33,14 @@ class scheduleTask extends Command
         $today = Carbon::now()->format('Y-m-d');
         $currentTime = Carbon::now()->format('H:i');
 
-        $scheduleTasks = ScheduledTask::where('date', $today)
-            ->where('hour', $currentTime)
-            ->get();
+        $scheduleTasks = ScheduledTask::where('date', $today)->where('hour', $currentTime)->get();
 
+
+        $this->info('Tarefas criadas com sucesso!');
+    }
+
+    private function createRecurringTasks($scheduleTasks)
+    {
         foreach ($scheduleTasks as $scheduleTask) {
             #Tarefa Recorrente, será aberta n vezes
             if ($scheduleTask->recorrence_count > 1) {
@@ -48,7 +51,7 @@ class scheduleTask extends Command
                 #Crio a tarefa agendada
                 $scheduleTask->task->situation = 'open';
                 $scheduleTask->task->status = 'Em dia';
-                $scheduleTask->task->date_create = $today;
+                $scheduleTask->task->date_create = Carbon::now()->format('Y-m-d');
                 $scheduleTask->task->scheduled_task_id = null;
                 $scheduleTask->task->save();
 
@@ -65,14 +68,12 @@ class scheduleTask extends Command
             } else {
                 $scheduleTask->task->situation = 'open';
                 $scheduleTask->task->status = 'Em dia';
-                $scheduleTask->task->date_create = $today;
+                $scheduleTask->task->date_create = Carbon::now()->format('Y-m-d');
                 $scheduleTask->task->save();
 
             }
             $scheduleTask->recorrence_count--;
             $scheduleTask->save();
         }
-
-        $this->info('Tarefas criadas com sucesso!');
     }
 }
