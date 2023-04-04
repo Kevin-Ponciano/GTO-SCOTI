@@ -58,28 +58,19 @@ class Users extends Component
      */
     public function render()
     {
-        if (!Auth::user()->teams[0]->userHasPermission(Auth::user(), 'manager')) {
-            return abort('404');
-        } elseif (Auth::user()->teams[0]->userHasPermission(Auth::user(), 'admin')) {
-            $users = User::where('id', '!=', auth()->id())
-                ->where(function ($query) {
-                    foreach (Auth::user()->allTeams() as $team) {
-                        $query->orWhere('current_team_id', $team->id);
-                    }
-                });
-        } else {
-            $users = User::where('current_team_id', Auth::user()->current_team_id)
-                ->where('role', '!=', 'admin')
-                ->where('role', '!=', 'manager');
-        }
+        $users = User::where('id', '!=', auth()->id());
+//            ->where(function ($query) {
+//                foreach (Auth::user()->allTeams() as $team) {
+//                    $query->orWhere('current_team_id', $team->id);
+//                }
+//            });
 
         return view('livewire.users', [
             'users' => $users
                 ->where(function ($query) {
-                    $query->Where('email','like', '%'.$this->search.'%');
-                    $query->orWhere('name','like', '%'.$this->search.'%');
+                    $query->Where('email', 'like', '%' . $this->search . '%');
+                    $query->orWhere('name', 'like', '%' . $this->search . '%');
                 })
-                #->search('email', $this->search)
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate(10)
         ]);

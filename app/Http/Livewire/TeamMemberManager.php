@@ -75,11 +75,9 @@ class TeamMemberManager extends Component
      *
      * @var array
      */
-    public $addTeamMemberForm = [
-        'email' => ' ',
-        'role' => '',
-    ];
+    public $addTeamMemberForm = ['email' => ' ', 'role' => '',];
     public $selectEmail = ' ';
+
     /**
      * Mount the component.
      *
@@ -101,25 +99,12 @@ class TeamMemberManager extends Component
         $this->resetErrorBag();
 
         if (Features::sendsTeamInvitations()) {
-            app(InvitesTeamMembers::class)->invite(
-                $this->user,
-                $this->team,
-                $this->addTeamMemberForm['email'],
-                $this->addTeamMemberForm['role']
-            );
+            app(InvitesTeamMembers::class)->invite($this->user, $this->team, $this->addTeamMemberForm['email'], $this->addTeamMemberForm['role']);
         } else {
-            app(AddsTeamMembers::class)->add(
-                $this->user,
-                $this->team,
-                $this->addTeamMemberForm['email'],
-                $this->addTeamMemberForm['role']
-            );
+            app(AddsTeamMembers::class)->add($this->user, $this->team, $this->addTeamMemberForm['email'], $this->addTeamMemberForm['role']);
         }
 
-        $this->addTeamMemberForm = [
-            'email' => '',
-            'role' => $this->addTeamMemberForm['role'],
-        ];
+        $this->addTeamMemberForm = ['email' => '', 'role' => $this->addTeamMemberForm['role'],];
 
         $this->team = $this->team->fresh();
 
@@ -164,12 +149,7 @@ class TeamMemberManager extends Component
      */
     public function updateRole(UpdateTeamMemberRole $updater)
     {
-        $updater->update(
-            $this->user,
-            $this->team,
-            $this->managingRoleFor->id,
-            $this->currentRole
-        );
+        $updater->update($this->user, $this->team, $this->managingRoleFor->id, $this->currentRole);
 
         $this->team = $this->team->fresh();
 
@@ -194,11 +174,7 @@ class TeamMemberManager extends Component
      */
     public function leaveTeam(RemovesTeamMembers $remover): Redirector|RedirectResponse|Application
     {
-        $remover->remove(
-            $this->user,
-            $this->team,
-            $this->user
-        );
+        $remover->remove($this->user, $this->team, $this->user);
 
         $this->confirmingLeavingTeam = false;
 
@@ -228,11 +204,7 @@ class TeamMemberManager extends Component
      */
     public function removeTeamMember(RemovesTeamMembers $remover): void
     {
-        $remover->remove(
-            $this->user,
-            $this->team,
-            $user = Jetstream::findUserByIdOrFail($this->teamMemberIdBeingRemoved)
-        );
+        $remover->remove($this->user, $this->team, $user = Jetstream::findUserByIdOrFail($this->teamMemberIdBeingRemoved));
 
 //
 
@@ -260,16 +232,15 @@ class TeamMemberManager extends Component
      */
     public function getRolesProperty(): array
     {
-        return collect(Jetstream::$roles)->transform(function ($role) {
+        return collect(Jetstream::$roles)->reject(function ($role) {
+            return $role->key === 'admin';
+        })->transform(function ($role) {
             return with($role->jsonSerialize(), function ($data) {
-                return (new Role(
-                    $data['key'],
-                    $data['name'],
-                    $data['permissions']
-                ))->description($data['description']);
+                return (new Role($data['key'], $data['name'], $data['permissions']))->description($data['description']);
             });
         })->values()->all();
     }
+
 
     /**
      * Render the component.

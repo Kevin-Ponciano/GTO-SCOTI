@@ -28,11 +28,16 @@
             <excludedPath local="true" path="$PROJECT_DIR$/vendor" />
             <excludedPath local="true" path="$PROJECT_DIR$/.env" />
             <excludedPath local="true" path="$PROJECT_DIR$/bootstrap" />
-            <excludedPath local="true" path="$PROJECT_DIR$/resources/adminLTE" />
             <excludedPath local="true" path="$PROJECT_DIR$/config/filesystems.php" />
             <excludedPath path="/fisconsult/node_modules" />
             <excludedPath local="true" path="$PROJECT_DIR$/public/hot" />
             <excludedPath local="true" path="$PROJECT_DIR$/public/adminLTE" />
+            <excludedPath local="true" path="$PROJECT_DIR$/resources/adminLTE" />
+            <excludedPath path="/fisconsult/.htaccess" />
+            <excludedPath path="/fisconsult/.styleci.yml" />
+            <excludedPath path="/fisconsult/composer.phar" />
+            <excludedPath path="/fisconsult/webpack.mix.js" />
+            <excludedPath path="/fisconsult/index.php" />
           </excludedPaths>
         </serverdata>
       </paths>

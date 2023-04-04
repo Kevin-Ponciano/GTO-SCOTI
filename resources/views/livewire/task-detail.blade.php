@@ -26,7 +26,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 col-md-12 col-lg-4 order-2 order-md-1">
+                    <div class="col-12 col-md-12 col-lg-4  order-md-1">
                         <h3 class="text-primary"><i class="fas fa-paint-brush"></i>Descrição</h3>
                         <p id="description_field" class="text-muted"
                            style="overflow:hidden;white-space:nowrap;text-overflow: ellipsis">{{$task->description}}</p>

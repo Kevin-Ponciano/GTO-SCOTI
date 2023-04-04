@@ -1,3 +1,4 @@
+@php use App\Models\User; @endphp
 <div>
     <!--Header-->
     <div class="flex items-start justify-between px-3 py-2 border-b rounded-t dark:border-gray-600">
@@ -37,7 +38,7 @@
                 <select id="responsible"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         wire:model.defer="userId">
-                    @foreach($users as $user)
+                    @foreach(User::all() as $user)
                         <option value="{{$user->id}}">{{$user->name}}</option>
                     @endforeach
                 </select>
@@ -123,6 +124,9 @@
     @endif
     <script>
         $(document).ready(function () {
+            let resetChecked = () => {
+                document.querySelector('input[type="checkbox"]').checked = false;
+            }
             let dateTodayController = () => {
                 let dtToday = new Date()
                 let month = dtToday.getMonth() + 1
@@ -155,7 +159,9 @@
                 dateTodayController()
                 inputMask()
             })
+            window.addEventListener('resetChecked', event => {
+                resetChecked();
+            })
         });
-
     </script>
 </div>

@@ -14,12 +14,13 @@ class TeamPolicy
      * Determine whether the user can view any models.
      *
      * @param User $user
-     * @return mixed
+     * @return bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return true;
     }
+
 
     /**
      * Determine whether the user can view the model.

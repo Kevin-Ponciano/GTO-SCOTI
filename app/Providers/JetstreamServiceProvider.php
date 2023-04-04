@@ -19,7 +19,7 @@ class JetstreamServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         Jetstream::ignoreRoutes();
     }
@@ -29,7 +29,7 @@ class JetstreamServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->configurePermissions();
 
@@ -47,27 +47,43 @@ class JetstreamServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configurePermissions()
+    protected function configurePermissions(): void
     {
         Jetstream::defaultApiTokenPermissions(['read']);
 
-        Jetstream::role('employer', 'Funcionário', [
-        ])->description('Os funcionários só possuem permissão para visualização.');
+        Jetstream::role('employer', 'Colaborador', [
+        ])->description('Possui permissão somente para interagir com as tarefas e finalizar a mesma');
 
-        Jetstream::role('manager', 'Gerente', [
+        Jetstream::role('manager', 'Diretor', [
             'manager',
+            'filterTasks',
+            'dashboard',
+            'read',
+        ])->description('Responsável por acompanhar o andamento das demandas através do dashboard e solicitar a abertura de tarefas');
+
+        Jetstream::role('masterManager', 'Gestor Master', [
+            'managerTasks',
+            'manager',
+            'filterTasks',
+            'managerUsers',
+            'dashboard',
             'read',
             'update',
+            'create',
             'addTeamMember',
             'updateTeamMember',
             'removeTeamMember',
-        ])->description('Os gerentes têm a capacidade de ler, criar e atualizar.');
+        ])->description('Responsável para abrir, delegar e validar as tarefas.');
 
-        Jetstream::role('admin', 'Administrador', [
-            'admin',
+        Jetstream::role('admin', 'Administrador do Sistema', [
+            'managerTasks',
             'manager',
+            'filterTasks',
+            'managerUsers',
+            'dashboard',
             'read',
             'update',
+            'create',
             'addTeamMember',
             'updateTeamMember',
             'removeTeamMember',

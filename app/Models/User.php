@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Jetstream\HasTeams;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
-use App\Traits\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 
 
@@ -59,8 +60,26 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function tasks()
+    public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
     }
+
+    public function hasRole($roles): bool
+    {
+        if (is_string($roles)) {
+            $roles = [$roles];
+        }
+
+        foreach ($roles as $role) {
+            foreach ($this->roles as $userRole) {
+                if ($userRole->name === $role) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 }

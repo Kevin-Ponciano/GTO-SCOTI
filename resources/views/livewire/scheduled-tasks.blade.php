@@ -1,5 +1,6 @@
 @php
-    use App\Http\Livewire\ScheduledTasks;use app\http\Livewire\Tasks;
+    use App\Http\Livewire\ScheduledTasks;
+    use App\http\Livewire\Tasks;
     use Carbon\Carbon;
     use App\Models\User;
 
@@ -26,14 +27,16 @@
                 </div>
             </div>
             {{--            <h1 class="text-xl font-bold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{{__('Tasks')}}</h1>--}}
-            <button
-                class="bg-gradient-to-br  dark:text-white focus:outline-none font-medium from-cyan-500 group group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white inline-flex items-center justify-center overflow-hidden p-0.5 relative rounded-lg text-gray-600 text-sm to-blue-500">
+            @if(Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'managerTasks'))
+                <button
+                    class="bg-gradient-to-br  dark:text-white focus:outline-none font-medium from-cyan-500 group group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white inline-flex items-center justify-center overflow-hidden p-0.5 relative rounded-lg text-gray-600 text-sm to-blue-500">
                   <span
                       class="bg-gray-100 dark:bg-gray-900 duration-75 ease-in font-black group-hover:bg-opacity-0 px-4 py-1 relative rounded-md transition-all"
                       onclick="$('#new_task_modal').modal('show')">
                       {{__('New Task')}}
                   </span>
-            </button>
+                </button>
+            @endif
         </div>
 
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg"
@@ -112,7 +115,7 @@
                     </tr>
                 @empty
                     <tr class="bg-white">
-                        <td colspan="6">
+                        <td colspan="7">
                             <div class="flex justify-center items-center">
                                 <span class="font-medium py-6 text-gray-400 text-lg">
                                     {{__('No Task Found...')}}

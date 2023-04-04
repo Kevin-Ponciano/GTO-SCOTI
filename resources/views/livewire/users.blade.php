@@ -17,7 +17,7 @@
                 </div>
                 <input type="text" id="search"
                        class="bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                       placeholder="{{__('Search users by email')}}..."
+                       placeholder="{{__('Pesquisar')}}..."
                        wire:model="search">
             </div>
             <i class="bi bi-three-dots"></i>
@@ -77,16 +77,14 @@
                             {{Users::get_enterprise($user->allTeams()->jsonSerialize())}}
                         </td>
                         <td class="py-2 w-44 px-6">
-                            {{Users::getRole($user->teamRole($user->currentTeam))}}
+                            {{__(Users::getRole($user->teamRole($user->currentTeam)))}}
                         </td>
                         <td class="flex items-end justify-end py-2 space-x-3">
-                            @if(Auth::user()->role == 'admin')
-                                <button
+                            <button
                                 class="text-white text-xs bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 rounded-lg px-3 py-2 mr-2 mb-2"
                                 wire:click="$emit('edit',{{$user->id}})"
                                 onclick="$('#edit_user_modal').modal('show')">Editar
                             </button>
-                            @endif
                             <form method="POST" action="{{ route('redefine-password') }}">
                                 @csrf
                                 <input value="{{$user->email}}" name="email" hidden>
@@ -98,7 +96,7 @@
                             </form>
                         </td>
                     </tr>
-                    @empty
+                @empty
                     <tr class="bg-white">
                         <td colspan="6">
                             <div class="flex justify-center items-center">

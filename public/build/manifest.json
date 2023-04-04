@@ -60,7 +60,7 @@
     "src": "resources/adminLTE/plugins/fontawesome-free/webfonts/fa-solid-900.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app.c388bc6b.js",
+    "file": "assets/app.52069510.js",
     "src": "resources/js/app.js",
     "isEntry": true
   },
@@ -69,14 +69,14 @@
     "src": "resources/js/dark-mode.js",
     "isEntry": true
   },
+  "resources/css/app.css": {
+    "file": "assets/app.62ff3cc5.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
   "resources/adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css": {
     "file": "assets/OverlayScrollbars.min.2575d5d4.css",
     "src": "resources/adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css",
-    "isEntry": true
-  },
-  "resources/adminLTE/plugins/fontawesome-free/css/all.min.css": {
-    "file": "assets/all.min.336bfed5.css",
-    "src": "resources/adminLTE/plugins/fontawesome-free/css/all.min.css",
     "isEntry": true
   },
   "resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css": {
@@ -84,9 +84,9 @@
     "src": "resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css",
     "isEntry": true
   },
-  "resources/css/app.css": {
-    "file": "assets/app.0ae49b0c.css",
-    "src": "resources/css/app.css",
+  "resources/adminLTE/plugins/fontawesome-free/css/all.min.css": {
+    "file": "assets/all.min.336bfed5.css",
+    "src": "resources/adminLTE/plugins/fontawesome-free/css/all.min.css",
     "isEntry": true
   },
   "resources/adminLTE/dist/css/adminlte.css": {

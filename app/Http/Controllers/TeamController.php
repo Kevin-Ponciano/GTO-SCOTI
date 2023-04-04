@@ -24,8 +24,8 @@ class TeamController extends Controller
     {
         $team = Jetstream::newTeamModel()->findOrFail($teamId);
 
-        if (!$team->userHasPermission(Auth::user(), 'manager')) {
-            return abort(404);
+        if (!$team->userHasPermission(Auth::user(), 'read')) {
+            abort(403,'Acesso Negado');
         }
 
         return view('teams.show', [

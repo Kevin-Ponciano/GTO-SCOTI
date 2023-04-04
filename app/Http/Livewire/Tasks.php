@@ -87,8 +87,13 @@ class Tasks extends Component
             $situationFilter = 'open';
         }
 
-        $tasks = Task::search('situation', $situationFilter)
-            ->search('team_id', Auth::user()->current_team_id);
+        $tasks = Task::search('situation', $situationFilter);
+        if (!Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'managerTasks')) {
+            $tasks->search('team_id', Auth::user()->current_team_id);
+            if (!Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'manager')) {
+                $tasks->search('user_id', Auth::user()->id);
+            }
+        }
 
 
         if ($this->userFilter) {

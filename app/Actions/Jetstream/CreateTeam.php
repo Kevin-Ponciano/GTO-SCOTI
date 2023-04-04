@@ -11,6 +11,20 @@ use Laravel\Jetstream\Jetstream;
 class CreateTeam implements CreatesTeams
 {
     /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Obrigatório',
+            'cnpj.required' => 'Obrigatório',
+            'cnpj'.'unique' => 'CNPJ Cadastrado no Sistema'
+        ];
+    }
+
+    /**
      * Validate and create a new team for the given user.
      *
      * @param mixed $user
@@ -23,15 +37,15 @@ class CreateTeam implements CreatesTeams
 
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
+            'cnpj' => ['required', 'unique:teams,cnpj']
         ])->validateWithBag('createTeam');
 
         AddingTeam::dispatch($user);
 
-        $user->switchTeam($team = $user->ownedTeams()->create([
+        return $user->ownedTeams()->create([
             'name' => $input['name'],
             'personal_team' => false,
-        ]));
-
-        return $team;
+            'cnpj' => $input['cnpj']
+        ]);
     }
 }

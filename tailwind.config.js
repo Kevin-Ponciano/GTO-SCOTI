@@ -12,7 +12,8 @@ module.exports = {
     darkMode: 'class',
     theme: {
         colors:{
-            'green-default': '#3db92e'
+            'green-default': '#3db92e',
+            'blue-default':'#5c96fc'
         },
         extend: {
             fontFamily: {

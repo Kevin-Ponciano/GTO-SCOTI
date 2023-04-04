@@ -13,12 +13,12 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <!-- STYLES -->
-{{--    @vite([--}}
-{{--        'resources/adminLTE/dist/css/adminlte.css',--}}
-{{--        'resources/adminLTE/plugins/fontawesome-free/css/all.min.css',--}}
-{{--        'resources/adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css',--}}
-{{--        'resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css'--}}
-{{--    ])--}}
+    {{--    @vite([--}}
+    {{--        'resources/adminLTE/dist/css/adminlte.css',--}}
+    {{--        'resources/adminLTE/plugins/fontawesome-free/css/all.min.css',--}}
+    {{--        'resources/adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css',--}}
+    {{--        'resources/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css'--}}
+    {{--    ])--}}
     <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/all.min.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.css")}}>
     <link rel="stylesheet" href={{asset("adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}>
@@ -33,7 +33,7 @@
 
     <!-- Tallwind css -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-{{--    <link href="{{ asset('assets/css/tailwind-v3.1.8.css') }}" rel="stylesheet">--}}
+    {{--    <link href="{{ asset('assets/css/tailwind-v3.1.8.css') }}" rel="stylesheet">--}}
     <link href="{{ asset('assets/css/flowbite-v1.6.3.css') }}" rel="stylesheet">
 
 
@@ -58,27 +58,19 @@
          abort(406);
     }
     $team = Auth::user()->currentTeam;
-    $isAdminRole = $team->userHasPermission(Auth::user(), 'admin');
-    $isManagerRole = $team->userHasPermission(Auth::user(), 'manager');
+    $isMaster = $team->userHasPermission(Auth::user(), 'managerTasks');
+    $isManager = $team->userHasPermission(Auth::user(), 'manager');
 @endphp
 @if(Route::current()->action['as'] == 'dashboard')
-    <nav class="main-header navbar navbar-expand navbar-light">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" id="t" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{route('dashboard')}}" class="nav-link">Dashboard</a>
-            </li>
-        </ul>
+    <nav class="main-header navbar navbar-expand navbar-light pt-[1.39rem]">
         <ul class="navbar-nav ml-auto ">
-            <li class="nav-item px-2">
-                <button class="btn btn-outline-dark font-bold px-4 rounded btn-xs"
-                        onclick="$('#new_task_modal').modal('show')">Nova Tarefa
-                </button>
-            </li>
-            <li class="nav-item px-2">
-                @if ($isAdminRole)
+            @if ($isMaster)
+                <li class="nav-item px-2">
+                    <button class="btn btn-outline-dark font-bold px-4 rounded btn-xs"
+                            onclick="$('#new_task_modal').modal('show')">Nova Tarefa
+                    </button>
+                </li>
+                <li class="nav-item px-2">
                     <x-jet-dropdown align="right" width="30">
                         <x-slot name="trigger">
                         <span class="inline-flex rounded-md">
@@ -119,143 +111,43 @@
                                     </x-slot>
                                 </x-jet-dropdown>
                                 <div class="border-t border-gray-100"></div>
-                                <!--Change teams-->
-                                <x-jet-dropdown align="right" style="right: 197px;top: -25px;width: 11rem">
-                                    <x-slot name="trigger">
-                                <span class="inline-flex rounded-md">
-                                    <button type="button"
-                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm
-                                            leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50
-                                             hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
-                                            <i class="bi bi-caret-left-fill" style="padding-right: 10px"></i>
-                                        Alterar Equipe
-                                    </button>
-                                </span>
-                                    </x-slot>
-                                    <x-slot name="content">
-                                        <div class="block text-xs text-gray-400">
-                                            @foreach (Auth::user()->allTeams() as $team)
-                                                <x-jet-switchable-team :team="$team"/>
-                                            @endforeach
-                                        </div>
-                                    </x-slot>
-                                </x-jet-dropdown>
+{{--                                <!--Change teams-->--}}
+{{--                                <x-jet-dropdown align="right" style="right: 197px;top: -25px;width: 11rem">--}}
+{{--                                    <x-slot name="trigger">--}}
+{{--                                <span class="inline-flex rounded-md">--}}
+{{--                                    <button type="button"--}}
+{{--                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm--}}
+{{--                                            leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50--}}
+{{--                                             hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">--}}
+{{--                                            <i class="bi bi-caret-left-fill" style="padding-right: 10px"></i>--}}
+{{--                                        Alterar Equipe--}}
+{{--                                    </button>--}}
+{{--                                </span>--}}
+{{--                                    </x-slot>--}}
+{{--                                    <x-slot name="content">--}}
+{{--                                        <div class="block text-xs text-gray-400">--}}
+{{--                                            @foreach (Auth::user()->allTeams() as $team)--}}
+{{--                                                <x-jet-switchable-team :team="$team"/>--}}
+{{--                                            @endforeach--}}
+{{--                                        </div>--}}
+{{--                                    </x-slot>--}}
+{{--                                </x-jet-dropdown>--}}
                             </div>
                         </x-slot>
                     </x-jet-dropdown>
-                @else
-                    <a href="@if($isManagerRole) {{route('teams.show', Auth::user()->current_team_id)}} @else #@endif">
-                        <div class="text-muted px-4 text-bold text-uppercase">
-                            {{Auth::user()->currentTeam->name}}
-                        </div>
-                    </a>
-                @endif
-
-            </li>
+                    @else
+                        <a>
+                            <div class="text-muted px-4 text-bold text-uppercase">
+                                {{Auth::user()->currentTeam->name}}
+                            </div>
+                        </a>
+                </li>
+            @endif
         </ul>
     </nav>
 @endif
 
-
-<aside class="main-sidebar sidebar-light-blue shadow ">
-    <a href="#" class="brand-link">
-        <img src="{{asset('logo.png')}}"
-             alt="Logo" class="brand-image img-circle elevation-3"
-             style="opacity: .8;">
-        <span class="brand-text text-gray-700 text-md">{{config('app.name')}}</span>
-    </a>
-
-    <div class="sidebar">
-        @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-            <a href="{{route('profile.show')}}" class="brand-link" style="width: 234px">
-                <img src="{{Auth::user()->profile_photo_url}}"
-                     class="h-10 w-10 rounded-full object-cover"
-                     alt="{{ Auth::user()->name }}"
-                     style="display: inline;">
-                <span class="brand-text text-gray-700 text-md"
-                      style="padding-left: 7px">
-                        {{ Auth::user()->name }}
-                    {{--                    <p class="text-sm-left"--}}
-                    {{--                       style="font-size: 10px">--}}
-                    {{--                    {{Auth::user()->teamRole($team)->name}}--}}
-                    {{--                    </p>--}}
-                </span>
-            </a>
-        @endif
-
-        {{--            <div class="form-inline">--}}
-        {{--                <div class="input-group" data-widget="sidebar-search">--}}
-        {{--                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"--}}
-        {{--                           aria-label="Search">--}}
-        {{--                    <div class="input-group-append">--}}
-        {{--                        <button class="btn btn-sidebar">--}}
-        {{--                            <i class="fas fa-search fa-fw"></i>--}}
-        {{--                        </button>--}}
-        {{--                    </div>--}}
-        {{--                </div>--}}
-        {{--            </div>--}}
-
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                data-accordion="false">
-                <li class="nav-item">
-                    <a href="{{route('dashboard')}}" class="nav-link">
-                        <i class="nav-icon fas fa-home"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{url('tarefas?userFilter='.Auth::user()->id)}}" class="nav-link">
-                        <i class="nav-icon  fa bi-person-lines-fill"></i>
-                        <p>Minhas Tarefas</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('tasks')}}" class="nav-link">
-                        <i class="nav-icon far fa-list-alt"></i>
-                        <p>Tarefas</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('tasks-scheduled')}}" class="nav-link">
-                        <i class="nav-icon far fa-clock"></i>
-                        <p>Tarefas Agendadas</p>
-                    </a>
-                </li>
-                @if($isAdminRole)
-                    <li class="nav-item">
-                        <a href="{{route('users')}}" class="nav-link">
-                            <i class="far bi-people-fill nav-icon"></i>
-                            <p>Usuários</p>
-                        </a>
-                    </li>
-                @elseif($isManagerRole)
-                    <li class="nav-item">
-                        <a href="{{route('teams.show', Auth::user()->current_team_id).'#users-manager'}}"
-                           class="nav-link">
-                            <i class="far bi-person-add nav-icon"></i>
-                            <p>Vincular Funcionário</p>
-                        </a>
-                    </li>
-                @endif
-
-                <script>
-                    let url = window.location;
-                    let nav = $('ul.nav a[href="' + url + '"]').addClass('active')
-                </script>
-                <li class="nav-item">
-                    <form method="POST" action="{{ route('logout') }}" id="logout">
-                        @csrf
-                    </form>
-                    <a href="#" class="nav-link" onclick="$('#logout').submit()">
-                        <i class="nav-icon fas fa-sign-out-alt"></i>
-                        <p>Sair</p>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</aside>
+<x-sidebar/>
 
 <div class="content-wrapper py-1">
     <main class="content">
@@ -271,7 +163,6 @@
         </div>
     </div>
 </div>
-
 @if(Route::current()->action['as'] == 'dashboard')
 
     <footer class="main-footer" style="font-size: 12px">
@@ -302,9 +193,9 @@
     $.widget.bridge('uibutton', $.ui.button)
 </script>
 
+<script src={{asset("adminLTE/dist/js/adminlte.js")}}></script>
 <script src={{asset("adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js")}}></script>
 <script src={{asset("adminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
-<script src={{asset("adminLTE/dist/js/adminlte.js")}}></script>
 <script src={{asset("adminLTE/plugins/sweetalert2/sweetalert2.min.js")}}></script>
 <script src={{asset("assets/js/jquery.mask.min.js")}}></script>
 {{--<script src="{{asset('assets/js/app.js') }}" defer></script>--}}

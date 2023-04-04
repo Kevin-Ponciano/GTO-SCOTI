@@ -44,8 +44,11 @@ class TaskDetail extends Component
 
         $task = Task::find($this->taskId);
 
-        if (!$task || $task->team_id != Auth::user()->current_team_id) {
-            abort(404);
+
+        if (!$task || $task->user_id != Auth::user()->id) {
+            if (!Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'manager')) {
+                abort(403,'Pagina Não Encontrada');
+            }
         }
 
         $this->comments = $task->comments->sortByDesc('date_time_create');

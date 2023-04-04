@@ -3,7 +3,14 @@
     use Carbon\Carbon;
     use App\Models\User;
 
-    $sortDirectionIcon = $sortDirection == 'asc' ? 'up' : 'down'
+    $sortDirectionIcon = $sortDirection == 'asc' ? 'up' : 'down';
+    if(Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'managerTasks')){
+        $users = User::all();
+    }
+    elseif(Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'manager')){
+            $users = User::where('current_team_id',Auth::user()->current_team_id)->get();
+    }
+
 @endphp
 <div>
     <div class="space-y-2">
@@ -23,25 +30,30 @@
                            class="bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                            placeholder="{{__('Search tasks')}}..."
                            wire:model="search">
+
                 </div>
-                <button type="button"
-                        onclick="$('#apply-filter').modal('show')"
-                        class="bg-blue-400 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none hover:bg-gray-600 m-2 px-2 py-1 rounded-full text-center text-white text-xs">
-                    {{__('Apply Filter')}}
-                </button>
+                @if(Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'filterTasks'))
+                    <button type="button"
+                            onclick="$('#apply-filter').modal('show')"
+                            class="bg-blue-400 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none hover:bg-gray-600 m-2 px-2 py-1 rounded-full text-center text-white text-xs">
+                        {{__('Apply Filter')}}
+                    </button>
+                @endif
             </div>
 
 
             {{--            <h1 class="text-xl font-bold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{{__('Tasks')}}</h1>--}}
-
-            <button
-                class="bg-gradient-to-br  dark:text-white focus:outline-none font-medium from-cyan-500 group group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white inline-flex items-center justify-center overflow-hidden p-0.5 relative rounded-lg text-gray-600 text-sm to-blue-500">
+            @if(Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'managerTasks'))
+                <button
+                    class="bg-gradient-to-br  dark:text-white focus:outline-none font-medium from-cyan-500 group group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white inline-flex items-center justify-center overflow-hidden p-0.5 relative rounded-lg text-gray-600 text-sm to-blue-500">
                   <span
                       class="bg-gray-100 dark:bg-gray-900 duration-75 ease-in font-black group-hover:bg-opacity-0 px-4 py-1 relative rounded-md transition-all"
                       onclick="$('#new_task_modal').modal('show')">
                       {{__('New Task')}}
                   </span>
-            </button>
+                </button>
+            @endif
+
         </div>
 
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg"
@@ -84,8 +96,8 @@
                             $status_color = 'warning';
                         $task->deadline = Carbon::createFromFormat("Y-m-d", $task['deadline'])->format("d/m/Y");
                     @endphp
-                        <tr onclick="location.href='{{route('task_detail',$task->id)}}'"
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
+                    <tr onclick="location.href='{{route('task_detail',$task->id)}}'"
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
                         <th scope="row"
                             class="text-muted text-left px-6 text-gray-900 whitespace-nowrap dark:text-white">
                             {{$task->title}}
@@ -129,67 +141,68 @@
             {{$tasks->links()}}
         </div>
     </div>
-
-    <div class="modal fade" id="apply-filter" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <!--Body-->
-                <div class="p-2.5 space-y-6">
-                    <div class="grid gap-6 md:grid-cols-3 text-md">
-                        <div>
-                            <label for="userFilter"
-                                   class="block mb-2 font-medium text-gray-900 dark:text-white">
-                                {{__('Responsible')}}
-                            </label>
-                            <select id="userFilter"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    wire:model.defer="userFilter">
-                                <option value="">{{__('No filter')}}</option>
-                                @foreach(User::where('current_team_id',Auth::user()->current_team_id)->get() as $user)
-                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div>
-                            <label for="priorityFilter"
-                                   class="block mb-2 font-medium text-gray-900 dark:text-white">
-                                {{__('Priority')}}
-                            </label>
-                            <select id="priorityFilter"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    wire:model.defer="priorityFilter">
-                                <option value="">{{__('No filter')}}</option>
-                                <option value="Baixa">Baixa</option>
-                                <option value="Média">Média</option>
-                                <option value="Alta">Alta</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="statusFilter"
-                                   class="block mb-2 font-medium text-gray-900 dark:text-white">
-                                {{__('Status')}}
-                            </label>
-                            <select id="statusFilter"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    wire:model.defer="statusFilter">
-                                <option class="text-muted" value="">{{__('No filter')}}</option>
-                                <option value="Em dia">Em dia</option>
-                                <option value="dias para expirar">Proximo</option>
-                                <option value="Expirado">Expirado</option>
-                                <option value="Finalizadas">Finalizadas</option>
-                            </select>
+    @if(Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'filterTasks'))
+        <div class="modal fade" id="apply-filter" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <!--Body-->
+                    <div class="p-2.5 space-y-6">
+                        <div class="grid gap-6 md:grid-cols-3 text-md">
+                            <div>
+                                <label for="userFilter"
+                                       class="block mb-2 font-medium text-gray-900 dark:text-white">
+                                    {{__('Responsible')}}
+                                </label>
+                                <select id="userFilter"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        wire:model.defer="userFilter">
+                                    <option value="">{{__('No filter')}}</option>
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <label for="priorityFilter"
+                                       class="block mb-2 font-medium text-gray-900 dark:text-white">
+                                    {{__('Priority')}}
+                                </label>
+                                <select id="priorityFilter"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        wire:model.defer="priorityFilter">
+                                    <option value="">{{__('No filter')}}</option>
+                                    <option value="Baixa">Baixa</option>
+                                    <option value="Média">Média</option>
+                                    <option value="Alta">Alta</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="statusFilter"
+                                       class="block mb-2 font-medium text-gray-900 dark:text-white">
+                                    {{__('Status')}}
+                                </label>
+                                <select id="statusFilter"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        wire:model.defer="statusFilter">
+                                    <option class="text-muted" value="">{{__('No filter')}}</option>
+                                    <option value="Em dia">Em dia</option>
+                                    <option value="dias para expirar">Proximo</option>
+                                    <option value="Expirado">Expirado</option>
+                                    <option value="Finalizadas">Finalizadas</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!--Footer-->
-                <div
-                    class="flex items-center justify-between py-1 px-6 space-x-2 rounded-b dark:border-gray-600">
-                    <x-button-red class="py-2.5" data-dismiss="modal"
-                                  wire:click="resetFilter">{{__('Reset filters')}}</x-button-red>
-                    <x-button-blue data-dismiss="modal" wire:click="applyFilter"> {{__('Apply')}}</x-button-blue>
+                    <!--Footer-->
+                    <div
+                        class="flex items-center justify-between py-1 px-6 space-x-2 rounded-b dark:border-gray-600">
+                        <x-button-red class="py-2.5" data-dismiss="modal"
+                                      wire:click="resetFilter">{{__('Reset filters')}}</x-button-red>
+                        <x-button-blue data-dismiss="modal" wire:click="applyFilter"> {{__('Apply')}}</x-button-blue>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 </div>

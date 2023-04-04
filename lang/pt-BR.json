@@ -146,5 +146,6 @@
     "day": "dia",
     "week": "semana",
     "month": "mês",
-    "year": "ano"
+    "year": "ano",
+    "Owner": "Gestor Master"
 }

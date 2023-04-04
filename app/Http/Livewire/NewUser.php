@@ -16,41 +16,45 @@ class NewUser extends Component
     public $name;
     public $email;
     public $password;
-    public $enterpriseId;
+    public $enterpriseId = 0;
     public $enterprises;
     public $role;
     public $roles;
+    public $enterpriseIdValidate = 0;
 
 
-    /**
-     * Ao escutar 'initVariables' executa a função initVariables()
-     *
-     * @var string[]
-     */
-    protected $listeners = ['initVariables'];
+    protected array $rules = [
+        'name' => 'required|string|min:4',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string',
+        'enterpriseId' => 'different:enterpriseIdValidate'
+    ];
+
+    protected array $messages = [
+        'name.required' => 'Obrigatório.',
+        'name.min' => 'O campo nome precisa ter pelo menos 4 caracteres.',
+        'email.required' => 'Obrigatório.',
+        'email.unique' => 'Já existe um usuário com este e-mail.',
+        'email.email' => 'Insira um e-mail válido.',
+        'password.required' => 'Obrigatório.',
+        'enterpriseId.different' => 'Obrigatório.'
+        //'password.confirmed' => 'As senhas precisam ser iguais.',
+        //'password.min' => 'O campo Senha precisa ter pelo menos 8 caracteres.',
+    ];
 
     /**
      * Insere nos selects valores padrões
      *
      * @return void
      */
-    public function initVariables()
+    public function mount(): void
     {
-        $this->enterpriseId = $this->enterprises[0]->id;
-        $this->role = $this->roles[0]['key'];
     }
 
-    /**
-     * @return void
-     */
+
     public function create()
     {
-//        Validator::make($input, [
-//            'name' => ['required', 'string', 'max:255'],
-//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-//            'password' => $this->passwordRules(),
-//            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
-//        ])->validate();
+        $this->validate();
         User::create([
             'name' => $this->name,
             'email' => $this->email,
@@ -70,13 +74,14 @@ class NewUser extends Component
         session()->flash('success', '\nUsuário ' . $this->name . ' Criado\n\n');
 
         $this->resetInputFields();
+        return redirect()->route('dashboard');
     }
 
 
     /**
      * @return void
      */
-    public function resetInputFields()
+    public function resetInputFields(): void
     {
         $this->name = null;
         $this->email = null;
@@ -87,10 +92,11 @@ class NewUser extends Component
     /**
      * @return Application|Factory|View
      */
-    public function render()
+    public function render(): View|Factory|Application
     {
         $this->roles = app(TeamMemberManager::class)->getRolesProperty();
-        $this->enterprises = Team::all();
+        $this->role = $this->roles[0]->key;
+
 
         return view('livewire.new-user');
     }

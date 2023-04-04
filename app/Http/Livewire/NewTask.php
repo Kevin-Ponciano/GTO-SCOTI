@@ -14,7 +14,7 @@ use Livewire\Component;
 class NewTask extends Component
 {
     public $tasks, $title, $description, $priority = 'Baixa', $date_create, $deadline, $situation;
-    public $userId, $teamId, $taskId, $users;
+    public $userId, $teamId, $taskId;
     public $recorrenceCount = 1;
     public $frequency = 'day';
     public $date;
@@ -22,6 +22,7 @@ class NewTask extends Component
     public $isSchedule = false;
     public $isRecorrence = false;
 
+    # Impedir que a tarefa seja criada no minuto anterior todo
     protected $rules = [
         'title' => 'required',
         'deadline' => 'required',
@@ -59,7 +60,6 @@ class NewTask extends Component
     public function mount(): void
     {
         $this->userId = Auth::user()->id;
-        $this->users = User::where('current_team_id', Auth::user()->current_team_id)->get();
     }
 
     /**
@@ -67,6 +67,9 @@ class NewTask extends Component
      */
     public function store(): void
     {
+        if(!Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'managerTasks')) {
+            abort('403','Acesso Negado');
+        }
         $this->dispatchBrowserEvent('dateTodayRefresh');
         $this->validate();
 
@@ -78,7 +81,7 @@ class NewTask extends Component
             'deadline' => $this->deadline,
             'situation' => 'open',
             'user_id' => $this->userId,
-            'team_id' => Auth::user()->current_team_id,
+            'team_id' => User::find($this->userId)->current_team_id,
         ]);
         $this->taskId = $task->id;
 
@@ -92,7 +95,7 @@ class NewTask extends Component
             $task->update([
                 'date_create' => $this->date,
                 'status' => 'Agendada',
-                'situation' => 'schedule',
+                'situation' => 'scheduled',
                 'scheduled_task_id' => $schedule->id,
             ]);
         }
@@ -108,7 +111,7 @@ class NewTask extends Component
             session()->flash('success', '\nTarefa Agendada com Sucesso\n');
         }
 
-
+        $this->dispatchBrowserEvent('resetChecked');
         $this->resetInputFields();
     }
 
@@ -117,6 +120,8 @@ class NewTask extends Component
      */
     public function resetInputFields(): void
     {
+        $this->dispatchBrowserEvent('dateTodayRefresh');
+        $this->dispatchBrowserEvent('resetChecked');
         $this->resetValidation();
         $this->title = null;
         $this->description = null;

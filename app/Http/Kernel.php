@@ -3,8 +3,9 @@
 namespace App\Http;
 
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\dashboardAccess;
 use App\Http\Middleware\EncryptCookies;
-use App\Http\Middleware\HasTeam;
+use App\Http\Middleware\IsMasterManager;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\TrimStrings;
@@ -87,5 +88,7 @@ class Kernel extends HttpKernel
         'throttle' => ThrottleRequests::class,
         'verified' => EnsureEmailIsVerified::class,
         //'no-team' => HasTeam::class
+        'masterManager' => IsMasterManager::class,
+        'dashboardAccess'=>dashboardAccess::class
     ];
 }
