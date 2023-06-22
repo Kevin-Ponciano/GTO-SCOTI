@@ -51,7 +51,9 @@ class JetstreamServiceProvider extends ServiceProvider
     {
         Jetstream::defaultApiTokenPermissions(['read']);
 
-        Jetstream::role('employer', 'Colaborador', [
+        Jetstream::role('employee', 'Colaborador', [
+            'commentTasks',
+            'finalizeTasks',
         ])->description('Possui permissão somente para interagir com as tarefas e finalizar a mesma');
 
         Jetstream::role('manager', 'Diretor', [
@@ -76,6 +78,8 @@ class JetstreamServiceProvider extends ServiceProvider
         ])->description('Responsável para abrir, delegar e validar as tarefas.');
 
         Jetstream::role('admin', 'Administrador do Sistema', [
+            'commentTasks',
+            'finalizeTasks',
             'managerTasks',
             'manager',
             'filterTasks',

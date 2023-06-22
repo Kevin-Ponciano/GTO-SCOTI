@@ -65,21 +65,18 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     }
 
-    public function hasRole($roles): bool
+    public function hasRole($role): bool
     {
-        if (is_string($roles)) {
-            $roles = [$roles];
+        if($this->role === $role) {
+            return true;
+        }else{
+            return false;
         }
+    }
 
-        foreach ($roles as $role) {
-            foreach ($this->roles as $userRole) {
-                if ($userRole->name === $role) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+    public function role()
+    {
+        return $this->role;
     }
 
 }

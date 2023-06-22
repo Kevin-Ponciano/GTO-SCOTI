@@ -19,11 +19,11 @@ $color3 = $tasksScheduledCount == 0 ? 'gray' : 'blue';
                            icon='bi bi-clock'
                            info="Tarefas Expiradas"
                            color='bg-{{$color2}}'/>
-            <x-card-number number="{{$tasksScheduledCount}}"
-                           url="{{route('tasks-scheduled')}}"
-                           icon='bi bi-calendar-event'
-                           info="Tarefas Agendadas"
-                           color='bg-{{$color3}}'/>
+{{--            <x-card-number number="{{$tasksScheduledCount}}"--}}
+{{--                           url="{{route('tasks-scheduled')}}"--}}
+{{--                           icon='bi bi-calendar-event'--}}
+{{--                           info="Tarefas Agendadas"--}}
+{{--                           color='bg-{{$color3}}'/>--}}
         </div>
     </div>
 </div>

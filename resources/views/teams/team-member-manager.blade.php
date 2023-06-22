@@ -56,7 +56,7 @@
 
                             <div class="relative z-0 mt-1 border border-gray-200 rounded-lg cursor-pointer">
                                 @foreach ($this->roles as $index => $role)
-                                    @if(($role->key == 'employer') && !$team->userHasPermission(Auth::user(), 'admin'))
+                                    @if(($role->key == 'employee') && !$team->userHasPermission(Auth::user(), 'admin'))
                                         <button type="button"
                                                 class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 {{ $index > 0 ? 'border-t border-gray-200 rounded-t-none' : '' }} {{ ! $loop->last ? 'rounded-b-none' : '' }}"
                                                 wire:click="$set('addTeamMemberForm.role', '{{ $role->key }}')">
@@ -191,7 +191,7 @@
                 <x-slot name="content">
                     <div class="space-y-6">
                         @foreach ($team->users->sortBy('role') as $user)
-                            @if($user->membership->role == 'employer' && !$team->userHasPermission(Auth::user(), 'admin'))
+                            @if($user->membership->role == 'employee' && !$team->userHasPermission(Auth::user(), 'admin'))
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
                                         <img class="w-8 h-8 rounded-full" src="{{ $user->profile_photo_url }}"

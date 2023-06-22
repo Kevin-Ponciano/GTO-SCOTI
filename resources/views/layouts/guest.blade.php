@@ -14,12 +14,11 @@
 
     <!--STYLES-->
     @vite([
-        'resources/adminLTE/plugins/fontawesome-free/css/all.min.css',
         'resources/adminLTE/dist/css/adminlte.css'
     ])
-{{--    <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/all.min.css")}}>--}}
-{{--    <link rel="stylesheet" href={{asset("adminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}>--}}
-{{--    <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.min.css?v=3.2.0")}}>--}}
+    <link rel="stylesheet" href={{asset("adminLTE/plugins/fontawesome-free/css/all.min.css")}}>
+    {{--    <link rel="stylesheet" href={{asset("adminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}>--}}
+    {{--    <link rel="stylesheet" href={{asset("adminLTE/dist/css/adminlte.min.css?v=3.2.0")}}>--}}
 
     <!-- Tallwind css -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

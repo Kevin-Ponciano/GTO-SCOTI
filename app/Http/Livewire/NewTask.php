@@ -59,7 +59,7 @@ class NewTask extends Component
      */
     public function mount(): void
     {
-        $this->userId = Auth::user()->id;
+        $this->teamId = Auth::user()->current_team_id;
     }
 
     /**
@@ -102,7 +102,6 @@ class NewTask extends Component
 
 
         $this->emit('refreshParent');
-        $this->emit('resetSearch');
         $this->dispatchBrowserEvent('closeModal');
 
         if (!$this->isSchedule) {

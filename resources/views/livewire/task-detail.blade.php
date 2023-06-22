@@ -1,6 +1,6 @@
 @php
     use app\http\Livewire\Tasks;
-    use Carbon\Carbon;
+    use App\Models\Team;use Carbon\Carbon;
     use App\Models\User;
 @endphp
 {{--<section class="content-header">--}}
@@ -76,15 +76,19 @@
                         {{--                    </ul>--}}
                         <div class="text-start mt-5 mb-3">
                             @if($task->situation == 'open')
-                                <x-button-blue
-                                    class="text-xs"
-                                    onclick="$('#modal_comment').modal('show')">
-                                    {{__('Comment')}}
-                                </x-button-blue>
-                                <x-button-red type="button"
-                                              onclick="$('#finalize-confirm-modal').modal('show')">
-                                    {{__('Finalize')}}
-                                </x-button-red>
+                                @if(Auth::user()->hasRole('employee'))
+                                    <x-button-blue
+                                        class="text-xs"
+                                        onclick="$('#modal_comment').modal('show')">
+                                        {{__('Comment')}}
+                                    </x-button-blue>
+                                @endif
+                                @if(Auth::user()->hasRole('employee'))
+                                    <x-button-red type="button"
+                                                  onclick="$('#finalize-confirm-modal').modal('show')">
+                                        {{__('Finalize')}}
+                                    </x-button-red>
+                                @endif
                             @endif
                         </div>
                     </div>
@@ -183,13 +187,13 @@
                                                             @endphp
                                                             @if($user != null)
                                                                 <img class="h-10 w-10 rounded-full object-cover"
-                                                                 src="{{$user->profile_photo_url}}"/>
+                                                                     src="{{$user->profile_photo_url}}"/>
                                                                 <span class="username">
                                                                 <a href="#">{{$comment->user_name}}</a>
                                                             </span>
                                                             @else
                                                                 <img class="h-10 w-10 rounded-full object-cover"
-                                                                 src="{{asset('assets/images/peaple.png')}}"/>
+                                                                     src="{{asset('assets/images/peaple.png')}}"/>
                                                                 <span class="username">
                                                                 <a href="#">{{__('Deleted user')}}</a>
                                                             @endif
@@ -231,12 +235,12 @@
                                   d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                         <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            {{__('Are you sure you want to finish the task ')}}<b>{{$task->id}}</b>?</h3>
+                            {{__('Tem certeza de que deseja concluir a tarefa ')}}<b>{{$task->id}}</b>?</h3>
                         <x-button-red class="text-md py-2.5"
                                       wire:click="finalizeTask({{$task->id}})">
-                            {{__('Finalize')}}
+                            {{__('Sim')}}
                         </x-button-red>
-                        <x-button-dark data-dismiss="modal">{{__('Cancel')}}</x-button-dark>
+                        <x-button-dark data-dismiss="modal">{{__('Não')}}</x-button-dark>
                     </div>
                 </div>
             </div>

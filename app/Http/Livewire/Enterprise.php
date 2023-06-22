@@ -3,19 +3,49 @@
 namespace App\Http\Livewire;
 
 use App\Models\Team;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Enterprise extends Component
 {
-    public $enterprises;
+    use withPagination;
 
-    public function render()
+    public $search;
+    public $sortField = 'id';
+    public $sortDirection = 'desc';
+
+
+    /**
+     * Atualiza a pagina ao escutar o comando
+     *
+     * @var string[]
+     */
+    protected $listeners = ['refreshParent' => '$refresh', 'resetSearch'];
+
+
+    public function sortBy($field)
     {
-        if (!\Auth::user()->hasTeamRole(\Auth::user()->currentTeam, 'admin'))
-            return view('errors.403');
+        $this->sortDirection = $this->sortField === $field ? $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc' : 'asc';
 
-        $this->enterprises = Team::all();
+        $this->sortField = $field;
+    }
 
-        return view('livewire.enterprise');
+    public function resetSearch()
+    {
+        $this->search = '';
+    }
+
+
+    public function render(): Factory|View|Application
+    {
+
+        return view('livewire.enterprise', [
+            'enterprises' => Team::search('name', $this->search)
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->paginate(10)
+        ]);
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="LaravelQuerySettings">
+    <option name="filterDataSources" value="true" />
+    <option name="filteredDataSources">
+      <set>
+        <option value="d1bfe789-08da-42e5-b8ad-2d6462a80e84&lt;-/lq/-&gt;scoti-mobi" />
+        <option value="d1bfe789-08da-42e5-b8ad-2d6462a80e84&lt;-/lq/-&gt;gto" />
+        <option value="d1bfe789-08da-42e5-b8ad-2d6462a80e84&lt;-/lq/-&gt;fisconsult" />
+      </set>
+    </option>
+  </component>
+</project>

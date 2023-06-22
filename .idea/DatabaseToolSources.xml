@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DatabaseToolSources">
+    <data-source name="localhost" uuid="c67eedd2-3586-468b-910a-c56441a5386d" type="MYSQL">
+      <base-info connect-type="DB_DEFAULT" product="MySQL" version="8.0.31" jdbc-name="MySQL Connector/J" jdbc-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" />
+      <user-name>kevin</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema">
+            <name qname="fisconsult" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+      <url>jdbc:mysql://localhost:3306/fisconsult?useSSL=false&amp;serverTimezone=America/Sao_Paulo&amp;allowPublicKeyRetrieval=true?useSSL=false&amp;serverTimezone=America/Sao_Paulo&amp;allowPublicKeyRetrieval=true?useSSL=false&amp;serverTimezone=America/Sao_Paulo&amp;allowPublicKeyRetrieval=true?useSSL=false&amp;serverTimezone=America/Sao_Paulo&amp;allowPublicKeyRetrieval=true?useSSL=false&amp;serverTimezone=America/Sao_Paulo&amp;allowPublicKeyRetrieval=true?useSSL=false&amp;serverTimezone=America/Sao_Paulo&amp;allowPublicKeyRetrieval=true?useSSL=false&amp;serverTimezone=America/Sao_Paulo&amp;allowPublicKeyRetrieval=true?useSSL=false&amp;serverTimezone=America/Sao_Paulo&amp;allowPublicKeyRetrieval=true?useSSL=false&amp;serverTimezone=America/Sao_Paulo&amp;allowPublicKeyRetrieval=true</url>
+      <remarks />
+      <driver-info id="mysql8" />
+      <ssh-properties enabled="false" />
+      <ssl-config enabled="false">
+        <uuid />
+        <caFile />
+        <clientCertificateFile />
+        <clientKeyFile />
+        <sslMode>REQUIRE</sslMode>
+      </ssl-config>
+    </data-source>
+  </component>
+</project>

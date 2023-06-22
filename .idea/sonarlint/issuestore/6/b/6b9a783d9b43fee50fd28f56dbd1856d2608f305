@@ -1,0 +1,6 @@
+
+dphp:S103"KSplit this 145 characters long line (which is greater than 120 authorized).(«œÿ¥úÿÿÿÿ
+dphp:S103,"KSplit this 153 characters long line (which is greater than 120 authorized).(©µ‡ıÿÿÿÿ
+^php:S1030"KSplit this 153 characters long line (which is greater than 120 authorized).(»”§
+a	php:S1192,"GDefine a constant instead of duplicating this literal "guest:" 3 times.(©µ‡ıÿÿÿÿ
+8php:S125&"Remove this commented out code.(´Ñ¶¦ùÿÿÿÿ

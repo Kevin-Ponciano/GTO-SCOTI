@@ -18,7 +18,7 @@ class IsMasterManager
     public function handle(Request $request, Closure $next): mixed
     {
 
-        if (Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'manageTasks')) {
+        if (Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'managerTasks')) {
             return $next($request);
         }
         abort(403, 'Acesso Negado');

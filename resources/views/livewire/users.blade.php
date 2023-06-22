@@ -20,7 +20,11 @@
                        placeholder="{{__('Pesquisar')}}..."
                        wire:model="search">
             </div>
-            <i class="bi bi-three-dots"></i>
+{{--            <i class="bi bi-three-dots"></i>--}}
+            <x-button-blue onclick="$('#new-user-modal').modal('show')">
+                <i class="bi bi-person-plus"></i>
+                Novo Usuário
+            </x-button-blue>
         </div>
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg"
              style="border-radius: 0.9rem;">
@@ -53,7 +57,7 @@
                         <i class="pl-2 bi bi-chevron-{{$sortField === 'current_team_id' ? $sortDirectionIcon : null}}"></i>
                     </th>
                     <th scope="col" class="px-6 py-3 hover:underline" wire:click="sortBy('role')">
-                        {{__('Function')}}
+                        Tipo de Usuário
                         <i class="pl-2 bi bi-chevron-{{$sortField === 'role' ? $sortDirectionIcon : null}}"></i>
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -90,7 +94,7 @@
                                 <input value="{{$user->email}}" name="email" hidden>
 
                                 <button type="submit"
-                                        class="text-gray-900 text-xs bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 rounded-lg px-3 py-2 mr-2 mb-2">
+                                        class="text-white text-xs bg-dark hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 rounded-lg px-3 py-2 mr-2 mb-2">
                                     Redefinir senha
                                 </button>
                             </form>
@@ -115,6 +119,14 @@
             <div class="modal-dialog " role="document">
                 <div class="modal-content mb-3" style="border-radius: .5rem;">
                     <livewire:edit-user/>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id='new-user-modal' tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+             aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content mb-3" style="border-radius: .5rem;">
+                    <livewire:new-user/>
                 </div>
             </div>
         </div>

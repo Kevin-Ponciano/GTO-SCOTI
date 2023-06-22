@@ -16,7 +16,7 @@
                 <input type="text" id="title"
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                        wire:model.defer="title"
-                       placeholder="{{__('Title of Task')}}">
+                >
                 @error('title')<span class="text-sm text-red">{{$message}}</span>@enderror
             </div>
             <div>
@@ -38,7 +38,7 @@
                 <select id="responsible"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         wire:model.defer="userId">
-                    @foreach(User::all() as $user)
+                    @foreach(User::where('current_team_id','=',Auth::user()->current_team_id)->get() as $user)
                         <option value="{{$user->id}}">{{$user->name}}</option>
                     @endforeach
                 </select>
@@ -52,24 +52,24 @@
                        wire:model.defer="deadline">
                 @error('deadline')<span class="text-sm text-red">{{$message}}</span>@enderror
             </div>
-            <div class="flex items-center">
-                <input id="schedule-task" type="checkbox"
-                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                       wire:click="showSchedule()">
-                <label for="schedule-task" class="mt-2 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Agendar Tarefa
-                </label>
-            </div>
-            @if($isSchedule)
-                <div class="flex items-center">
-                    <input id="recorrence" type="checkbox"
-                           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                           wire:click="showRecorrence()">
-                    <label for="recorrence" class="mt-2 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        Tarefa Recorrente
-                    </label>
-                </div>
-            @endif
+            {{--            <div class="flex items-center">--}}
+            {{--                <input id="schedule-task" type="checkbox"--}}
+            {{--                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"--}}
+            {{--                       wire:click="showSchedule()">--}}
+            {{--                <label for="schedule-task" class="mt-2 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">--}}
+            {{--                    Agendar Tarefa--}}
+            {{--                </label>--}}
+            {{--            </div>--}}
+            {{--            @if($isSchedule)--}}
+            {{--                <div class="flex items-center">--}}
+            {{--                    <input id="recorrence" type="checkbox"--}}
+            {{--                           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"--}}
+            {{--                           wire:click="showRecorrence()">--}}
+            {{--                    <label for="recorrence" class="mt-2 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">--}}
+            {{--                        Tarefa Recorrente--}}
+            {{--                    </label>--}}
+            {{--                </div>--}}
+            {{--            @endif--}}
         </div>
         @if($isSchedule)
             <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -108,7 +108,6 @@
         </label>
         <textarea id="description"
                   class="block mt-0 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="{{__('Write the task description')}}..."
                   wire:model.defer="description"
                   rows="3"></textarea>
     </div>

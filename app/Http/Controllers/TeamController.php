@@ -42,7 +42,7 @@ class TeamController extends Controller
      */
     public function create(Request $request)
     {
-        Gate::authorize('create', Jetstream::newTeamModel());
+        #Gate::authorize('create', Jetstream::newTeamModel());
 
         return view('teams.create', [
             'user' => $request->user(),

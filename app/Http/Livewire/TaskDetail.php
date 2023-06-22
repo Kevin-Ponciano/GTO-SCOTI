@@ -35,7 +35,7 @@ class TaskDetail extends Component
         $task['status'] = 'Finalizada';
         $task->save();
 
-        return redirect('/dashboard')->with('finished', '\nTarefa ' . $id . '\nFinalizada com sucesso\n\n');
+        return redirect(route('tasks'))->with('finished', '\nTarefa ' . $id . '\nFinalizada com sucesso\n\n');
     }
 
     public function render()

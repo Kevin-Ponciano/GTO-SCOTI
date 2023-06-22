@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\RedirectHomeController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Livewire\Dashboard;
+use App\Http\Livewire\Enterprise;
 use App\Http\Livewire\NewUser;
 use App\Http\Livewire\ScheduledTasks;
 use App\Http\Livewire\TaskDetail;
@@ -22,16 +24,18 @@ use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 */
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(callback: function () {
-    Route::middleware(['dashboardAccess', config('jetstream.auth_session'), 'verified'])->group(function () {
-        Route::get('dashboard/', Dashboard::class)->name('dashboard');
-        Route::redirect('/', 'dashboard/');
-        Route::get('colaboradores', Users::class)->name('users');
-        Route::get('colaboradores/cadastrar', NewUser::class)->name('new-user');
+    Route::get('/', [RedirectHomeController::class,'index'])->name('home');
+
+    Route::get('dashboard/', Dashboard::class)->middleware(['dashboardAccess', config('jetstream.auth_session'), 'verified'])->name('dashboard');
+
+    Route::middleware(['masterManager'])->group(callback: function () {
+        Route::get('usuarios', Users::class)->name('users');
+        Route::get('empresas', Enterprise::class)->name('enterprises');
+
     });
+
     Route::get('tarefas/', Tasks::class)->name('tasks');
-    Route::get('tarefas-agendadas/', ScheduledTasks::class)->name('tasks-scheduled');
-
-
+    #Route::get('tarefas-agendadas/', ScheduledTasks::class)->name('tasks-scheduled');
     Route::get('tarefas/{task_id}', TaskDetail::class)->name('task_detail');
 
     Route::post('redefine-password/', [PasswordResetLinkController::class, 'store'])->name('redefine-password');

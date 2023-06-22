@@ -1,9 +1,9 @@
 <aside class="main-sidebar sidebar-light-blue shadow">
     <a href="#" class="brand-link">
-        <img src="{{asset('logo.png')}}"
-             alt="Logo" class="brand-image img-circle elevation-3"
-             style="opacity: .8;">
-        <span class="brand-text text-gray-700 text-md">{{config('app.name')}}</span>
+        {{--        <img src="{{asset('logo.png')}}"--}}
+        {{--             alt="Logo" class="brand-image img-circle elevation-3"--}}
+        {{--             style="opacity: .8;">--}}
+        <span class="ml-2 brand-text text-gray-700 text-md">{{config('app.name')}}</span>
     </a>
 
     <div class="sidebar">
@@ -47,45 +47,47 @@
                         </a>
                     </li>
                 @endif
-                @if(Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'managerTasks'))
-                <li class="nav-item">
-                    <a href="#" onclick="$('#new_task_modal').modal('show')"
-                       class="nav-link">
-                        <i class="nav-icon bi bi-calendar-plus-fill"></i>
-                        <p>Nova Tarefa</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('teams.create')}}" class="nav-link">
-                        <i class="nav-icon bi bi-building-fill-add"></i>
-                        <p>Cadastrar Empresa</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('users')}}" class="nav-link">
-                        <i class="nav-icon bi bi-person-fill"></i>
-                        <p>Colaboradores</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('new-user')}}" class="nav-link">
-                        <i class="nav-icon bi bi-person-plus-fill"></i>
-                        <p>Cadastrar Colaborador</p>
-                    </a>
-                </li>
-                @endif
                 <li class="nav-item">
                     <a href="{{route('tasks')}}" class="nav-link">
                         <i class="nav-icon bi bi-list"></i>
                         <p>Tarefas</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{route('tasks-scheduled')}}" class="nav-link">
-                        <i class="nav-icon bi bi-clock-fill"></i>
-                        <p>Tarefas Agendadas</p>
-                    </a>
-                </li>
+                @if(Auth::user()->hasTeamPermission(Auth::user()->currentTeam, 'managerTasks'))
+
+                    {{--                <li class="nav-item">--}}
+                    {{--                    <a href="#" onclick="$('#new_task_modal').modal('show')"--}}
+                    {{--                       class="nav-link">--}}
+                    {{--                        <i class="nav-icon bi bi-calendar-plus-fill"></i>--}}
+                    {{--                        <p>Nova Tarefa</p>--}}
+                    {{--                    </a>--}}
+                    {{--                </li>--}}
+                    <li class="nav-item">
+                        <a href="{{route('enterprises')}}" class="nav-link">
+                            <i class="nav-icon bi bi-building-fill"></i>
+                            <p>Empresas</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('users')}}" class="nav-link">
+                            <i class="nav-icon bi bi-person-fill"></i>
+                            <p>Usuários</p>
+                        </a>
+                    </li>
+                    {{--                <li class="nav-item">--}}
+                    {{--                    <a href="{{route('new-user')}}" class="nav-link">--}}
+                    {{--                        <i class="nav-icon bi bi-person-plus-fill"></i>--}}
+                    {{--                        <p>Cadastrar Colaborador</p>--}}
+                    {{--                    </a>--}}
+                    {{--                </li>--}}
+                @endif
+
+                {{--                <li class="nav-item">--}}
+                {{--                    <a href="{{route('tasks-scheduled')}}" class="nav-link">--}}
+                {{--                        <i class="nav-icon bi bi-clock-fill"></i>--}}
+                {{--                        <p>Tarefas Agendadas</p>--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
 
                 <script>
                     let url = window.location;

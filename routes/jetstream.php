@@ -37,7 +37,7 @@ Route::group(['middleware' => array_values(array_filter([$authMiddleware, $authS
         // Teams...
         if (Jetstream::hasTeamFeatures()) {
             Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create')->middleware('masterManager');
-            Route::get('/teams/{team}', [TeamController::class, 'show'])->name('teams.show');
+            Route::get('/teams/{team}', [TeamController::class, 'show'])->name('teams.show')->middleware('masterManager');;
             Route::put('/current-team', [CurrentTeamController::class, 'update'])->name('current-team.update');
 
             Route::get('/team-invitations/{invitation}', [TeamInvitationController::class, 'accept'])

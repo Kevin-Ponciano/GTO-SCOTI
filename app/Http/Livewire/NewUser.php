@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Team;
 use App\Models\User;
+use Auth;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -16,7 +17,7 @@ class NewUser extends Component
     public $name;
     public $email;
     public $password;
-    public $enterpriseId = 0;
+    public $enterpriseId;
     public $enterprises;
     public $role;
     public $roles;
@@ -24,7 +25,7 @@ class NewUser extends Component
 
 
     protected array $rules = [
-        'name' => 'required|string|min:4',
+        'name' => 'required|string|min:4|unique:users,name',
         'email' => 'required|email|unique:users,email',
         'password' => 'required|string',
         'enterpriseId' => 'different:enterpriseIdValidate'
@@ -33,6 +34,7 @@ class NewUser extends Component
     protected array $messages = [
         'name.required' => 'Obrigatório.',
         'name.min' => 'O campo nome precisa ter pelo menos 4 caracteres.',
+        'name.unique' => 'Já existe um usuário com este nome.',
         'email.required' => 'Obrigatório.',
         'email.unique' => 'Já existe um usuário com este e-mail.',
         'email.email' => 'Insira um e-mail válido.',
@@ -43,16 +45,17 @@ class NewUser extends Component
     ];
 
     /**
-     * Insere nos selects valores padrões
-     *
      * @return void
      */
     public function mount(): void
     {
+        $this->enterpriseId = Auth::user()->current_team_id;
     }
 
-
-    public function create()
+    /**
+     * @return void
+     */
+    public function create(): void
     {
         $this->validate();
         User::create([
@@ -71,10 +74,8 @@ class NewUser extends Component
 
         $this->emit('refreshParent');
         $this->dispatchBrowserEvent('closeModal');
-        session()->flash('success', '\nUsuário ' . $this->name . ' Criado\n\n');
-
+        $this->dispatchBrowserEvent('new-user-toast');
         $this->resetInputFields();
-        return redirect()->route('dashboard');
     }
 
 

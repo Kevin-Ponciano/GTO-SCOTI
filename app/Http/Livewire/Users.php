@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
-use Auth;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -14,18 +13,16 @@ class Users extends Component
 {
     use withPagination;
 
-    public $search, $sortField = 'id', $sortDirection = 'desc';
+    public $search;
+    public $sortField = 'id';
+    public $sortDirection = 'desc';
 
-    // protected $queryString = ['sortField', 'sortDirection'];
     /**
      * Atualiza a pagina ao escutar o comando
      *
      * @var string[]
      */
-    protected $listeners = [
-        'refreshParent' => '$refresh',
-        'resetSearch'
-    ];
+    protected $listeners = ['refreshParent' => '$refresh', 'resetSearch'];
 
     public static function get_enterprise($team)
     {
@@ -46,9 +43,7 @@ class Users extends Component
 
     public function sortBy($field)
     {
-        $this->sortDirection = $this->sortField === $field
-            ? $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc'
-            : 'asc';
+        $this->sortDirection = $this->sortField === $field ? $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc' : 'asc';
 
         $this->sortField = $field;
     }
@@ -66,17 +61,14 @@ class Users extends Component
 //            });
 
         return view('livewire.users', [
-            'users' => $users
-                ->where(function ($query) {
-                    $query->Where('email', 'like', '%' . $this->search . '%');
-                    $query->orWhere('name', 'like', '%' . $this->search . '%');
-                })
-                ->orderBy($this->sortField, $this->sortDirection)
-                ->paginate(10)
+            'users' => $users->where(function ($query) {
+                $query->Where('email', 'like', '%' . $this->search . '%');
+                $query->orWhere('name', 'like', '%' . $this->search . '%');
+            })->orderBy($this->sortField, $this->sortDirection)->paginate(10)
         ]);
     }
 
-    protected function resetSearch()
+    protected function resetSearch(): void
     {
         $this->search = '';
     }
