@@ -12,22 +12,6 @@ Um gerenciador de tarefas online, podendo criar suas equipes e gerenciar-las, on
 - Gerenciador de equipes
 - Adicionar comentários nas tarefas 
 
-## Demostração
-https://www.gto.kevinp.studio/
-
-**user:** admin@admin
-
-**password:** ponciano
-
-## Screenshots
-<img src="https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131058.png" alt="App Screenshot" width="500"/><br/>
-
-<img src="https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131043.png" alt="App Screenshot" width="500"/><br/>
-
-<img src="https://www.gto.kevinp.studio/assets/images/Captura%20de%20tela_20230123_131030.png" alt="App Screenshot" width="500"/>
-
-
-
 ## Stack utilizada
 
 **Front-end:** adminLTE, Bootstrap , TailwindCSS
